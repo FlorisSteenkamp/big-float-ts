@@ -1,0 +1,9 @@
+/**
+ * Returns true if x and y is adjacent, false otherwise.
+ * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
+ * for details
+ * @param x a double floating point number
+ * @param y another double floating point number
+ */
+declare function isAdjacent(x: number, y: number): boolean;
+export { isAdjacent };
