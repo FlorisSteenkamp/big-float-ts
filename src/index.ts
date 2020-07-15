@@ -38,6 +38,7 @@ import { doubleToOctets } from './double-representation/double-to-octets';
 import { getHighestSetBit, getLowestSetBit } from './double-representation/get-max-set-bit';
 import { eIntPow } from './double-expansion/e-int-pow';
 import { eToDd } from './double-expansion/e-to-double-double';
+import { orient2d } from './geometric-primitives/orient2d';
 
 
 // Aliases for some functions which names were not changed due to them being
@@ -97,6 +98,9 @@ const operators = {
     getLowestSetBit,
     exponent, 
     significand,
+
+    //---- geometric primitives
+    orient2d
 };
 
 
@@ -151,4 +155,7 @@ export {
     getLowestSetBit,
     exponent, 
     significand,
+
+    //---- geometric primitives
+    orient2d
 }
