@@ -1,7 +1,7 @@
 {
     "name": "big-float-ts",
     "description": "An extended precision floating point library (as per Shewchuk) - precision only limited by overflow / underflow",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "author": {
         "name": "Floris Steenkamp"
     },
