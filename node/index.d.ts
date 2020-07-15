@@ -37,6 +37,7 @@ import { doubleToOctets } from './double-representation/double-to-octets';
 import { getHighestSetBit, getLowestSetBit } from './double-representation/get-max-set-bit';
 import { eIntPow } from './double-expansion/e-int-pow';
 import { eToDd } from './double-expansion/e-to-double-double';
+import { orient2d } from './geometric-primitives/orient2d';
 declare const eAdd: typeof fastExpansionSum;
 declare const eAddDouble: typeof growExpansion;
 declare const eMult: typeof expansionProduct;
@@ -90,6 +91,7 @@ declare const operators: {
     getLowestSetBit: typeof getLowestSetBit;
     exponent: typeof exponent;
     significand: typeof significand;
+    orient2d: typeof orient2d;
 };
 export { operators };
-export { fastTwoDiff, fastTwoSum, split, twoDiff, twoProduct, twoSum, reduceSignificand, fastExpansionSum, eAdd, growExpansion, eAddDouble, expansionProduct, eMult, scaleExpansion, eMultDouble1, scaleExpansion2, eMultDouble2, eDiv, eCompress, eEstimate, eDiff, eNegativeOf, eMultBy2, eMultByNeg2, eDivBy2, eSign, eCompare, eAbs, eToBitlength, eIntPow, eCalculate, eSum, eProduct, eToDd, parseDouble, parseDoubleDetailed, isBitAligned, msbExponent, lsbExponent, bitLength, expBitLength, doubleToBinaryString, doubleToOctets, getHighestSetBit, getLowestSetBit, exponent, significand, };
+export { fastTwoDiff, fastTwoSum, split, twoDiff, twoProduct, twoSum, reduceSignificand, fastExpansionSum, eAdd, growExpansion, eAddDouble, expansionProduct, eMult, scaleExpansion, eMultDouble1, scaleExpansion2, eMultDouble2, eDiv, eCompress, eEstimate, eDiff, eNegativeOf, eMultBy2, eMultByNeg2, eDivBy2, eSign, eCompare, eAbs, eToBitlength, eIntPow, eCalculate, eSum, eProduct, eToDd, parseDouble, parseDoubleDetailed, isBitAligned, msbExponent, lsbExponent, bitLength, expBitLength, doubleToBinaryString, doubleToOctets, getHighestSetBit, getLowestSetBit, exponent, significand, orient2d };

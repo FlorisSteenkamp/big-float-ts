@@ -12,20 +12,20 @@ const exponent_1 = require("./exponent");
  * their complexity.
  *
  * Visually:
- * These numbers (a,b and c) are grid aligned with e === 3 and max
+ * These numbers (a,b and c) are bit aligned with e === 3 and max
  * bitlength === 6:
- *   a -> 00|101100|000
- *   b -> 00|000100|000
- *   c -> 00|110111|000
+ *    a -> 00|101100|000
+ *    b -> 00|000100|000
+ *    c -> 00|110111|000
  * These are not
- *   a -> 01|101100|000
- *   b -> 00|000100|000
+ *    a -> 01|101100|000
+ *    b -> 00|000100|000
  * These are not
- *   a -> 00|101100|000
- *   b -> 00|000100|100
+ *    a -> 00|101100|000
+ *    b -> 00|000100|100
  * These are not
- *   a -> 00|101100|100
- *   b -> 00|000100|100
+ *    a -> 00|101100|100
+ *    b -> 00|000100|100
  * @param as An array of numbers to check
  * @param maxBitLength The max allowed bitlength
  * @param gridSpacingExponent The grid spacing === 1^gridSpacingExponent

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.significand = exports.exponent = exports.getLowestSetBit = exports.getHighestSetBit = exports.doubleToOctets = exports.doubleToBinaryString = exports.expBitLength = exports.bitLength = exports.lsbExponent = exports.msbExponent = exports.isBitAligned = exports.parseDoubleDetailed = exports.parseDouble = exports.eToDd = exports.eProduct = exports.eSum = exports.eCalculate = exports.eIntPow = exports.eToBitlength = exports.eAbs = exports.eCompare = exports.eSign = exports.eDivBy2 = exports.eMultByNeg2 = exports.eMultBy2 = exports.eNegativeOf = exports.eDiff = exports.eEstimate = exports.eCompress = exports.eDiv = exports.eMultDouble2 = exports.scaleExpansion2 = exports.eMultDouble1 = exports.scaleExpansion = exports.eMult = exports.expansionProduct = exports.eAddDouble = exports.growExpansion = exports.eAdd = exports.fastExpansionSum = exports.reduceSignificand = exports.twoSum = exports.twoProduct = exports.twoDiff = exports.split = exports.fastTwoSum = exports.fastTwoDiff = exports.operators = void 0;
+exports.orient2d = exports.significand = exports.exponent = exports.getLowestSetBit = exports.getHighestSetBit = exports.doubleToOctets = exports.doubleToBinaryString = exports.expBitLength = exports.bitLength = exports.lsbExponent = exports.msbExponent = exports.isBitAligned = exports.parseDoubleDetailed = exports.parseDouble = exports.eToDd = exports.eProduct = exports.eSum = exports.eCalculate = exports.eIntPow = exports.eToBitlength = exports.eAbs = exports.eCompare = exports.eSign = exports.eDivBy2 = exports.eMultByNeg2 = exports.eMultBy2 = exports.eNegativeOf = exports.eDiff = exports.eEstimate = exports.eCompress = exports.eDiv = exports.eMultDouble2 = exports.scaleExpansion2 = exports.eMultDouble1 = exports.scaleExpansion = exports.eMult = exports.expansionProduct = exports.eAddDouble = exports.growExpansion = exports.eAdd = exports.fastExpansionSum = exports.reduceSignificand = exports.twoSum = exports.twoProduct = exports.twoDiff = exports.split = exports.fastTwoSum = exports.fastTwoDiff = exports.operators = void 0;
 const e_to_bitlength_1 = require("./double-expansion/e-to-bitlength");
 Object.defineProperty(exports, "eToBitlength", { enumerable: true, get: function () { return e_to_bitlength_1.eToBitlength; } });
 const e_div_1 = require("./double-expansion/e-div");
@@ -82,6 +82,8 @@ const e_int_pow_1 = require("./double-expansion/e-int-pow");
 Object.defineProperty(exports, "eIntPow", { enumerable: true, get: function () { return e_int_pow_1.eIntPow; } });
 const e_to_double_double_1 = require("./double-expansion/e-to-double-double");
 Object.defineProperty(exports, "eToDd", { enumerable: true, get: function () { return e_to_double_double_1.eToDd; } });
+const orient2d_1 = require("./geometric-primitives/orient2d");
+Object.defineProperty(exports, "orient2d", { enumerable: true, get: function () { return orient2d_1.orient2d; } });
 // Aliases for some functions which names were not changed due to them being
 // used extensively in the literature with a particular recognizable name
 const eAdd = fast_expansion_sum_1.fastExpansionSum;
@@ -140,6 +142,8 @@ const operators = {
     getLowestSetBit: get_max_set_bit_1.getLowestSetBit,
     exponent: exponent_1.exponent,
     significand: significand_1.significand,
+    //---- geometric primitives
+    orient2d: orient2d_1.orient2d
 };
 exports.operators = operators;
 //# sourceMappingURL=index.js.map
