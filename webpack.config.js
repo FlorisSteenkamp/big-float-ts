@@ -23,7 +23,7 @@ module.exports = {
         libraryTarget: 'var'
     },
     stats: {
-        // Don't display most things
+        // Don't display anything, then display colors, ...
         all: false,
         colors: true,
         errors: true,

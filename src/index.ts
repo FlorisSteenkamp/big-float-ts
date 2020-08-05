@@ -1,6 +1,8 @@
 
 import { eToBitlength } from './double-expansion/e-to-bitlength';
 import { eDiv } from './double-expansion/e-div';
+import { eIntDiv } from './double-expansion/e-int-div';
+import { eMod } from './double-expansion/e-mod';
 import { eCompress } from './double-expansion/e-compress';
 import { eCompare } from './double-expansion/e-compare';
 import { eAbs } from './double-expansion/e-abs';
@@ -67,6 +69,8 @@ const operators = {
     scaleExpansion,    eMultDouble1,
     scaleExpansion2,   eMultDouble2,
     eDiv,
+    eIntDiv,
+    eMod,
 	eCompress,
     eEstimate,
     eDiff,
@@ -124,6 +128,8 @@ export {
     scaleExpansion,    eMultDouble1,
     scaleExpansion2,   eMultDouble2,
     eDiv,
+    eIntDiv,
+    eMod,
 	eCompress,
     eEstimate,
     eDiff,

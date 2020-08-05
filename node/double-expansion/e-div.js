@@ -32,35 +32,16 @@ function eDiv(N, D, expansionLength) {
     let exact = false;
     let resultBitlengthUpperBound = 0;
     if (!expansionLength) {
-        // TODO
-        //let expN = exponent(N_[N_.length-1]) - exponent(N_[0]) + 53;
-        //let expD = exponent(D_[D_.length-1]) - exponent(D_[0]) + 53;
-        //expansionLength = Math.max(N.length, D.length);
-        //console.log(exponent(N[0]));
-        //expansionLength = Math.max(expN, expD) / 53;
-        //console.log(expansionLength);
         let bitlengthN = bitLength(N_);
         let bitlengthD = bitLength(D_);
         resultBitlengthUpperBound = bitlengthN - bitlengthD + 1;
-        //let resultBitlengthLowerBound = resultBitlengthUpperBound - 1; // <= true
         expansionLength = (resultBitlengthUpperBound / 53) + 1;
-        //console.log('expansionLength', expansionLength);
-        //console.log('bitlengthN', bitlengthN);
-        //console.log('bitlengthD', bitlengthD);
-        //console.log('resultBitlengthUpperBound', resultBitlengthUpperBound)
         exact = true;
     }
     let F = [1 / estimate(D_)]; // Initial guess - out by 1/2 upls
     let i = 1;
-    //console.log('D ', estimate(D));
-    //console.log('F ', estimate(F));
-    //console.log('N ', N_);
-    //console.log('D ', D_);
-    //console.log('F ', F);
-    //console.log('---------');
     while (true) {
         N_ = mult(N_, F);
-        //console.log('N ', N_);
         // The precision bitlength doubles on each iteration
         if (i > expansionLength) {
             // we now have roughly double the needed precision - we actually 
@@ -82,11 +63,7 @@ function eDiv(N, D, expansionLength) {
             return N_.slice(N_.length - expansionLength, N_.length);
         }
         D_ = mult(D_, F);
-        //console.log('D ', estimate(D));
-        //console.log('D ', D_);
         F = diff([2], D_);
-        //console.log('F ', estimate(F));
-        //console.log('F ', F);
         i *= 2;
     }
 }
