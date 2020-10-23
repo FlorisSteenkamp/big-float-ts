@@ -10,7 +10,7 @@ const prod = e_product_1.eProduct;
  * Returns a**i, where i is a non-negative integer.
  * @param a a floating point expansion
  */
-// TODO - this algorithm's speed can easily be improved significantly
+// TODO - this algorithm's speed can easily be improved significantly using 'repeated squaring'
 function eIntPow(a, p) {
     // a^0 === 1
     if (p === 0) {

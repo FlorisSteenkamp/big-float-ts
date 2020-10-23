@@ -3,7 +3,7 @@
  *
  * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
  *
- * @param a a floating point expansion
+ * @param e a floating point expansion
  */
-declare function eAbs(a: number[]): number[];
+declare function eAbs(e: number[]): number[];
 export { eAbs };

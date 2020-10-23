@@ -1,7 +1,8 @@
 import { eToBitlength } from './double-expansion/e-to-bitlength';
 import { eDiv } from './double-expansion/e-div';
+import { eLongDivide } from './double-expansion/e-long-divide';
 import { eIntDiv } from './double-expansion/e-int-div';
-import { eMod } from './double-expansion/e-mod';
+import { eRem } from './double-expansion/e-rem';
 import { eCompress } from './double-expansion/e-compress';
 import { eCompare } from './double-expansion/e-compare';
 import { eAbs } from './double-expansion/e-abs';
@@ -40,6 +41,9 @@ import { getHighestSetBit, getLowestSetBit } from './double-representation/get-m
 import { eIntPow } from './double-expansion/e-int-pow';
 import { eToDd } from './double-expansion/e-to-double-double';
 import { orient2d } from './geometric-primitives/orient2d';
+import { isAdjacent } from './double-expansion/is-adjacent';
+import { isNonOverlappingAll } from './double-expansion/is-overlapping';
+import { eIsInteger } from './double-expansion/e-is-integer';
 declare const eAdd: typeof fastExpansionSum;
 declare const eAddDouble: typeof growExpansion;
 declare const eMult: typeof expansionProduct;
@@ -64,8 +68,9 @@ declare const operators: {
     scaleExpansion2: typeof scaleExpansion2;
     eMultDouble2: typeof scaleExpansion2;
     eDiv: typeof eDiv;
+    eLongDivide: typeof eLongDivide;
     eIntDiv: typeof eIntDiv;
-    eMod: typeof eMod;
+    eRem: typeof eRem;
     eCompress: typeof eCompress;
     eEstimate: typeof eEstimate;
     eDiff: typeof eDiff;
@@ -96,6 +101,9 @@ declare const operators: {
     exponent: typeof exponent;
     significand: typeof significand;
     orient2d: typeof orient2d;
+    isAdjacent: typeof isAdjacent;
+    isNonOverlappingAll: typeof isNonOverlappingAll;
+    eIsInteger: typeof eIsInteger;
 };
 export { operators };
-export { fastTwoDiff, fastTwoSum, split, twoDiff, twoProduct, twoSum, reduceSignificand, fastExpansionSum, eAdd, growExpansion, eAddDouble, expansionProduct, eMult, scaleExpansion, eMultDouble1, scaleExpansion2, eMultDouble2, eDiv, eIntDiv, eMod, eCompress, eEstimate, eDiff, eNegativeOf, eMultBy2, eMultByNeg2, eDivBy2, eSign, eCompare, eAbs, eToBitlength, eIntPow, eCalculate, eSum, eProduct, eToDd, parseDouble, parseDoubleDetailed, isBitAligned, msbExponent, lsbExponent, bitLength, expBitLength, doubleToBinaryString, doubleToOctets, getHighestSetBit, getLowestSetBit, exponent, significand, orient2d };
+export { fastTwoDiff, fastTwoSum, split, twoDiff, twoProduct, twoSum, reduceSignificand, fastExpansionSum, eAdd, growExpansion, eAddDouble, expansionProduct, eMult, scaleExpansion, eMultDouble1, scaleExpansion2, eMultDouble2, eDiv, eLongDivide, eIntDiv, eRem, eCompress, eEstimate, eDiff, eNegativeOf, eMultBy2, eMultByNeg2, eDivBy2, eSign, eCompare, eAbs, eToBitlength, eIntPow, eCalculate, eSum, eProduct, eToDd, parseDouble, parseDoubleDetailed, isBitAligned, msbExponent, lsbExponent, bitLength, expBitLength, doubleToBinaryString, doubleToOctets, getHighestSetBit, getLowestSetBit, exponent, significand, orient2d, isAdjacent, isNonOverlappingAll, eIsInteger };

@@ -2,17 +2,18 @@
 import { assert, expect } from 'chai';
 import { describe } from 'mocha';
 
-import { twoSum, eMod, eMult } from '../../src/index';
+import { twoSum, eRem, eMult } from '../../src/index';
 
 
-describe('eMod', function() {
+describe('eRem', function() {
 	it('should divide two numbers', 
 	function() {
         {
 			let a = [2458624];
 			let b = [784];
-			expect(eMod(a,b)).to.eql([
-				0
+			let res = eRem(a,b);
+			expect(res).to.eql([
+				-0
 			]);
         }
 
@@ -30,33 +31,35 @@ describe('eMod', function() {
 
 			let d = [0.01788330078125*(2**14)]; // === 293
 
-			expect(eMod(n3,d)).to.eql([
-				0
+			let res = eRem(n3,d);
+			expect(res).to.eql([
+				-0
 			]);
 
 			let n4 = n3.slice();
 			n4[0] = n4[0] + 1;
-			expect(eMod(n4,d)).to.eql([
+			res = eRem(n4,d);
+			expect(res).to.eql([
 				1
 			]);
 		}
 		{
+			let res: number[];
+
 			// a = (2**22 * 163*167*173*179*181*191*193) + (2*2*163*193) // <= prime numbers
 			//   = (2**22 * 5624351580503521) + (125836)
 			// b = 163*193 = 31459
 			let a = [125836, 2**22 * 5624351580503521];
 			let b = [31459];
-			expect(eMod(a,b)).to.eql([
-				0
-			]);
-
-			expect(eMod(a,b)).to.eql([
-				0
+			res = eRem(a,b);
+			expect(res).to.eql([
+				-0
 			]);
 
 			let c = a.slice();
 			c[0] = c[0] + 11;
-			expect(eMod(c,b)).to.eql([
+			res = eRem(c,b);
+			expect(res).to.eql([
 				11
 			]);
 		}

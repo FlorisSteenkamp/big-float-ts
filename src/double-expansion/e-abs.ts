@@ -13,14 +13,14 @@ const negativeOf = eNegativeOf;
  * 
  * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
  * 
- * @param a a floating point expansion
+ * @param e a floating point expansion
  */
-function eAbs(a: number[]) {
-    if (sign(a) < 0) {
-        return negativeOf(a);
+function eAbs(e: number[]) {
+    if (e[e.length-1] < 0) {
+        return negativeOf(e);
     }
 
-    return a;
+    return e;
 }
 
 

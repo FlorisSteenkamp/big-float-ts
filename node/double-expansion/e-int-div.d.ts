@@ -3,5 +3,5 @@
  *
  * * **precondition:** a and b must be integers, b !== 0
  */
-declare function eIntDiv(N: number[], D: number[]): number[];
+declare function eIntDiv(a: number[], b: number[]): number[];
 export { eIntDiv };

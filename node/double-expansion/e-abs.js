@@ -11,13 +11,13 @@ const negativeOf = e_negative_of_1.eNegativeOf;
  *
  * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
  *
- * @param a a floating point expansion
+ * @param e a floating point expansion
  */
-function eAbs(a) {
-    if (sign(a) < 0) {
-        return negativeOf(a);
+function eAbs(e) {
+    if (e[e.length - 1] < 0) {
+        return negativeOf(e);
     }
-    return a;
+    return e;
 }
 exports.eAbs = eAbs;
 //# sourceMappingURL=e-abs.js.map

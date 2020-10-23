@@ -2,6 +2,7 @@
  * Returns the result of compressing the given floating point expansion.
  *
  * * primarily for internal library use
+ *
  * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
  *
  * Theorem 23 (Shewchuck): Let e = sum_(i=1)^m(e_i) be a nonoverlapping

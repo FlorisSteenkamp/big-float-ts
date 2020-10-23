@@ -1,7 +1,9 @@
 /**
- * Returns true if x and y is adjacent, false otherwise.
+ * Returns true if x and y are adjacent, false otherwise.
+ *
  * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
  * for details
+ *
  * @param x a double floating point number
  * @param y another double floating point number
  */

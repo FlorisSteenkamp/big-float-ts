@@ -17,10 +17,12 @@ const estimate = e_estimate_1.eEstimate;
  *
  * The result will only be exact if b|a, i.e. if b divides a exactly, else the
  * result will be rounded to the longest bitlength between a and b.
+ *
  * @param a the numerator
  * @param b the denominator
+ *
  * @param expansionLength the bitlength/53 of the final result, e.g. 1 means
- * standard double precision, 2 means quad, etc up to a max of about 20 at
+ * standard double precision, 2 means double-double, etc up to a max of about 20 at
  * which point underflow cease precision improvement. If the division is known
  * to be exact beforehand (such as in the pseudo remainder sequence algorithm)
  * then set expansionLength === 0 and an exact division will be done.
@@ -34,6 +36,8 @@ function eDiv(N, D, expansionLength) {
     if (!expansionLength) {
         let bitlengthN = bitLength(N_);
         let bitlengthD = bitLength(D_);
+        // resultBitlengthUpperBound is only valid if the division is known
+        // to be exact
         resultBitlengthUpperBound = bitlengthN - bitlengthD + 1;
         expansionLength = (resultBitlengthUpperBound / 53) + 1;
         exact = true;

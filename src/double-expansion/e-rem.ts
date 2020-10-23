@@ -6,15 +6,15 @@ const eLongDivide = eLongDivide_;
 
 
 /**
- * Returns the result of the integer division a/b. 
+ * Returns a % b
  * 
  * * **precondition:** a and b must be integers, b !== 0
  */
-function eIntDiv(
+function eRem(
         a: number[], b: number[]): number[] {
 
-    return eLongDivide(a,b).div;
+    return eLongDivide(a,b).rem;
 }
 
 
-export { eIntDiv }
+export { eRem }

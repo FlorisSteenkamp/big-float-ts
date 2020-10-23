@@ -1,14 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.orient2d = exports.significand = exports.exponent = exports.getLowestSetBit = exports.getHighestSetBit = exports.doubleToOctets = exports.doubleToBinaryString = exports.expBitLength = exports.bitLength = exports.lsbExponent = exports.msbExponent = exports.isBitAligned = exports.parseDoubleDetailed = exports.parseDouble = exports.eToDd = exports.eProduct = exports.eSum = exports.eCalculate = exports.eIntPow = exports.eToBitlength = exports.eAbs = exports.eCompare = exports.eSign = exports.eDivBy2 = exports.eMultByNeg2 = exports.eMultBy2 = exports.eNegativeOf = exports.eDiff = exports.eEstimate = exports.eCompress = exports.eMod = exports.eIntDiv = exports.eDiv = exports.eMultDouble2 = exports.scaleExpansion2 = exports.eMultDouble1 = exports.scaleExpansion = exports.eMult = exports.expansionProduct = exports.eAddDouble = exports.growExpansion = exports.eAdd = exports.fastExpansionSum = exports.reduceSignificand = exports.twoSum = exports.twoProduct = exports.twoDiff = exports.split = exports.fastTwoSum = exports.fastTwoDiff = exports.operators = void 0;
+exports.eIsInteger = exports.isNonOverlappingAll = exports.isAdjacent = exports.orient2d = exports.significand = exports.exponent = exports.getLowestSetBit = exports.getHighestSetBit = exports.doubleToOctets = exports.doubleToBinaryString = exports.expBitLength = exports.bitLength = exports.lsbExponent = exports.msbExponent = exports.isBitAligned = exports.parseDoubleDetailed = exports.parseDouble = exports.eToDd = exports.eProduct = exports.eSum = exports.eCalculate = exports.eIntPow = exports.eToBitlength = exports.eAbs = exports.eCompare = exports.eSign = exports.eDivBy2 = exports.eMultByNeg2 = exports.eMultBy2 = exports.eNegativeOf = exports.eDiff = exports.eEstimate = exports.eCompress = exports.eRem = exports.eIntDiv = exports.eLongDivide = exports.eDiv = exports.eMultDouble2 = exports.scaleExpansion2 = exports.eMultDouble1 = exports.scaleExpansion = exports.eMult = exports.expansionProduct = exports.eAddDouble = exports.growExpansion = exports.eAdd = exports.fastExpansionSum = exports.reduceSignificand = exports.twoSum = exports.twoProduct = exports.twoDiff = exports.split = exports.fastTwoSum = exports.fastTwoDiff = exports.operators = void 0;
 const e_to_bitlength_1 = require("./double-expansion/e-to-bitlength");
 Object.defineProperty(exports, "eToBitlength", { enumerable: true, get: function () { return e_to_bitlength_1.eToBitlength; } });
 const e_div_1 = require("./double-expansion/e-div");
 Object.defineProperty(exports, "eDiv", { enumerable: true, get: function () { return e_div_1.eDiv; } });
+const e_long_divide_1 = require("./double-expansion/e-long-divide");
+Object.defineProperty(exports, "eLongDivide", { enumerable: true, get: function () { return e_long_divide_1.eLongDivide; } });
 const e_int_div_1 = require("./double-expansion/e-int-div");
 Object.defineProperty(exports, "eIntDiv", { enumerable: true, get: function () { return e_int_div_1.eIntDiv; } });
-const e_mod_1 = require("./double-expansion/e-mod");
-Object.defineProperty(exports, "eMod", { enumerable: true, get: function () { return e_mod_1.eMod; } });
+const e_rem_1 = require("./double-expansion/e-rem");
+Object.defineProperty(exports, "eRem", { enumerable: true, get: function () { return e_rem_1.eRem; } });
 const e_compress_1 = require("./double-expansion/e-compress");
 Object.defineProperty(exports, "eCompress", { enumerable: true, get: function () { return e_compress_1.eCompress; } });
 const e_compare_1 = require("./double-expansion/e-compare");
@@ -88,6 +90,12 @@ const e_to_double_double_1 = require("./double-expansion/e-to-double-double");
 Object.defineProperty(exports, "eToDd", { enumerable: true, get: function () { return e_to_double_double_1.eToDd; } });
 const orient2d_1 = require("./geometric-primitives/orient2d");
 Object.defineProperty(exports, "orient2d", { enumerable: true, get: function () { return orient2d_1.orient2d; } });
+const is_adjacent_1 = require("./double-expansion/is-adjacent");
+Object.defineProperty(exports, "isAdjacent", { enumerable: true, get: function () { return is_adjacent_1.isAdjacent; } });
+const is_overlapping_1 = require("./double-expansion/is-overlapping");
+Object.defineProperty(exports, "isNonOverlappingAll", { enumerable: true, get: function () { return is_overlapping_1.isNonOverlappingAll; } });
+const e_is_integer_1 = require("./double-expansion/e-is-integer");
+Object.defineProperty(exports, "eIsInteger", { enumerable: true, get: function () { return e_is_integer_1.eIsInteger; } });
 // Aliases for some functions which names were not changed due to them being
 // used extensively in the literature with a particular recognizable name
 const eAdd = fast_expansion_sum_1.fastExpansionSum;
@@ -116,8 +124,9 @@ const operators = {
     scaleExpansion: scale_expansion_1.scaleExpansion, eMultDouble1,
     scaleExpansion2: scale_expansion_1.scaleExpansion2, eMultDouble2,
     eDiv: e_div_1.eDiv,
+    eLongDivide: e_long_divide_1.eLongDivide,
     eIntDiv: e_int_div_1.eIntDiv,
-    eMod: e_mod_1.eMod,
+    eRem: e_rem_1.eRem,
     eCompress: e_compress_1.eCompress,
     eEstimate: e_estimate_1.eEstimate,
     eDiff: e_diff_1.eDiff,
@@ -149,7 +158,11 @@ const operators = {
     exponent: exponent_1.exponent,
     significand: significand_1.significand,
     //---- geometric primitives
-    orient2d: orient2d_1.orient2d
+    orient2d: orient2d_1.orient2d,
+    //---- others
+    isAdjacent: is_adjacent_1.isAdjacent,
+    isNonOverlappingAll: is_overlapping_1.isNonOverlappingAll,
+    eIsInteger: e_is_integer_1.eIsInteger
 };
 exports.operators = operators;
 //# sourceMappingURL=index.js.map

@@ -1,8 +1,9 @@
 
 import { eToBitlength } from './double-expansion/e-to-bitlength';
 import { eDiv } from './double-expansion/e-div';
+import { eLongDivide } from './double-expansion/e-long-divide';
 import { eIntDiv } from './double-expansion/e-int-div';
-import { eMod } from './double-expansion/e-mod';
+import { eRem } from './double-expansion/e-rem';
 import { eCompress } from './double-expansion/e-compress';
 import { eCompare } from './double-expansion/e-compare';
 import { eAbs } from './double-expansion/e-abs';
@@ -41,6 +42,9 @@ import { getHighestSetBit, getLowestSetBit } from './double-representation/get-m
 import { eIntPow } from './double-expansion/e-int-pow';
 import { eToDd } from './double-expansion/e-to-double-double';
 import { orient2d } from './geometric-primitives/orient2d';
+import { isAdjacent } from './double-expansion/is-adjacent';
+import { isNonOverlappingAll } from './double-expansion/is-overlapping';
+import { eIsInteger } from './double-expansion/e-is-integer';
 
 
 // Aliases for some functions which names were not changed due to them being
@@ -69,8 +73,9 @@ const operators = {
     scaleExpansion,    eMultDouble1,
     scaleExpansion2,   eMultDouble2,
     eDiv,
+    eLongDivide,
     eIntDiv,
-    eMod,
+    eRem,
 	eCompress,
     eEstimate,
     eDiff,
@@ -104,7 +109,12 @@ const operators = {
     significand,
 
     //---- geometric primitives
-    orient2d
+    orient2d,
+
+    //---- others
+    isAdjacent, 
+    isNonOverlappingAll,
+    eIsInteger
 };
 
 
@@ -128,8 +138,9 @@ export {
     scaleExpansion,    eMultDouble1,
     scaleExpansion2,   eMultDouble2,
     eDiv,
+    eLongDivide,
     eIntDiv,
-    eMod,
+    eRem,
 	eCompress,
     eEstimate,
     eDiff,
@@ -163,5 +174,10 @@ export {
     significand,
 
     //---- geometric primitives
-    orient2d
+    orient2d,
+
+    //---- others
+    isAdjacent, 
+    isNonOverlappingAll,
+    eIsInteger
 }
