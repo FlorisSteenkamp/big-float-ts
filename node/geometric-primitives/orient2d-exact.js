@@ -16,12 +16,12 @@ const e_compress_1 = require("../double-expansion/e-compress");
  */
 function orient2dExact(a, b, c) {
     // det := ax(by - cy) - ay(bx - cx) + (bx*cy - by*cx)
-    let term1 = scale_expansion_1.scaleExpansion(two_diff_1.twoDiff(b[1], c[1]), a[0]);
-    let term2 = scale_expansion_1.scaleExpansion(two_diff_1.twoDiff(b[0], c[0]), -a[1]);
-    let term3 = e_diff_1.eDiff(two_product_1.twoProduct(b[0], c[1]), two_product_1.twoProduct(b[1], c[0]));
-    let term4 = fast_expansion_sum_1.fastExpansionSum(term2, term3);
-    let det = fast_expansion_sum_1.fastExpansionSum(term1, term4);
-    det = e_compress_1.eCompress(det);
+    let term1 = (0, scale_expansion_1.scaleExpansion)((0, two_diff_1.twoDiff)(b[1], c[1]), a[0]);
+    let term2 = (0, scale_expansion_1.scaleExpansion)((0, two_diff_1.twoDiff)(b[0], c[0]), -a[1]);
+    let term3 = (0, e_diff_1.eDiff)((0, two_product_1.twoProduct)(b[0], c[1]), (0, two_product_1.twoProduct)(b[1], c[0]));
+    let term4 = (0, fast_expansion_sum_1.fastExpansionSum)(term2, term3);
+    let det = (0, fast_expansion_sum_1.fastExpansionSum)(term1, term4);
+    det = (0, e_compress_1.eCompress)(det);
     return det[det.length - 1];
 }
 exports.orient2dExact = orient2dExact;

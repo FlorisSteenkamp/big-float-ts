@@ -12,9 +12,9 @@ const is_overlapping_1 = require("./is-overlapping");
  * @param y another double floating point number
  */
 function isAdjacent(x, y) {
-    return is_overlapping_1.isOverlapping(x, y) ||
-        is_overlapping_1.isOverlapping(x, 2 * y) ||
-        is_overlapping_1.isOverlapping(2 * x, y);
+    return (0, is_overlapping_1.isOverlapping)(x, y) ||
+        (0, is_overlapping_1.isOverlapping)(x, 2 * y) ||
+        (0, is_overlapping_1.isOverlapping)(2 * x, y);
 }
 exports.isAdjacent = isAdjacent;
 //# sourceMappingURL=is-adjacent.js.map

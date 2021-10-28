@@ -42,9 +42,9 @@ function isNonOverlapping(a, b) {
         [a, b] = [b, a];
     }
     // At this point abs(a) > abs(b)
-    let l = get_max_set_bit_1.getLowestSetBit(a);
-    let h = get_max_set_bit_1.getHighestSetBit(b);
-    let shift = exponent_1.exponent(a) - exponent_1.exponent(b);
+    let l = (0, get_max_set_bit_1.getLowestSetBit)(a);
+    let h = (0, get_max_set_bit_1.getHighestSetBit)(b);
+    let shift = (0, exponent_1.exponent)(a) - (0, exponent_1.exponent)(b);
     return (l + shift) > h;
 }
 exports.isNonOverlapping = isNonOverlapping;

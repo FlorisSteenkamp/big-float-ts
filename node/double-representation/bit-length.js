@@ -14,7 +14,7 @@ function bitLength(a) {
     if (a === 0) {
         return 0;
     }
-    return get_max_set_bit_1.getHighestSetBit(a) - get_max_set_bit_1.getLowestSetBit(a) + 1;
+    return (0, get_max_set_bit_1.getHighestSetBit)(a) - (0, get_max_set_bit_1.getLowestSetBit)(a) + 1;
 }
 exports.bitLength = bitLength;
 /**
@@ -24,13 +24,13 @@ exports.bitLength = bitLength;
  * @param a A double precision floating point expansion
  */
 function expBitLength(a) {
-    let a_ = e_compress_1.eCompress(a);
-    if (e_sign_1.eSign(a_) === 0) {
+    let a_ = (0, e_compress_1.eCompress)(a);
+    if ((0, e_sign_1.eSign)(a_) === 0) {
         return 0;
     }
     let msbyte = a_[a_.length - 1];
     let lsbyte = a_[0];
-    return exponent_1.exponent(msbyte) - exponent_1.exponent(lsbyte) + (53 - get_max_set_bit_1.getLowestSetBit(lsbyte));
+    return (0, exponent_1.exponent)(msbyte) - (0, exponent_1.exponent)(lsbyte) + (53 - (0, get_max_set_bit_1.getLowestSetBit)(lsbyte));
 }
 exports.expBitLength = expBitLength;
 //# sourceMappingURL=bit-length.js.map

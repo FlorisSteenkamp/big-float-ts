@@ -12,8 +12,8 @@ function lsbExponent(a) {
     if (a === 0 || !Number.isFinite(a)) {
         return NaN;
     }
-    let e = exponent_1.exponent(a);
-    return get_max_set_bit_1.getLowestSetBit(a) - 52 + e;
+    let e = (0, exponent_1.exponent)(a);
+    return (0, get_max_set_bit_1.getLowestSetBit)(a) - 52 + e;
 }
 exports.lsbExponent = lsbExponent;
 //# sourceMappingURL=lsb-exponent.js.map

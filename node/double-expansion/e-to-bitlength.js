@@ -20,11 +20,11 @@ function eToBitlength(a, l) {
     if (sign(a) === 0) {
         return [0];
     }
-    let maxMsb = msb_exponent_1.msbExponent(a[a.length - 1]);
+    let maxMsb = (0, msb_exponent_1.msbExponent)(a[a.length - 1]);
     let msb = maxMsb;
     let i = a.length - 1; // start at most significant byte
     while (i > 0) {
-        let msb_ = msb_exponent_1.msbExponent(a[i - 1]);
+        let msb_ = (0, msb_exponent_1.msbExponent)(a[i - 1]);
         if (maxMsb - msb_ > l) {
             break;
         }
@@ -33,7 +33,7 @@ function eToBitlength(a, l) {
     }
     let keepBits = Math.min(l - (maxMsb - msb), 53);
     let b = a[i];
-    b = reduce_significand_1.reduceSignificand(b, keepBits);
+    b = (0, reduce_significand_1.reduceSignificand)(b, keepBits);
     let result = a.slice(i);
     result[0] = b;
     return result;

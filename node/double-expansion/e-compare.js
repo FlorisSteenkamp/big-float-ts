@@ -17,7 +17,7 @@ const e_sign_1 = require("./e-sign");
  * @param b another floating point expansion
  */
 function eCompare(a, b) {
-    return e_sign_1.eSign(e_diff_1.eDiff(a, b));
+    return (0, e_sign_1.eSign)((0, e_diff_1.eDiff)(a, b));
 }
 exports.eCompare = eCompare;
 //# sourceMappingURL=e-compare.js.map

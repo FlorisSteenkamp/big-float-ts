@@ -34,9 +34,9 @@ function isBitAligned(a, maxBitLength, gridSpacingExponent) {
     if (a === 0) {
         return true;
     }
-    let e = exponent_1.exponent(a);
-    let maxSetBit = get_max_set_bit_1.getHighestSetBit(a) - 52 + e;
-    let minSetBit = get_max_set_bit_1.getLowestSetBit(a) - 52 + e;
+    let e = (0, exponent_1.exponent)(a);
+    let maxSetBit = (0, get_max_set_bit_1.getHighestSetBit)(a) - 52 + e;
+    let minSetBit = (0, get_max_set_bit_1.getLowestSetBit)(a) - 52 + e;
     let minBitBigEnough = minSetBit >= gridSpacingExponent;
     let maxBitSmallEnough = maxSetBit <= maxBitLength - 1 + gridSpacingExponent;
     return minBitBigEnough && maxBitSmallEnough;

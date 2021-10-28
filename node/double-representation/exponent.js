@@ -7,7 +7,7 @@ const parse_double_1 = require("./parse-double");
  * @param a A double
  */
 function exponent(a) {
-    return parse_double_1.parseDouble(a).exponent;
+    return (0, parse_double_1.parseDouble)(a).exponent;
 }
 exports.exponent = exponent;
 //# sourceMappingURL=exponent.js.map

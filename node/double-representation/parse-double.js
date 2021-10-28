@@ -13,7 +13,7 @@ const double_to_octets_1 = require("./double-to-octets");
  * See https://github.com/bartaz/ieee754-visualization
  */
 function parseDouble(x) {
-    let parts = double_to_octets_1.doubleToOctets(x);
+    let parts = (0, double_to_octets_1.doubleToOctets)(x);
     let p0 = parts[0];
     let p1 = parts[1];
     let sign = p0 >> 7;
@@ -41,7 +41,7 @@ exports.parseDouble = parseDouble;
  * representations of the components.
  */
 function parseDoubleDetailed(x) {
-    let str = double_to_binary_string_1.doubleToBinaryString(x);
+    let str = (0, double_to_binary_string_1.doubleToBinaryString)(x);
     // sign{1} exponent{11} fraction{52} === 64 bits (+1 hidden!)
     let [, sign, exponent, significand] = str.match(/^(.)(.{11})(.{52})$/);
     let exponent_ = parseInt(exponent, 2);

@@ -24,7 +24,7 @@ function getLowestSetBit(a) {
         return NaN;
     }
     // Note: the significand includes the hidden bit!
-    let s = significand_1.significand(a);
+    let s = (0, significand_1.significand)(a);
     let len = s.length;
     for (let i = len - 1; i >= 0; i--) {
         if (s[i] === 0) {
@@ -66,7 +66,7 @@ function getHighestSetBit(a) {
     }
     // At this point there must be a highest set bit (always === 52 if the 
     // number is not a subnormal.
-    let s = significand_1.significand(a);
+    let s = (0, significand_1.significand)(a);
     let len = s.length;
     for (let i = 0; i < len; i++) {
         let l = getHighestSetBit_(s[i]);

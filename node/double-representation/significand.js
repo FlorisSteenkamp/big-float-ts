@@ -8,7 +8,7 @@ const parse_double_1 = require("./parse-double");
  * @param a A double
  */
 function significand(a) {
-    return parse_double_1.parseDouble(a).significand;
+    return (0, parse_double_1.parseDouble)(a).significand;
 }
 exports.significand = significand;
 //# sourceMappingURL=significand.js.map
