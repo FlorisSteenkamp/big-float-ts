@@ -1,7 +1,7 @@
 {
     "name": "big-float-ts",
     "description": "An extended precision floating point library (as per Shewchuk) - precision only limited by overflow / underflow",
-    "version": "2.0.1",
+    "version": "3.0.0",
     "type": "module",
     "engines": {
         "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
