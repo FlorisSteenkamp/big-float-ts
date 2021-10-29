@@ -1,10 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.expBitLength = exports.bitLength = void 0;
-const get_max_set_bit_1 = require("./get-max-set-bit");
-const e_compress_1 = require("../double-expansion/e-compress");
-const exponent_1 = require("./exponent");
-const e_sign_1 = require("../double-expansion/e-sign");
+import { getLowestSetBit, getHighestSetBit } from "./get-max-set-bit.js";
+import { eCompress } from "../double-expansion/e-compress.js";
+import { exponent } from "./exponent.js";
+import { eSign } from "../double-expansion/e-sign.js";
 /**
  * Returns the bit-length of the significand of the given number in such a way
  * that trailing zeros are not counted.
@@ -14,9 +11,8 @@ function bitLength(a) {
     if (a === 0) {
         return 0;
     }
-    return (0, get_max_set_bit_1.getHighestSetBit)(a) - (0, get_max_set_bit_1.getLowestSetBit)(a) + 1;
+    return getHighestSetBit(a) - getLowestSetBit(a) + 1;
 }
-exports.bitLength = bitLength;
 /**
  * Returns the bit-length of the significand of the given floating point
  * expansion in such a way that trailing zeros are not counted.
@@ -24,13 +20,13 @@ exports.bitLength = bitLength;
  * @param a A double precision floating point expansion
  */
 function expBitLength(a) {
-    let a_ = (0, e_compress_1.eCompress)(a);
-    if ((0, e_sign_1.eSign)(a_) === 0) {
+    let a_ = eCompress(a);
+    if (eSign(a_) === 0) {
         return 0;
     }
     let msbyte = a_[a_.length - 1];
     let lsbyte = a_[0];
-    return (0, exponent_1.exponent)(msbyte) - (0, exponent_1.exponent)(lsbyte) + (53 - (0, get_max_set_bit_1.getLowestSetBit)(lsbyte));
+    return exponent(msbyte) - exponent(lsbyte) + (53 - getLowestSetBit(lsbyte));
 }
-exports.expBitLength = expBitLength;
+export { bitLength, expBitLength };
 //# sourceMappingURL=bit-length.js.map

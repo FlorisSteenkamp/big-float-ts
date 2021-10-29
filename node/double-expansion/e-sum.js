@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.eSum = void 0;
-const two_sum_1 = require("../basic/two-sum");
-const grow_expansion_1 = require("./grow-expansion");
-const fast_expansion_sum_1 = require("./fast-expansion-sum");
+import { twoSum } from "../basic/two-sum.js";
+import { growExpansion } from "./grow-expansion.js";
+import { fastExpansionSum } from "./fast-expansion-sum.js";
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const ts = two_sum_1.twoSum;
-const addDouble = grow_expansion_1.growExpansion;
-const add = fast_expansion_sum_1.fastExpansionSum;
+const ts = twoSum;
+const addDouble = growExpansion;
+const add = fastExpansionSum;
 /**
  * Returns the result of summing an array of floating point expansions.
  *
@@ -45,5 +42,5 @@ function eSum(terms) {
     }
     return total;
 }
-exports.eSum = eSum;
+export { eSum };
 //# sourceMappingURL=e-sum.js.map

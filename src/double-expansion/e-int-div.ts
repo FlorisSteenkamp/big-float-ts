@@ -1,5 +1,5 @@
 
-import { eLongDivide as eLongDivide_ } from "./e-long-divide"
+import { eLongDivide as eLongDivide_ } from "./e-long-divide.js"
 
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
 const eLongDivide = eLongDivide_;

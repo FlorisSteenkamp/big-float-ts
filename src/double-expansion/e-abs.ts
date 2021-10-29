@@ -1,6 +1,5 @@
-
-import { eSign } from "./e-sign";
-import { eNegativeOf } from "./e-negative-of";
+import { eSign } from "./e-sign.js";
+import { eNegativeOf } from "./e-negative-of.js";
 
 
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗

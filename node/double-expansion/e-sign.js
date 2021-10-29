@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.eSign = void 0;
 /**
  * Returns the sign of the given expansion.
  *
@@ -14,5 +11,5 @@ exports.eSign = void 0;
 function eSign(e) {
     return e[e.length - 1];
 }
-exports.eSign = eSign;
+export { eSign };
 //# sourceMappingURL=e-sign.js.map

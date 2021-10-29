@@ -1,11 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.eIntPow = void 0;
-const e_product_1 = require("./e-product");
-const expansion_product_1 = require("./expansion-product");
+import { eProduct } from "./e-product.js";
+import { expansionProduct } from "./expansion-product.js";
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const mult = expansion_product_1.expansionProduct;
-const prod = e_product_1.eProduct;
+const mult = expansionProduct;
+const prod = eProduct;
 /**
  * Returns a**i, where i is a non-negative integer.
  * @param a a floating point expansion
@@ -29,5 +26,5 @@ function eIntPow(a, p) {
     }
     return prod(as);
 }
-exports.eIntPow = eIntPow;
+export { eIntPow };
 //# sourceMappingURL=e-int-pow.js.map

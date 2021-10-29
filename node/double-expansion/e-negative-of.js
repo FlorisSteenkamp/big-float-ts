@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.eNegativeOf = void 0;
 /**
  * Returns the negative of the given floating point expansion.
  * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
@@ -15,5 +12,5 @@ function eNegativeOf(e) {
     }
     return h;
 }
-exports.eNegativeOf = eNegativeOf;
+export { eNegativeOf };
 //# sourceMappingURL=e-negative-of.js.map

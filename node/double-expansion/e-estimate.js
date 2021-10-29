@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.eEstimate = void 0;
 /**
  * Returns the result of the given floating point expansion rounded to a double
  * floating point number.
@@ -22,5 +19,5 @@ function eEstimate(e) {
     }
     return Q;
 }
-exports.eEstimate = eEstimate;
+export { eEstimate };
 //# sourceMappingURL=e-estimate.js.map

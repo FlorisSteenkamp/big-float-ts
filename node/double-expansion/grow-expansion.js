@@ -1,9 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.growExpansion = void 0;
-const e_compress_1 = require("./e-compress");
+import { eCompress } from "./e-compress.js";
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const compress = e_compress_1.eCompress;
+const compress = eCompress;
 /**
  * Returns the result of adding a double to an expansion.
  *
@@ -45,5 +42,5 @@ function growExpansion(e, b) {
     //return compress(h);
     return h;
 }
-exports.growExpansion = growExpansion;
+export { growExpansion };
 //# sourceMappingURL=grow-expansion.js.map

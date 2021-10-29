@@ -2,15 +2,15 @@
     "compilerOptions": {
         "charset": "utf8",
         "strict": true,
-        "module": "commonjs",
-        "target": "es2015",
+        "module": "es2020",
+        "target": "es2020",
         "declaration": true,
         "noEmitOnError": true,
         "sourceMap": true,
         "outDir": "node"
     },
     "include": [
-        "src/**/*.ts"
+        "src/index.ts"
     ],
     "exclude": [
         "node_modules"

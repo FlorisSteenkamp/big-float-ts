@@ -1,5 +1,5 @@
 
-import { eCompress } from "./e-compress";
+import { eCompress } from "./e-compress.js";
 
 
 function eIsInteger(a: number[]): boolean {

@@ -2,12 +2,16 @@
     "name": "big-float-ts",
     "description": "An extended precision floating point library (as per Shewchuk) - precision only limited by overflow / underflow",
     "version": "2.0.1",
+    "type": "module",
+    "engines": {
+        "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
+    },
     "author": {
         "name": "Floris Steenkamp"
     },
     "private": false,
     "license": "MIT",
-    "main": "node/index",
+    "exports": "./node/index.js",
     "directories": {
         "test": "test"
     },
@@ -27,6 +31,7 @@
     },
     "dependencies": {},
     "devDependencies": {
+        "resolve-typescript-plugin": "^1.1.1",
         "@istanbuljs/nyc-config-typescript": "^1.0.1",
         "@types/chai": "^4.2.22",
         "@types/mocha": "^9.0.0",
@@ -46,7 +51,7 @@
         "build": "npm run build-browser && npm run build-node",
         "build-node": "rimraf node && tsc",
         "build-browser": "rimraf browser && webpack",
-        "test": "mocha --require ts-node/register --require source-map-support/register \"test/**/*.spec.ts\" --recursive",
+        "test": "mocha --require source-map-support/register \"test/**/*.spec.js\" --recursive",
         "coverage": "nyc npm test"
     }
 }

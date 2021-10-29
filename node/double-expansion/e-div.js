@@ -1,17 +1,14 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.eDiv = void 0;
-const e_estimate_1 = require("./e-estimate");
-const expansion_product_1 = require("./expansion-product");
-const e_diff_1 = require("./e-diff");
-const e_to_bitlength_1 = require("./e-to-bitlength");
-const bit_length_1 = require("../double-representation/bit-length");
+import { eEstimate } from "./e-estimate.js";
+import { expansionProduct } from "./expansion-product.js";
+import { eDiff } from "./e-diff.js";
+import { eToBitlength } from "./e-to-bitlength.js";
+import { expBitLength } from "../double-representation/bit-length.js";
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const mult = expansion_product_1.expansionProduct;
-const toBitlength = e_to_bitlength_1.eToBitlength;
-const bitLength = bit_length_1.expBitLength;
-const diff = e_diff_1.eDiff;
-const estimate = e_estimate_1.eEstimate;
+const mult = expansionProduct;
+const toBitlength = eToBitlength;
+const bitLength = expBitLength;
+const diff = eDiff;
+const estimate = eEstimate;
 /**
  * Returns the result of a/b using Goldschmidt division.
  *
@@ -71,5 +68,5 @@ function eDiv(N, D, expansionLength) {
         i *= 2;
     }
 }
-exports.eDiv = eDiv;
+export { eDiv };
 //# sourceMappingURL=e-div.js.map

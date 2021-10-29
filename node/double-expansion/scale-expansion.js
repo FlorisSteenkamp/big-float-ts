@@ -1,16 +1,13 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.scaleExpansion2 = exports.scaleExpansion = void 0;
-const two_product_1 = require("../basic/two-product");
-const two_sum_1 = require("../basic/two-sum");
-const fast_two_sum_1 = require("../basic/fast-two-sum");
-const e_compress_1 = require("./e-compress");
+import { twoProduct } from '../basic/two-product.js';
+import { twoSum } from '../basic/two-sum.js';
+import { fastTwoSum } from '../basic/fast-two-sum.js';
+import { eCompress } from './e-compress.js';
 const f = 134217729; // 2**27 + 1;
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const tp = two_product_1.twoProduct;
-const ts = two_sum_1.twoSum;
-const fts = fast_two_sum_1.fastTwoSum;
-const compress = e_compress_1.eCompress;
+const tp = twoProduct;
+const ts = twoSum;
+const fts = fastTwoSum;
+const compress = eCompress;
 /**
  * Returns the result of multiplying an expansion by a double.
  *
@@ -91,7 +88,6 @@ function scaleExpansion(e, b) {
     //return eCompress(h);
     return h;
 }
-exports.scaleExpansion = scaleExpansion;
 /**
  * Returns the result of multiplying an expansion by a double.
  *
@@ -172,5 +168,5 @@ function scaleExpansion2(b, e) {
     //return eCompress(h);
     return h;
 }
-exports.scaleExpansion2 = scaleExpansion2;
+export { scaleExpansion, scaleExpansion2 };
 //# sourceMappingURL=scale-expansion.js.map

@@ -1,9 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.eIsInteger = void 0;
-const e_compress_1 = require("./e-compress");
+import { eCompress } from "./e-compress.js";
 function eIsInteger(a) {
-    a = (0, e_compress_1.eCompress)(a);
+    a = eCompress(a);
     for (let i = 0; i < a.length; i++) {
         if (a[i] % 1 !== 0) {
             return false;
@@ -11,5 +8,5 @@ function eIsInteger(a) {
     }
     return true;
 }
-exports.eIsInteger = eIsInteger;
+export { eIsInteger };
 //# sourceMappingURL=e-is-integer.js.map

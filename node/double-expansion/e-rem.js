@@ -1,9 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.eRem = void 0;
-const e_long_divide_1 = require("./e-long-divide");
+import { eLongDivide as eLongDivide_ } from "./e-long-divide.js";
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const eLongDivide = e_long_divide_1.eLongDivide;
+const eLongDivide = eLongDivide_;
 /**
  * Returns a % b
  *
@@ -12,5 +9,5 @@ const eLongDivide = e_long_divide_1.eLongDivide;
 function eRem(a, b) {
     return eLongDivide(a, b).rem;
 }
-exports.eRem = eRem;
+export { eRem };
 //# sourceMappingURL=e-rem.js.map

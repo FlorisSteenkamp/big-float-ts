@@ -3,8 +3,8 @@
 // under the MIT license
 // Copyright 2013 Bartek Szopka (original author)
 
-import { doubleToBinaryString } from "./double-to-binary-string";
-import { doubleToOctets } from "./double-to-octets";
+import { doubleToBinaryString } from "./double-to-binary-string.js";
+import { doubleToOctets } from "./double-to-octets.js";
 
 
 /**

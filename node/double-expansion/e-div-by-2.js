@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.eDivBy2 = void 0;
 /**
  * Returns the result of dividing a floating point expansion by 2.
  * * **error free**
@@ -16,5 +13,5 @@ function eDivBy2(e) {
     }
     return e_;
 }
-exports.eDivBy2 = eDivBy2;
+export { eDivBy2 };
 //# sourceMappingURL=e-div-by-2.js.map

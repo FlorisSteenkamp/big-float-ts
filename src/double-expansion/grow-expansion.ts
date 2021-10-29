@@ -1,5 +1,5 @@
 
-import { eCompress } from "./e-compress";
+import { eCompress } from "./e-compress.js";
 
 
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗

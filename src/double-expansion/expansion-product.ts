@@ -1,7 +1,7 @@
 
-import { fastExpansionSum } from "./fast-expansion-sum";
-import { scaleExpansion } from "./scale-expansion";
-import { eCompress } from "./e-compress";
+import { fastExpansionSum } from "./fast-expansion-sum.js";
+import { scaleExpansion } from "./scale-expansion.js";
+import { eCompress } from "./e-compress.js";
 
 
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗

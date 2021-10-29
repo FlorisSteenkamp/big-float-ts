@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.eCompare = void 0;
-const e_diff_1 = require("./e-diff");
-const e_sign_1 = require("./e-sign");
+import { eDiff } from "./e-diff.js";
+import { eSign } from "./e-sign.js";
 /**
  * Returns 0 if a === b, a +tive value if a > b or a negative value if a < b.
  *
@@ -17,7 +14,7 @@ const e_sign_1 = require("./e-sign");
  * @param b another floating point expansion
  */
 function eCompare(a, b) {
-    return (0, e_sign_1.eSign)((0, e_diff_1.eDiff)(a, b));
+    return eSign(eDiff(a, b));
 }
-exports.eCompare = eCompare;
+export { eCompare };
 //# sourceMappingURL=e-compare.js.map

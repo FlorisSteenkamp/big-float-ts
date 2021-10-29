@@ -1,10 +1,10 @@
 
-import { twoProduct } from "../basic/two-product";
-import { eDiff } from "../double-expansion/e-diff";
-import { eEstimate } from "../double-expansion/e-estimate";
-import { twoDiff } from "../basic/two-diff";
-import { fastExpansionSum } from "../double-expansion/fast-expansion-sum";
-import { eCompress } from "../double-expansion/e-compress";
+import { twoProduct } from "../basic/two-product.js";
+import { eDiff } from "../double-expansion/e-diff.js";
+import { eEstimate } from "../double-expansion/e-estimate.js";
+import { twoDiff } from "../basic/two-diff.js";
+import { fastExpansionSum } from "../double-expansion/fast-expansion-sum.js";
+import { eCompress } from "../double-expansion/e-compress.js";
 
 let ccwerrboundA = 3.330669073875472e-16;
 let ccwerrboundB = 2.220446049250315e-16;

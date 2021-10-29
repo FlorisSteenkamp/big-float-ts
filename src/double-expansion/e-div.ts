@@ -1,9 +1,9 @@
 
-import { eEstimate } from "./e-estimate";
-import { expansionProduct } from "./expansion-product";
-import { eDiff } from "./e-diff";
-import { eToBitlength } from "./e-to-bitlength";
-import { expBitLength } from "../double-representation/bit-length";
+import { eEstimate } from "./e-estimate.js";
+import { expansionProduct } from "./expansion-product.js";
+import { eDiff } from "./e-diff.js";
+import { eToBitlength } from "./e-to-bitlength.js";
+import { expBitLength } from "../double-representation/bit-length.js";
 
 
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗

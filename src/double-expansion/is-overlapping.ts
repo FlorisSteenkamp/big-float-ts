@@ -1,6 +1,5 @@
-
-import { getLowestSetBit, getHighestSetBit } from "../double-representation/get-max-set-bit";
-import { exponent } from "../double-representation/exponent";
+import { getLowestSetBit, getHighestSetBit } from "../double-representation/get-max-set-bit.js";
+import { exponent } from "../double-representation/exponent.js";
 
 
 /**

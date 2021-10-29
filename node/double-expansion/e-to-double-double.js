@@ -1,9 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.eToDd = void 0;
-const e_compress_1 = require("./e-compress");
+import { eCompress } from "./e-compress.js";
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const compress = e_compress_1.eCompress;
+const compress = eCompress;
 /**
  * Returns the result of converting a floating point expansion to a
  * double-double precision floating point number.
@@ -19,5 +16,5 @@ function eToDd(e) {
     }
     return [e[len - 2], e[len - 1]]; // return only most significant parts
 }
-exports.eToDd = eToDd;
+export { eToDd };
 //# sourceMappingURL=e-to-double-double.js.map

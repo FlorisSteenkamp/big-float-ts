@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.twoProduct = void 0;
 const f = 134217729; // 2**27 + 1;
 /**
  * Returns the exact result of multiplying two doubles.
@@ -34,5 +31,5 @@ function twoProduct(a, b) {
     //const y = (al * bl) - err3;
     return [y, x];
 }
-exports.twoProduct = twoProduct;
+export { twoProduct };
 //# sourceMappingURL=two-product.js.map

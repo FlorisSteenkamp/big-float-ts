@@ -1,9 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.fastExpansionSum = void 0;
-const e_compress_1 = require("./e-compress");
+import { eCompress } from "./e-compress.js";
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const compress = e_compress_1.eCompress;
+const compress = eCompress;
 /**
  * Returns the result of adding two expansions.
  *
@@ -97,7 +94,6 @@ function fastExpansionSum(e, f) {
     //return compress(h);
     return h;
 }
-exports.fastExpansionSum = fastExpansionSum;
 /**
  * Returns the result of merging an expansion e and f into a single expansion,
  * in order of nondecreasing magnitude (possibly with interspersed zeros).
@@ -145,4 +141,5 @@ function merge(e, f) {
     }
     return merged;
 }
+export { fastExpansionSum };
 //# sourceMappingURL=fast-expansion-sum.js.map

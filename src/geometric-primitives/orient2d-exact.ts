@@ -1,10 +1,10 @@
 
-import { twoProduct } from "../basic/two-product";
-import { eDiff } from "../double-expansion/e-diff";
-import { twoDiff } from "../basic/two-diff";
-import { fastExpansionSum } from "../double-expansion/fast-expansion-sum";
-import { scaleExpansion } from "../double-expansion/scale-expansion";
-import { eCompress } from "../double-expansion/e-compress";
+import { twoProduct } from "../basic/two-product.js";
+import { eDiff } from "../double-expansion/e-diff.js";
+import { twoDiff } from "../basic/two-diff.js";
+import { fastExpansionSum } from "../double-expansion/fast-expansion-sum.js";
+import { scaleExpansion } from "../double-expansion/scale-expansion.js";
+import { eCompress } from "../double-expansion/e-compress.js";
 
 
 /**

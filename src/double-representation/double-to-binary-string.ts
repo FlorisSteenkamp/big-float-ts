@@ -3,7 +3,7 @@
 // under the MIT license
 // Copyright 2013 Bartek Szopka (original author)
 
-import { doubleToOctets } from "./double-to-octets";
+import { doubleToOctets } from "./double-to-octets.js";
 
 
 function doubleToBinaryString(number: number) {

@@ -1,6 +1,6 @@
 
-import { fastExpansionSum } from "./fast-expansion-sum";
-import { eNegativeOf } from "./e-negative-of";
+import { fastExpansionSum } from "./fast-expansion-sum.js";
+import { eNegativeOf } from "./e-negative-of.js";
 
 
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗

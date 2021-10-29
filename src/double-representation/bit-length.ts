@@ -1,8 +1,8 @@
 
-import { getLowestSetBit, getHighestSetBit } from "./get-max-set-bit";
-import { eCompress } from "../double-expansion/e-compress";
-import { exponent } from "./exponent";
-import { eSign } from "../double-expansion/e-sign";
+import { getLowestSetBit, getHighestSetBit } from "./get-max-set-bit.js";
+import { eCompress } from "../double-expansion/e-compress.js";
+import { exponent } from "./exponent.js";
+import { eSign } from "../double-expansion/e-sign.js";
 
 
 /**

@@ -1,11 +1,10 @@
-
-import { expansionProduct } from "./expansion-product";
-import { twoProduct } from "../basic/two-product";
-import { scaleExpansion } from "./scale-expansion";
-import { twoSum } from "../basic/two-sum";
-import { growExpansion } from "./grow-expansion";
-import { fastExpansionSum } from "./fast-expansion-sum";
-import { eCompress } from "./e-compress";
+import { expansionProduct } from "./expansion-product.js";
+import { twoProduct } from "../basic/two-product.js";
+import { scaleExpansion } from "./scale-expansion.js";
+import { twoSum } from "../basic/two-sum.js";
+import { growExpansion } from "./grow-expansion.js";
+import { fastExpansionSum } from "./fast-expansion-sum.js";
+import { eCompress } from "./e-compress.js";
 
 
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗

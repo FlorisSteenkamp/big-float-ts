@@ -1,8 +1,8 @@
 
-import { eSign } from "./e-sign";
-import { msbExponent } from "../double-representation/msb-exponent";
-import { eCompress } from "./e-compress";
-import { reduceSignificand } from "../basic/reduce-significand";
+import { eSign } from "./e-sign.js";
+import { msbExponent } from "../double-representation/msb-exponent.js";
+import { eCompress } from "./e-compress.js";
+import { reduceSignificand } from "../basic/reduce-significand.js";
 
 
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗

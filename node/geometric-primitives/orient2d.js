@@ -1,12 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.orient2d = void 0;
-const two_product_1 = require("../basic/two-product");
-const e_diff_1 = require("../double-expansion/e-diff");
-const e_estimate_1 = require("../double-expansion/e-estimate");
-const two_diff_1 = require("../basic/two-diff");
-const fast_expansion_sum_1 = require("../double-expansion/fast-expansion-sum");
-const e_compress_1 = require("../double-expansion/e-compress");
+import { twoProduct } from "../basic/two-product.js";
+import { eDiff } from "../double-expansion/e-diff.js";
+import { eEstimate } from "../double-expansion/e-estimate.js";
+import { twoDiff } from "../basic/two-diff.js";
+import { fastExpansionSum } from "../double-expansion/fast-expansion-sum.js";
+import { eCompress } from "../double-expansion/e-compress.js";
 let ccwerrboundA = 3.330669073875472e-16;
 let ccwerrboundB = 2.220446049250315e-16;
 let ccwerrboundC = 1.109335647967049e-31;
@@ -63,22 +60,21 @@ function orient2d(A, B, C) {
     }
     return orient2dAdapt(A, B, C, detsum);
 }
-exports.orient2d = orient2d;
 function orient2dAdapt(A, B, C, detsum) {
     let acx = A[0] - C[0];
     let bcx = B[0] - C[0];
     let acy = A[1] - C[1];
     let bcy = B[1] - C[1];
-    let b = (0, e_diff_1.eDiff)((0, two_product_1.twoProduct)(acx, bcy), (0, two_product_1.twoProduct)(acy, bcx));
-    let det = (0, e_estimate_1.eEstimate)(b);
+    let b = eDiff(twoProduct(acx, bcy), twoProduct(acy, bcx));
+    let det = eEstimate(b);
     if (Math.abs(det) >= ccwerrboundB * detsum) {
         // Anti-clockwise or clockwise
         return det;
     }
-    let acxtail = (0, two_diff_1.twoDiff)(A[0], C[0])[0];
-    let bcxtail = (0, two_diff_1.twoDiff)(B[0], C[0])[0];
-    let acytail = (0, two_diff_1.twoDiff)(A[1], C[1])[0];
-    let bcytail = (0, two_diff_1.twoDiff)(B[1], C[1])[0];
+    let acxtail = twoDiff(A[0], C[0])[0];
+    let bcxtail = twoDiff(B[0], C[0])[0];
+    let acytail = twoDiff(A[1], C[1])[0];
+    let bcytail = twoDiff(B[1], C[1])[0];
     if (acxtail === 0 && acytail === 0 &&
         bcxtail === 0 && bcytail === 0) {
         // Straight
@@ -89,13 +85,14 @@ function orient2dAdapt(A, B, C, detsum) {
     if (Math.abs(det) >= errbound) {
         return det;
     }
-    let a = (0, e_diff_1.eDiff)((0, two_product_1.twoProduct)(acxtail, bcy), (0, two_product_1.twoProduct)(acytail, bcx));
-    let c = (0, fast_expansion_sum_1.fastExpansionSum)(b, a);
-    let d = (0, e_diff_1.eDiff)((0, two_product_1.twoProduct)(acx, bcytail), (0, two_product_1.twoProduct)(acy, bcxtail));
-    let e = (0, fast_expansion_sum_1.fastExpansionSum)(c, d);
-    let f = (0, e_diff_1.eDiff)((0, two_product_1.twoProduct)(acxtail, bcytail), (0, two_product_1.twoProduct)(acytail, bcxtail));
-    let D = (0, fast_expansion_sum_1.fastExpansionSum)(e, f);
-    D = (0, e_compress_1.eCompress)(D);
+    let a = eDiff(twoProduct(acxtail, bcy), twoProduct(acytail, bcx));
+    let c = fastExpansionSum(b, a);
+    let d = eDiff(twoProduct(acx, bcytail), twoProduct(acy, bcxtail));
+    let e = fastExpansionSum(c, d);
+    let f = eDiff(twoProduct(acxtail, bcytail), twoProduct(acytail, bcxtail));
+    let D = fastExpansionSum(e, f);
+    D = eCompress(D);
     return D[D.length - 1];
 }
+export { orient2d };
 //# sourceMappingURL=orient2d.js.map

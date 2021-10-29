@@ -1,5 +1,5 @@
 
-import { isOverlapping } from "./is-overlapping";
+import { isOverlapping } from "./is-overlapping.js";
 
 
 /**

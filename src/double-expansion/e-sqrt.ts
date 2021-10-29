@@ -3,15 +3,15 @@
 // Work in progress...
 
 /*
-import { twoSquare } from "../basic/two-square";
-import { twoProduct } from "../basic/two-product";
-import { ddMultDouble2 } from "../double-double-precision/dd-mult-double";
-import { ddDiffDd } from "../double-double-precision/dd-diff-dd";
-import { eDivBy2 } from "./e-div-by-2";
-import { ddDivDd } from "../double-double-precision/dd-div-dd";
-import { expansionProduct } from "./expansion-product";
-import { growExpansion } from "./grow-expansion";
-import { eNegativeOf } from "./e-negative-of";
+import { twoSquare } from "../basic/two-square.js";
+import { twoProduct } from "../basic/two-product.js";
+import { ddMultDouble2 } from "../double-double-precision/dd-mult-double.js";
+import { ddDiffDd } from "../double-double-precision/dd-diff-dd.js";
+import { eDivBy2 } from "./e-div-by-2.js";
+import { ddDivDd } from "../double-double-precision/dd-div-dd.js";
+import { expansionProduct } from "./expansion-product.js";
+import { growExpansion } from "./grow-expansion.js";
+import { eNegativeOf } from "./e-negative-of.js";
 
 const sqrt = Math.sqrt;
 

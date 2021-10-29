@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.expansionProduct = void 0;
-const fast_expansion_sum_1 = require("./fast-expansion-sum");
-const scale_expansion_1 = require("./scale-expansion");
-const e_compress_1 = require("./e-compress");
+import { fastExpansionSum } from "./fast-expansion-sum.js";
+import { scaleExpansion } from "./scale-expansion.js";
+import { eCompress } from "./e-compress.js";
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const multByDouble = scale_expansion_1.scaleExpansion;
-const add = fast_expansion_sum_1.fastExpansionSum;
-const compress = e_compress_1.eCompress;
+const multByDouble = scaleExpansion;
+const add = fastExpansionSum;
+const compress = eCompress;
 /**
  * Returns the product of two double floating point expansions.
  *
@@ -33,5 +30,5 @@ function expansionProduct(e, f) {
     //return compress(sum);
     return sum;
 }
-exports.expansionProduct = expansionProduct;
+export { expansionProduct };
 //# sourceMappingURL=expansion-product.js.map

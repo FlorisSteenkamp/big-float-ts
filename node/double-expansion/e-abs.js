@@ -1,11 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.eAbs = void 0;
-const e_sign_1 = require("./e-sign");
-const e_negative_of_1 = require("./e-negative-of");
+import { eSign } from "./e-sign.js";
+import { eNegativeOf } from "./e-negative-of.js";
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const sign = e_sign_1.eSign;
-const negativeOf = e_negative_of_1.eNegativeOf;
+const sign = eSign;
+const negativeOf = eNegativeOf;
 /**
  * Returns the absolute value of the given floating point expansion.
  *
@@ -19,5 +16,5 @@ function eAbs(e) {
     }
     return e;
 }
-exports.eAbs = eAbs;
+export { eAbs };
 //# sourceMappingURL=e-abs.js.map

@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.isNonOverlappingAll = exports.isNonOverlapping = exports.isOverlapping = void 0;
-const get_max_set_bit_1 = require("../double-representation/get-max-set-bit");
-const exponent_1 = require("../double-representation/exponent");
+import { getLowestSetBit, getHighestSetBit } from "../double-representation/get-max-set-bit.js";
+import { exponent } from "../double-representation/exponent.js";
 /**
  * Returns true if a and b overlaps, false otherwise.
  *
@@ -19,7 +16,6 @@ const exponent_1 = require("../double-representation/exponent");
 function isOverlapping(a, b) {
     return !isNonOverlapping(a, b);
 }
-exports.isOverlapping = isOverlapping;
 /**
  * Returns true if a and b does not overlap, false otherwise.
  *
@@ -42,12 +38,11 @@ function isNonOverlapping(a, b) {
         [a, b] = [b, a];
     }
     // At this point abs(a) > abs(b)
-    let l = (0, get_max_set_bit_1.getLowestSetBit)(a);
-    let h = (0, get_max_set_bit_1.getHighestSetBit)(b);
-    let shift = (0, exponent_1.exponent)(a) - (0, exponent_1.exponent)(b);
+    let l = getLowestSetBit(a);
+    let h = getHighestSetBit(b);
+    let shift = exponent(a) - exponent(b);
     return (l + shift) > h;
 }
-exports.isNonOverlapping = isNonOverlapping;
 /**
  * Returns true if all components of the given floating point expansion is
  * non-overlapping, false otherwise.
@@ -64,5 +59,5 @@ function isNonOverlappingAll(e) {
     }
     return true;
 }
-exports.isNonOverlappingAll = isNonOverlappingAll;
+export { isOverlapping, isNonOverlapping, isNonOverlappingAll };
 //# sourceMappingURL=is-overlapping.js.map

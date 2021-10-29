@@ -1,21 +1,18 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.eLongDivide = void 0;
-const e_negative_of_1 = require("./e-negative-of");
-const fast_expansion_sum_1 = require("./fast-expansion-sum");
-const e_compress_1 = require("./e-compress");
-const grow_expansion_1 = require("./grow-expansion");
-const e_sum_1 = require("./e-sum");
-const scale_expansion_1 = require("./scale-expansion");
-const e_diff_1 = require("./e-diff");
+import { eNegativeOf as eNegativeOf_ } from './e-negative-of.js';
+import { fastExpansionSum as fastExpansionSum_ } from './fast-expansion-sum.js';
+import { eCompress as eCompress_ } from './e-compress.js';
+import { growExpansion as growExpansion_ } from './grow-expansion.js';
+import { eSum as eSum_ } from './e-sum.js';
+import { scaleExpansion as scaleExpansion_ } from './scale-expansion.js';
+import { eDiff as eDiff_ } from './e-diff.js';
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const eNegativeOf = e_negative_of_1.eNegativeOf;
-const fastExpansionSum = fast_expansion_sum_1.fastExpansionSum;
-const eCompress = e_compress_1.eCompress;
-const growExpansion = grow_expansion_1.growExpansion;
-const eSum = e_sum_1.eSum;
-const scaleExpansion = scale_expansion_1.scaleExpansion;
-const eDiff = e_diff_1.eDiff;
+const eNegativeOf = eNegativeOf_;
+const fastExpansionSum = fastExpansionSum_;
+const eCompress = eCompress_;
+const growExpansion = growExpansion_;
+const eSum = eSum_;
+const scaleExpansion = scaleExpansion_;
+const eDiff = eDiff_;
 const sign = Math.sign;
 function eLongDivide(N, D) {
     N = eCompress(N);
@@ -114,5 +111,5 @@ function eLongDivide(N, D) {
     }
     return { div, rem };
 }
-exports.eLongDivide = eLongDivide;
+export { eLongDivide };
 //# sourceMappingURL=e-long-divide.js.map

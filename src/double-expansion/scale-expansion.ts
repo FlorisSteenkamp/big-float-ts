@@ -1,8 +1,8 @@
 
-import { twoProduct } from '../basic/two-product';
-import { twoSum } from '../basic/two-sum';
-import { fastTwoSum } from '../basic/fast-two-sum';
-import { eCompress } from './e-compress';
+import { twoProduct } from '../basic/two-product.js';
+import { twoSum } from '../basic/two-sum.js';
+import { fastTwoSum } from '../basic/fast-two-sum.js';
+import { eCompress } from './e-compress.js';
 
 
 const f = 134217729; // 2**27 + 1;

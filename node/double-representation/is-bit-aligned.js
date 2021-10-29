@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.isBitAligned = void 0;
-const get_max_set_bit_1 = require("./get-max-set-bit");
-const exponent_1 = require("./exponent");
+import { getHighestSetBit, getLowestSetBit } from "./get-max-set-bit.js";
+import { exponent } from "./exponent.js";
 /**
  * Returns true if the given number is bit-aligned in the sense that its a
  * multiple of a given power of 2, say e, and such that the number, say a,
@@ -34,12 +31,12 @@ function isBitAligned(a, maxBitLength, gridSpacingExponent) {
     if (a === 0) {
         return true;
     }
-    let e = (0, exponent_1.exponent)(a);
-    let maxSetBit = (0, get_max_set_bit_1.getHighestSetBit)(a) - 52 + e;
-    let minSetBit = (0, get_max_set_bit_1.getLowestSetBit)(a) - 52 + e;
+    let e = exponent(a);
+    let maxSetBit = getHighestSetBit(a) - 52 + e;
+    let minSetBit = getLowestSetBit(a) - 52 + e;
     let minBitBigEnough = minSetBit >= gridSpacingExponent;
     let maxBitSmallEnough = maxSetBit <= maxBitLength - 1 + gridSpacingExponent;
     return minBitBigEnough && maxBitSmallEnough;
 }
-exports.isBitAligned = isBitAligned;
+export { isBitAligned };
 //# sourceMappingURL=is-bit-aligned.js.map

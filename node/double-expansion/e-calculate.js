@@ -1,21 +1,18 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.eCalculate = void 0;
-const expansion_product_1 = require("./expansion-product");
-const two_product_1 = require("../basic/two-product");
-const scale_expansion_1 = require("./scale-expansion");
-const two_sum_1 = require("../basic/two-sum");
-const grow_expansion_1 = require("./grow-expansion");
-const fast_expansion_sum_1 = require("./fast-expansion-sum");
-const e_compress_1 = require("./e-compress");
+import { expansionProduct } from "./expansion-product.js";
+import { twoProduct } from "../basic/two-product.js";
+import { scaleExpansion } from "./scale-expansion.js";
+import { twoSum } from "../basic/two-sum.js";
+import { growExpansion } from "./grow-expansion.js";
+import { fastExpansionSum } from "./fast-expansion-sum.js";
+import { eCompress } from "./e-compress.js";
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const mult = expansion_product_1.expansionProduct;
-const tp = two_product_1.twoProduct;
-const multByDouble = scale_expansion_1.scaleExpansion;
-const ts = two_sum_1.twoSum;
-const addDouble = grow_expansion_1.growExpansion;
-const add = fast_expansion_sum_1.fastExpansionSum;
-const compress = e_compress_1.eCompress;
+const mult = expansionProduct;
+const tp = twoProduct;
+const multByDouble = scaleExpansion;
+const ts = twoSum;
+const addDouble = growExpansion;
+const add = fastExpansionSum;
+const compress = eCompress;
 /**
  * Return the result of summing an array of terms, each term being an array of
  * floating point expansions to be multiplied together.
@@ -72,5 +69,5 @@ function eCalculate(terms) {
     //return compress(total);
     return total;
 }
-exports.eCalculate = eCalculate;
+export { eCalculate };
 //# sourceMappingURL=e-calculate.js.map

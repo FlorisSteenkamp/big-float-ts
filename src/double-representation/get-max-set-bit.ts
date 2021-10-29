@@ -1,5 +1,5 @@
 
-import { significand } from "./significand";
+import { significand } from "./significand.js";
 
 
 /**

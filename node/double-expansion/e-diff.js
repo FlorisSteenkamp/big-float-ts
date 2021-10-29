@@ -1,11 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.eDiff = void 0;
-const fast_expansion_sum_1 = require("./fast-expansion-sum");
-const e_negative_of_1 = require("./e-negative-of");
+import { fastExpansionSum } from "./fast-expansion-sum.js";
+import { eNegativeOf } from "./e-negative-of.js";
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const negativeOf = e_negative_of_1.eNegativeOf;
-const add = fast_expansion_sum_1.fastExpansionSum;
+const negativeOf = eNegativeOf;
+const add = fastExpansionSum;
 /**
  * Returns the difference between two floating point expansions, i.e. e - f.
  *
@@ -18,5 +15,5 @@ function eDiff(e, f) {
     const g = negativeOf(f);
     return add(e, g);
 }
-exports.eDiff = eDiff;
+export { eDiff };
 //# sourceMappingURL=e-diff.js.map

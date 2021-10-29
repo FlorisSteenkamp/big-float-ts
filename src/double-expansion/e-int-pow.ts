@@ -1,6 +1,6 @@
 
-import { eProduct } from "./e-product";
-import { expansionProduct } from "./expansion-product";
+import { eProduct } from "./e-product.js";
+import { expansionProduct } from "./expansion-product.js";
 
 
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗

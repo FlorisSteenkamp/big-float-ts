@@ -1,5 +1,5 @@
 
-import { parseDouble } from './parse-double';
+import { parseDouble } from './parse-double.js';
 
 
 /**

@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.eMultByNeg2 = void 0;
 /**
  * Multiply a floating point expansion by -2.
  * * **error free**
@@ -15,5 +12,5 @@ function eMultByNeg2(e) {
     }
     return e_;
 }
-exports.eMultByNeg2 = eMultByNeg2;
+export { eMultByNeg2 };
 //# sourceMappingURL=e-mult-by-neg-2.js.map

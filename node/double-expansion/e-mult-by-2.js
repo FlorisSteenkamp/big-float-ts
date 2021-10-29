@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.eMultBy2 = void 0;
 /**
  * Returns the result of multiplying a floating point expansion by 2.
  * * **error free**
@@ -15,5 +12,5 @@ function eMultBy2(e) {
     }
     return e_;
 }
-exports.eMultBy2 = eMultBy2;
+export { eMultBy2 };
 //# sourceMappingURL=e-mult-by-2.js.map

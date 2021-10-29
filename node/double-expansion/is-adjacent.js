@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.isAdjacent = void 0;
-const is_overlapping_1 = require("./is-overlapping");
+import { isOverlapping } from "./is-overlapping.js";
 /**
  * Returns true if x and y are adjacent, false otherwise.
  *
@@ -12,9 +9,9 @@ const is_overlapping_1 = require("./is-overlapping");
  * @param y another double floating point number
  */
 function isAdjacent(x, y) {
-    return (0, is_overlapping_1.isOverlapping)(x, y) ||
-        (0, is_overlapping_1.isOverlapping)(x, 2 * y) ||
-        (0, is_overlapping_1.isOverlapping)(2 * x, y);
+    return isOverlapping(x, y) ||
+        isOverlapping(x, 2 * y) ||
+        isOverlapping(2 * x, y);
 }
-exports.isAdjacent = isAdjacent;
+export { isAdjacent };
 //# sourceMappingURL=is-adjacent.js.map

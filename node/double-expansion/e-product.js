@@ -1,15 +1,12 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.eProduct = void 0;
-const expansion_product_1 = require("./expansion-product");
-const two_product_1 = require("../basic/two-product");
-const scale_expansion_1 = require("./scale-expansion");
-const e_compress_1 = require("./e-compress");
+import { expansionProduct } from "./expansion-product.js";
+import { twoProduct } from "../basic/two-product.js";
+import { scaleExpansion } from "./scale-expansion.js";
+import { eCompress } from "./e-compress.js";
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const mult = expansion_product_1.expansionProduct;
-const tp = two_product_1.twoProduct;
-const multByDouble = scale_expansion_1.scaleExpansion;
-const compress = e_compress_1.eCompress;
+const mult = expansionProduct;
+const tp = twoProduct;
+const multByDouble = scaleExpansion;
+const compress = eCompress;
 /**
  * Return the result of multiplying together an array of floating point
  * expansions.
@@ -43,5 +40,5 @@ function eProduct(term) {
     return compress(product);
     //return product;
 }
-exports.eProduct = eProduct;
+export { eProduct };
 //# sourceMappingURL=e-product.js.map

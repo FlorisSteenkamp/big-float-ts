@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.eCompress = void 0;
 /**
  * Returns the result of compressing the given floating point expansion.
  *
@@ -52,5 +49,5 @@ function eCompress(e) {
     e_.length = top;
     return e_;
 }
-exports.eCompress = eCompress;
+export { eCompress };
 //# sourceMappingURL=e-compress.js.map

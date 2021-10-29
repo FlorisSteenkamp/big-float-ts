@@ -1,6 +1,6 @@
 
-import { eDiff } from "./e-diff";
-import { eSign } from "./e-sign";
+import { eDiff } from "./e-diff.js";
+import { eSign } from "./e-sign.js";
 
 
 /**
