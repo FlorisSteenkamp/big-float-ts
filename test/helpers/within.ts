@@ -4,12 +4,11 @@
  * given number of ulps, false otherwise.
  * 
  * * used in tests
- * @param {number} exactValue
- * @param {number} estimate
- * @param {number} ulps
- * @returns {boolean}
+ * @param exactValue
+ * @param estimate
+ * @param ulps
  */
-function within(exactValue, estimate, ulps) {
+function within(exactValue: number, estimate: number, ulps: number): boolean {
     // if exactValue === 0 the relative error is undefined, i.e. the condition
     // number is infinite.
     if (exactValue === 0) { 

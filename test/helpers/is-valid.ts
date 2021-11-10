@@ -8,10 +8,9 @@ import { isAdjacent } from "../../node/double-expansion/is-adjacent.js";
  * See https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf for the 
  * definition of adjacency.
  * Implemented for testing purposes.
- * @param {number[]} x A floating point expansion.
- * @returns {boolean}
+ * @param x A floating point expansion.
  */
-function isValid(x) {
+function isValid(x: number[]): boolean {
     for (let i=1; i<x.length; i++) {
         if (x[i] !== 0 && x[i-1] !== 0 && 
             Math.abs(x[i-1]) >= Math.abs(x[i])) {

@@ -7,10 +7,10 @@ import { isValid } from '../helpers/is-valid.js';
 
 /**
  * 
- * @param {number[]} e 
- * @param {number[]} res 
+ * @param e 
+ * @param res 
  */
-function check(e, res) {
+function check(e: number[], res: number[]) {
     assert(
         isNonOverlappingAll(e),
         'The input should be a non-overlapping expansion.'

@@ -88,14 +88,12 @@ describe('eLongDivide', function() {
 
 /**
  * 
- * @param {number[]} N$ 
- * @param {number[]} D$ 
+ * @param N$ 
+ * @param D$ 
  */
-function testLongDivide(N$, D$) {
-    /** @type number[] */
-    let N = [];
-    /** @type number[] */
-    let D = [];
+function testLongDivide(N$: number[], D$: number[]) {
+    let N: number[] = [];
+    let D: number[] = [];
     // do for all combinations of signs of 'N' and 'D'
     for (let i=1; i<=9; i++) {
         if (i === 1) {
@@ -128,23 +126,20 @@ function testLongDivide(N$, D$) {
         }
 
         //console.log('good?: ', test(N,D));
-        /** @type string */
         let res = test(N,D);
-        assert(res === true, res);
+        assert(res === true, res as string);
     }
 }
 
 
 /**
  * 
- * @param {number[]} N
- * @param {number[]} D 
+ * @param N
+ * @param D 
  */
-function test(N, D) {
-    /** @type number[] */
-    let div;
-    /** @type number[] */
-    let rem;
+function test(N: number[], D: number[]) {
+    let div: number[];
+    let rem: number[];
     try {
         ({ div, rem } = eLongDivide(N,D));
         //console.log('N', N);
@@ -327,10 +322,10 @@ function getRandomNumber() {
 
 /**
  * 
- * @param {number[]} as 
+ * @param as 
  * @returns 
  */
-function scaleFloatsToInts(as) {
+function scaleFloatsToInts(as: number[]) {
     let e = -1024;
     for (let i=0; i<as.length; i++) {
         let a = as[i];

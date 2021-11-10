@@ -4,12 +4,7 @@ import { split, eEstimate, eCalculate } from '../../node/index.js';
 import { isValid } from '../helpers/is-valid.js';
 
 
-/**
- * 
- * @param {number[][][]} sum 
- * @param {number} res 
- */
-function check(sum, res) {
+function check(sum: number[][][], res: number) {
     let result = eCalculate(sum);
 
     for (let term of sum) {

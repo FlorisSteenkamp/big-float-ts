@@ -5,10 +5,10 @@ import { split, eEstimate, eSum } from '../../node/index.js';
 
 /**
  * 
- * @param {number[][]} sum 
- * @param {number} expected 
+ * @param sum 
+ * @param expected 
  */
-function check(sum, expected) {
+function check(sum: number[][], expected: number) {
     let result = eSum(sum);
     expect(eEstimate(result)).to.eql(expected);
 }

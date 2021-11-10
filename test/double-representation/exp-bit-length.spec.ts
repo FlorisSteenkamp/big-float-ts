@@ -14,8 +14,7 @@ describe('expansion bit length', function() {
         expect(expBitLength([65535])).to.eql(16);
         //expect(expBitLength([1.390671161567e-310])).to.eql(44);
         //expect(expBitLength([1.3906711615669e-310])).to.eql(42);
-        /** @type number[] */
-        let a;
+        let a: number[];
 
         a = [0.1, 1801439850948198.5];
         expect(expBitLength(a)).to.eql(106);

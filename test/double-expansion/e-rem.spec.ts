@@ -42,8 +42,7 @@ describe('eRem', function() {
 			]);
 		}
 		{
-			/** @type number[] */
-			let res;
+			let res: number[];
 
 			// a = (2**22 * 163*167*173*179*181*191*193) + (2*2*163*193) // <= prime numbers
 			//   = (2**22 * 5624351580503521) + (125836)

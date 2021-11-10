@@ -8,10 +8,10 @@ import { isValid } from '../helpers/is-valid.js';
 
 /**
  * 
- * @param {number[][]} term 
- * @param {number} res 
+ * @param term 
+ * @param res 
  */
-function check(term, res) {
+function check(term: number[][], res: number) {
     let result = eProduct(term);
 
     for (let multiplicant of term) {
