@@ -1,7 +1,7 @@
 import { expect, assert } from 'chai';
 import { describe } from 'mocha';
-import { growExpansion, eCompress } from '../../node/index.js';
-import { isNonOverlappingAll } from '../../node/index.js';;
+import { growExpansion, eCompress } from '../../src/index.js';
+import { isNonOverlappingAll } from '../../src/index.js';;
 import { isValid } from '../helpers/is-valid.js';
 
 

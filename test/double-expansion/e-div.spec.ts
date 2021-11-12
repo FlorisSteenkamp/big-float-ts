@@ -1,7 +1,7 @@
 import { assert, expect } from 'chai';
 import { describe } from 'mocha';
-import { twoSum, eDiv, eMult } from '../../node/index.js';
-import { isNonOverlappingAll } from '../../node/index.js';
+import { twoSum, eDiv, eMult } from '../../src/index.js';
+import { isNonOverlappingAll } from '../../src/index.js';
 
 
 describe('eDiv', function() {

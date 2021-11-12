@@ -2,7 +2,7 @@
 import { expect } from 'chai';
 import { describe } from 'mocha';
 
-import { eIntPow } from '../../node/index.js';
+import { eIntPow } from '../../src/index.js';
 
 describe('eIntPow', function() {
 	it('should correctly return the integer power of a floating point expansion without any error', 

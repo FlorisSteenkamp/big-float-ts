@@ -2,7 +2,7 @@
 import { expect } from 'chai';
 import { describe } from 'mocha';
 
-import { eAbs } from '../../node/index.js';
+import { eAbs } from '../../src/index.js';
 
 
 describe('eAbs', function() {

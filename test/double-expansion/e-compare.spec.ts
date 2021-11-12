@@ -2,7 +2,7 @@
 import { expect, assert } from 'chai';
 import { describe } from 'mocha';
 
-import { eCompare } from '../../node/index.js';
+import { eCompare } from '../../src/index.js';
 
 
 describe('eCompare', function() {

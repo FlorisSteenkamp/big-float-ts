@@ -2,7 +2,7 @@
 import { expect, assert } from 'chai';
 import { describe } from 'mocha';
 
-import { eEstimate } from '../../node/index.js';
+import { eEstimate } from '../../src/index.js';
 
 
 describe('eEstimate', function() {

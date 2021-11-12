@@ -1,9 +1,9 @@
 /*
 import { expect, assert } from 'chai';
 import { describe } from 'mocha';
-import { eCompare, fastExpansionSum } from '../../node/index.js';
+import { eCompare, fastExpansionSum } from '../../src/index.js';
 import { expansionSum } from '../../node/double-expansion/expansion-sum.js';
-import { isNonOverlappingAll } from '../../node/index.js';;
+import { isNonOverlappingAll } from '../../src/index.js';;
 import { isValid } from '../helpers/is-valid.js';
 
 

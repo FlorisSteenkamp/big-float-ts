@@ -1,6 +1,6 @@
 import { expect, assert } from 'chai';
 import { describe } from 'mocha';
-import { split, eEstimate, eCalculate } from '../../node/index.js';
+import { split, eEstimate, eCalculate } from '../../src/index.js';
 import { isValid } from '../helpers/is-valid.js';
 
 

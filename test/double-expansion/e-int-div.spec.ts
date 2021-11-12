@@ -2,7 +2,7 @@
 import { assert, expect } from 'chai';
 import { describe } from 'mocha';
 
-import { twoSum, eIntDiv, eMult } from '../../node/index.js';
+import { twoSum, eIntDiv, eMult } from '../../src/index.js';
 
 
 describe('eIntDiv', function() {

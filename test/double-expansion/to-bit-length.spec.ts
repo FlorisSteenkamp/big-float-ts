@@ -2,7 +2,7 @@
 import { expect } from 'chai';
 import { describe } from 'mocha';
 
-import { eToBitlength, eCompress } from '../../node/index.js';
+import { eToBitlength, eCompress } from '../../src/index.js';
 
 
 describe('to bit length', function() {

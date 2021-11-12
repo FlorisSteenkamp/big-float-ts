@@ -1,6 +1,6 @@
 import { assert, expect } from 'chai';
 import { describe } from 'mocha';
-import { twoSum, eRem, eMult } from '../../node/index.js';
+import { twoSum, eRem, eMult } from '../../src/index.js';
 
 
 describe('eRem', function() {

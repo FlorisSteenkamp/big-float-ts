@@ -2,7 +2,7 @@
 import { expect, assert } from 'chai';
 import { describe } from 'mocha';
 
-import { eEstimate, eProduct } from '../../node/index.js';
+import { eEstimate, eProduct } from '../../src/index.js';
 import { isValid } from '../helpers/is-valid.js';
 
 

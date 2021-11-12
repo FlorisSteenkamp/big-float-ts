@@ -3,7 +3,7 @@ import {
     expansionProduct, eAbs, eCompress, eSum, eDiff, 
     isNonOverlappingAll, isAdjacent, eCompare, eIsInteger,
     eNegativeOf, eLongDivide, exponent, bitLength
-} from '../../node/index.js';
+} from '../../src/index.js';
 
 
 const sign = Math.sign;

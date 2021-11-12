@@ -1,6 +1,6 @@
 import { assert, expect } from 'chai';
 import { describe } from 'mocha';
-import { expBitLength, eToBitlength, getLowestSetBit, exponent } from '../../node/index.js';
+import { expBitLength, eToBitlength, getLowestSetBit, exponent } from '../../src/index.js';
 
 
 describe('expansion bit length', function() {
