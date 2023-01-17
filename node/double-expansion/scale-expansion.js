@@ -45,7 +45,6 @@ function scaleExpansion(e, b) {
     if (hh !== 0) {
         h.push(hh);
     }
-    ;
     for (let i = 1; i < m; i++) {
         //const [t, T] = tp(e[i], b);
         // inlined (above line)
@@ -125,7 +124,6 @@ function scaleExpansion2(b, e) {
     if (hh !== 0) {
         h.push(hh);
     }
-    ;
     for (let i = 1; i < m; i++) {
         //const [t, T] = tp(e[i], b);
         // inlined (above line)

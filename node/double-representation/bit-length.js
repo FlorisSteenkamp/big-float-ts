@@ -20,12 +20,12 @@ function bitLength(a) {
  * @param a A double precision floating point expansion
  */
 function expBitLength(a) {
-    let a_ = eCompress(a);
+    const a_ = eCompress(a);
     if (eSign(a_) === 0) {
         return 0;
     }
-    let msbyte = a_[a_.length - 1];
-    let lsbyte = a_[0];
+    const msbyte = a_[a_.length - 1];
+    const lsbyte = a_[0];
     return exponent(msbyte) - exponent(lsbyte) + (53 - getLowestSetBit(lsbyte));
 }
 export { bitLength, expBitLength };

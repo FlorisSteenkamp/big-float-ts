@@ -36,8 +36,8 @@ function eDiv(N: number[], D: number[], expansionLength: number) {
     let exact = false;
     let resultBitlengthUpperBound = 0;
     if (!expansionLength) {
-        let bitlengthN = bitLength(N_);
-        let bitlengthD = bitLength(D_);
+        const bitlengthN = bitLength(N_);
+        const bitlengthD = bitLength(D_);
         // resultBitlengthUpperBound is only valid if the division is known
         // to be exact
         resultBitlengthUpperBound = bitlengthN - bitlengthD + 1;

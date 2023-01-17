@@ -27,7 +27,7 @@ const compress = eCompress;
 function expansionSum(e: number[], f: number[]) {
     for (let i=0; i<f.length; i++) {
         // the below is growExpansion unrolled
-        let m = e.length;
+        const m = e.length;
 
         let q = f[i];
         //let h: number[] = new Array(m+1);

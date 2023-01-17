@@ -74,7 +74,7 @@ function fastExpansionSum(e: number[], f: number[]) {
     let q = a + b; 
     //h[0] = b - (q - a);
     const hh = b - (q - a);
-    if (hh !== 0) { h.push(hh) };
+    if (hh !== 0) { h.push(hh) }
 
     //let j = 0;
     j = 0;

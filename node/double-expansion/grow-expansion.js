@@ -29,7 +29,7 @@ function growExpansion(e, b) {
         const ee = e[i];
         const x = q + ee;
         const bv = x - q;
-        let hh = (q - (x - bv)) + (ee - bv);
+        const hh = (q - (x - bv)) + (ee - bv);
         if (hh !== 0) {
             h.push(hh);
         }

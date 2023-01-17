@@ -1,100 +1,84 @@
-var BigFloat;
-/******/ (() => { // webpackBootstrap
-/******/ 	"use strict";
-/******/ 	// The require scope
-/******/ 	var __webpack_require__ = {};
-/******/ 	
+/******/ // The require scope
+/******/ var __webpack_require__ = {};
+/******/ 
 /************************************************************************/
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
+/******/ /* webpack/runtime/define property getters */
+/******/ (() => {
+/******/ 	// define getter functions for harmony exports
+/******/ 	__webpack_require__.d = (exports, definition) => {
+/******/ 		for(var key in definition) {
+/******/ 			if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 				Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
-/******/ 	
+/******/ 		}
+/******/ 	};
+/******/ })();
+/******/ 
+/******/ /* webpack/runtime/hasOwnProperty shorthand */
+/******/ (() => {
+/******/ 	__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ })();
+/******/ 
 /************************************************************************/
 var __webpack_exports__ = {};
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "bitLength": () => (/* reexport */ bitLength),
-  "doubleToBinaryString": () => (/* reexport */ doubleToBinaryString),
-  "doubleToOctets": () => (/* reexport */ doubleToOctets),
-  "eAbs": () => (/* reexport */ eAbs),
-  "eAdd": () => (/* binding */ eAdd),
-  "eAddDouble": () => (/* binding */ eAddDouble),
-  "eCalculate": () => (/* reexport */ eCalculate),
-  "eCompare": () => (/* reexport */ eCompare),
-  "eCompress": () => (/* reexport */ e_compress_eCompress),
-  "eDiff": () => (/* reexport */ eDiff),
-  "eDiv": () => (/* reexport */ eDiv),
-  "eDivBy2": () => (/* reexport */ eDivBy2),
-  "eEstimate": () => (/* reexport */ eEstimate),
-  "eIntDiv": () => (/* reexport */ eIntDiv),
-  "eIntPow": () => (/* reexport */ eIntPow),
-  "eIsInteger": () => (/* reexport */ eIsInteger),
-  "eLongDivide": () => (/* reexport */ eLongDivide),
-  "eMult": () => (/* binding */ eMult),
-  "eMultBy2": () => (/* reexport */ eMultBy2),
-  "eMultByNeg2": () => (/* reexport */ eMultByNeg2),
-  "eMultDouble1": () => (/* binding */ eMultDouble1),
-  "eMultDouble2": () => (/* binding */ eMultDouble2),
-  "eNegativeOf": () => (/* reexport */ eNegativeOf),
-  "eProduct": () => (/* reexport */ eProduct),
-  "eRem": () => (/* reexport */ eRem),
-  "eSign": () => (/* reexport */ e_sign_eSign),
-  "eSum": () => (/* reexport */ eSum),
-  "eToBitlength": () => (/* reexport */ eToBitlength),
-  "eToDd": () => (/* reexport */ eToDd),
-  "expBitLength": () => (/* reexport */ expBitLength),
-  "expansionProduct": () => (/* reexport */ expansionProduct),
-  "exponent": () => (/* reexport */ exponent),
-  "fastExpansionSum": () => (/* reexport */ fastExpansionSum),
-  "fastTwoDiff": () => (/* reexport */ fastTwoDiff),
-  "fastTwoSum": () => (/* reexport */ fast_two_sum_fastTwoSum),
-  "getHighestSetBit": () => (/* reexport */ getHighestSetBit),
-  "getLowestSetBit": () => (/* reexport */ getLowestSetBit),
-  "growExpansion": () => (/* reexport */ growExpansion),
-  "isAdjacent": () => (/* reexport */ isAdjacent),
-  "isBitAligned": () => (/* reexport */ isBitAligned),
-  "isNonOverlappingAll": () => (/* reexport */ isNonOverlappingAll),
-  "lsbExponent": () => (/* reexport */ lsbExponent),
-  "msbExponent": () => (/* reexport */ msbExponent),
-  "operators": () => (/* binding */ operators),
-  "orient2d": () => (/* reexport */ orient2d),
-  "parseDouble": () => (/* reexport */ parseDouble),
-  "parseDoubleDetailed": () => (/* reexport */ parseDoubleDetailed),
-  "reduceSignificand": () => (/* reexport */ reduceSignificand),
-  "scaleExpansion": () => (/* reexport */ scaleExpansion),
-  "scaleExpansion2": () => (/* reexport */ scaleExpansion2),
-  "significand": () => (/* reexport */ significand),
-  "split": () => (/* reexport */ split),
-  "twoDiff": () => (/* reexport */ twoDiff),
-  "twoProduct": () => (/* reexport */ two_product_twoProduct),
-  "twoSum": () => (/* reexport */ two_sum_twoSum)
+  "ZS": () => (/* reexport */ bitLength),
+  "pr": () => (/* reexport */ doubleToBinaryString),
+  "xm": () => (/* reexport */ doubleToOctets),
+  "uP": () => (/* reexport */ eAbs),
+  "_L": () => (/* binding */ eAdd),
+  "lG": () => (/* binding */ eAddDouble),
+  "$0": () => (/* reexport */ eCalculate),
+  "AM": () => (/* reexport */ eCompare),
+  "Zx": () => (/* reexport */ e_compress_eCompress),
+  "w1": () => (/* reexport */ eDiff),
+  "sZ": () => (/* reexport */ eDiv),
+  "lX": () => (/* reexport */ eDivBy2),
+  "$A": () => (/* reexport */ eEstimate),
+  "yl": () => (/* reexport */ eIntDiv),
+  "K9": () => (/* reexport */ eIntPow),
+  "lb": () => (/* reexport */ eIsInteger),
+  "bN": () => (/* reexport */ eLongDivide),
+  "xr": () => (/* binding */ eMult),
+  "aB": () => (/* reexport */ eMultBy2),
+  "kS": () => (/* reexport */ eMultByNeg2),
+  "fX": () => (/* binding */ eMultDouble1),
+  "xS": () => (/* binding */ eMultDouble2),
+  "ab": () => (/* reexport */ eNegativeOf),
+  "Fp": () => (/* reexport */ eProduct),
+  "bx": () => (/* reexport */ eRem),
+  "qv": () => (/* reexport */ e_sign_eSign),
+  "g_": () => (/* reexport */ eSum),
+  "XB": () => (/* reexport */ eToBitlength),
+  "fN": () => (/* reexport */ eToDd),
+  "kq": () => (/* reexport */ expBitLength),
+  "Q7": () => (/* reexport */ expansionProduct),
+  "ts": () => (/* reexport */ exponent),
+  "xK": () => (/* reexport */ fastExpansionSum),
+  "Fz": () => (/* reexport */ fastTwoDiff),
+  "vz": () => (/* reexport */ fast_two_sum_fastTwoSum),
+  "kx": () => (/* reexport */ getHighestSetBit),
+  "hK": () => (/* reexport */ getLowestSetBit),
+  "Yj": () => (/* reexport */ growExpansion),
+  "Ku": () => (/* reexport */ isAdjacent),
+  "m5": () => (/* reexport */ isBitAligned),
+  "V1": () => (/* reexport */ isNonOverlappingAll),
+  "pt": () => (/* reexport */ lsbExponent),
+  "Jw": () => (/* reexport */ msbExponent),
+  "Gn": () => (/* binding */ operators),
+  "IW": () => (/* reexport */ orient2d),
+  "Ds": () => (/* reexport */ parseDouble),
+  "JO": () => (/* reexport */ parseDoubleDetailed),
+  "S4": () => (/* reexport */ reduceSignificand),
+  "Fs": () => (/* reexport */ scaleExpansion),
+  "R9": () => (/* reexport */ scaleExpansion2),
+  "aK": () => (/* reexport */ significand),
+  "Vl": () => (/* reexport */ split),
+  "BH": () => (/* reexport */ twoDiff),
+  "Q6": () => (/* reexport */ two_product_twoProduct),
+  "d9": () => (/* reexport */ two_sum_twoSum)
 });
 
 ;// CONCATENATED MODULE: ./src/double-expansion/e-sign.ts
@@ -123,7 +107,7 @@ function e_sign_eSign(e) {
  * e.g. 123.456 -> [64, 94, 221, 47, 26, 159, 190, 119]
  */
 function doubleToOctets(number) {
-    var buffer = new ArrayBuffer(8);
+    const buffer = new ArrayBuffer(8);
     new DataView(buffer).setFloat64(0, number, false);
     return Array.from(new Uint8Array(buffer));
 }
@@ -169,19 +153,19 @@ function int8ToBinaryString(i) {
  * See https://github.com/bartaz/ieee754-visualization
  */
 function parseDouble(x) {
-    let parts = doubleToOctets(x);
-    let p0 = parts[0];
-    let p1 = parts[1];
-    let sign = p0 >> 7;
-    let exponent_ = ((p0 & 127) << 4) + ((p1 & 0b11110000) >> 4);
+    const parts = doubleToOctets(x);
+    const p0 = parts[0];
+    const p1 = parts[1];
+    const sign = p0 >> 7;
+    const exponent_ = ((p0 & 127) << 4) + ((p1 & 0b11110000) >> 4);
     //---- Check for negative / positive zero / denormalized numbers.
-    let hiddenMsb = exponent_ === 0 ? 0 : 16;
+    const hiddenMsb = exponent_ === 0 ? 0 : 16;
     // Note: exponent === 0 => 0 or denormalized number (a.k.a. subnormal number).
-    let exponent = exponent_ === 0
+    const exponent = exponent_ === 0
         ? exponent_ - 1022 // Subnormals use a biased exponent of 1 (not 0!)
         : exponent_ - 1023;
     //---- Break up the significand into bytes
-    let significand = parts.slice(1);
+    const significand = parts.slice(1);
     significand[0] = (p1 & 15) + hiddenMsb;
     return {
         sign,
@@ -196,11 +180,11 @@ function parseDouble(x) {
  * representations of the components.
  */
 function parseDoubleDetailed(x) {
-    let str = doubleToBinaryString(x);
+    const str = doubleToBinaryString(x);
     // sign{1} exponent{11} fraction{52} === 64 bits (+1 hidden!)
-    let [, sign, exponent, significand] = str.match(/^(.)(.{11})(.{52})$/);
-    let exponent_ = parseInt(exponent, 2);
-    let hidden = exponent_ === 0 ? "0" : "1";
+    const [, sign, exponent, significand] = str.match(/^(.)(.{11})(.{52})$/);
+    const exponent_ = parseInt(exponent, 2);
+    const hidden = exponent_ === 0 ? "0" : "1";
     return {
         full: sign + exponent + hidden + significand,
         sign,
@@ -247,13 +231,13 @@ function getLowestSetBit(a) {
         return NaN;
     }
     // Note: the significand includes the hidden bit!
-    let s = significand(a);
-    let len = s.length;
+    const s = significand(a);
+    const len = s.length;
     for (let i = len - 1; i >= 0; i--) {
         if (s[i] === 0) {
             continue;
         }
-        let l = getLowestSetBit_(s[i]);
+        const l = getLowestSetBit_(s[i]);
         if (Number.isFinite(l)) {
             return (8 * (len - i - 1)) + l;
         }
@@ -288,10 +272,10 @@ function getHighestSetBit(a) {
     }
     // At this point there must be a highest set bit (always === 52 if the 
     // number is not a subnormal.
-    let s = significand(a);
-    let len = s.length;
+    const s = significand(a);
+    const len = s.length;
     for (let i = 0; i < len; i++) {
-        let l = getHighestSetBit_(s[i]);
+        const l = getHighestSetBit_(s[i]);
         if (Number.isFinite(l)) {
             return (8 * (len - i - 1)) + l;
         }
@@ -323,7 +307,7 @@ function msbExponent(a) {
     if (a === 0 || !Number.isFinite(a)) {
         return NaN;
     }
-    let e = exponent(a);
+    const e = exponent(a);
     // Will return e for all but subnormal numbers
     return getHighestSetBit(a) - 52 + e;
 }
@@ -428,21 +412,21 @@ function eToBitlength(a, l) {
     if (sign(a) === 0) {
         return [0];
     }
-    let maxMsb = msbExponent(a[a.length - 1]);
+    const maxMsb = msbExponent(a[a.length - 1]);
     let msb = maxMsb;
     let i = a.length - 1; // start at most significant byte
     while (i > 0) {
-        let msb_ = msbExponent(a[i - 1]);
+        const msb_ = msbExponent(a[i - 1]);
         if (maxMsb - msb_ > l) {
             break;
         }
         msb = msb_;
         i--;
     }
-    let keepBits = Math.min(l - (maxMsb - msb), 53);
+    const keepBits = Math.min(l - (maxMsb - msb), 53);
     let b = a[i];
     b = reduceSignificand(b, keepBits);
-    let result = a.slice(i);
+    const result = a.slice(i);
     result[0] = b;
     return result;
 }
@@ -545,7 +529,6 @@ function fastExpansionSum(e, f) {
     if (hh !== 0) {
         h.push(hh);
     }
-    ;
     //let j = 0;
     j = 0;
     for (let i = 2; i < len; i++) {
@@ -666,7 +649,6 @@ function scaleExpansion(e, b) {
     if (hh !== 0) {
         h.push(hh);
     }
-    ;
     for (let i = 1; i < m; i++) {
         //const [t, T] = tp(e[i], b);
         // inlined (above line)
@@ -746,7 +728,6 @@ function scaleExpansion2(b, e) {
     if (hh !== 0) {
         h.push(hh);
     }
-    ;
     for (let i = 1; i < m; i++) {
         //const [t, T] = tp(e[i], b);
         // inlined (above line)
@@ -886,12 +867,12 @@ function bitLength(a) {
  * @param a A double precision floating point expansion
  */
 function expBitLength(a) {
-    let a_ = e_compress_eCompress(a);
+    const a_ = e_compress_eCompress(a);
     if (e_sign_eSign(a_) === 0) {
         return 0;
     }
-    let msbyte = a_[a_.length - 1];
-    let lsbyte = a_[0];
+    const msbyte = a_[a_.length - 1];
+    const lsbyte = a_[0];
     return exponent(msbyte) - exponent(lsbyte) + (53 - getLowestSetBit(lsbyte));
 }
 
@@ -930,8 +911,8 @@ function eDiv(N, D, expansionLength) {
     let exact = false;
     let resultBitlengthUpperBound = 0;
     if (!expansionLength) {
-        let bitlengthN = e_div_bitLength(N_);
-        let bitlengthD = e_div_bitLength(D_);
+        const bitlengthN = e_div_bitLength(N_);
+        const bitlengthD = e_div_bitLength(D_);
         // resultBitlengthUpperBound is only valid if the division is known
         // to be exact
         resultBitlengthUpperBound = bitlengthN - bitlengthD + 1;
@@ -1001,7 +982,7 @@ function growExpansion(e, b) {
         const ee = e[i];
         const x = q + ee;
         const bv = x - q;
-        let hh = (q - (x - bv)) + (ee - bv);
+        const hh = (q - (x - bv)) + (ee - bv);
         if (hh !== 0) {
             h.push(hh);
         }
@@ -1107,7 +1088,7 @@ function eLongDivide(N, D) {
     D = e_long_divide_eCompress(D);
     // get the most significant double
     // out by at most 1 ulp, exact if d < MAX_SAFE_INT
-    let d = D[D.length - 1];
+    const d = D[D.length - 1];
     // trivial cases
     if (D.length === 1) {
         if (d === 0) {
@@ -1124,11 +1105,11 @@ function eLongDivide(N, D) {
     if (signN === 0) {
         return { div: [0], rem: [0] };
     }
-    let signD = e_long_divide_sign(d);
-    let divs = [];
+    const signD = e_long_divide_sign(d);
+    const divs = [];
     let oldLen = 0;
     while (true) {
-        let rems = [];
+        const rems = [];
         // loop from big `n[i]` to small `n[i]`
         for (let i = N.length - 1; i >= 0; i--) {
             const n = N[i];
@@ -1137,7 +1118,7 @@ function eLongDivide(N, D) {
             // most 1/2 ulp
             // Due to roundoff (and the fact we'e using `d` and not `D`!), `_div` does 
             // not necessarily represent the exact quotient.
-            let div = Math.round((n - (n % d)) / d);
+            const div = Math.round((n - (n % d)) / d);
             // get the remainder by calculating `rem = n - d*div`
             rems.push(e_long_divide_scaleExpansion(D, div)); // exact
             if (div === 0) {
@@ -1473,11 +1454,11 @@ function isBitAligned(a, maxBitLength, gridSpacingExponent) {
     if (a === 0) {
         return true;
     }
-    let e = exponent(a);
-    let maxSetBit = getHighestSetBit(a) - 52 + e;
-    let minSetBit = getLowestSetBit(a) - 52 + e;
-    let minBitBigEnough = minSetBit >= gridSpacingExponent;
-    let maxBitSmallEnough = maxSetBit <= maxBitLength - 1 + gridSpacingExponent;
+    const e = exponent(a);
+    const maxSetBit = getHighestSetBit(a) - 52 + e;
+    const minSetBit = getLowestSetBit(a) - 52 + e;
+    const minBitBigEnough = minSetBit >= gridSpacingExponent;
+    const maxBitSmallEnough = maxSetBit <= maxBitLength - 1 + gridSpacingExponent;
     return minBitBigEnough && maxBitSmallEnough;
 }
 
@@ -1494,7 +1475,7 @@ function lsbExponent(a) {
     if (a === 0 || !Number.isFinite(a)) {
         return NaN;
     }
-    let e = exponent(a);
+    const e = exponent(a);
     return getLowestSetBit(a) - 52 + e;
 }
 
@@ -1677,10 +1658,10 @@ function eToDd(e) {
 
 
 
-let ccwerrboundA = 3.330669073875472e-16;
-let ccwerrboundB = 2.220446049250315e-16;
-let ccwerrboundC = 1.109335647967049e-31;
-let resulterrbound = 3.330669073875471e-16;
+const ccwerrboundA = 3.330669073875472e-16;
+const ccwerrboundB = 2.220446049250315e-16;
+const ccwerrboundC = 1.109335647967049e-31;
+const resulterrbound = 3.330669073875471e-16;
 /**
  * * Ported from [Shewchuk](http://docs.ros.org/kinetic/api/asr_approx_mvbb/html/Predicates_8cpp_source.html)
  * * see also https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf
@@ -1701,9 +1682,9 @@ let resulterrbound = 3.330669073875471e-16;
  * input points are collinear or nearly so.
  */
 function orient2d(A, B, C) {
-    let detleft = (A[0] - C[0]) * (B[1] - C[1]);
-    let detright = (A[1] - C[1]) * (B[0] - C[0]);
-    let det = detleft - detright;
+    const detleft = (A[0] - C[0]) * (B[1] - C[1]);
+    const detright = (A[1] - C[1]) * (B[0] - C[0]);
+    const det = detleft - detright;
     let detsum;
     if (detleft > 0) {
         if (detright <= 0) {
@@ -1734,35 +1715,35 @@ function orient2d(A, B, C) {
     return orient2dAdapt(A, B, C, detsum);
 }
 function orient2dAdapt(A, B, C, detsum) {
-    let acx = A[0] - C[0];
-    let bcx = B[0] - C[0];
-    let acy = A[1] - C[1];
-    let bcy = B[1] - C[1];
-    let b = eDiff(two_product_twoProduct(acx, bcy), two_product_twoProduct(acy, bcx));
+    const acx = A[0] - C[0];
+    const bcx = B[0] - C[0];
+    const acy = A[1] - C[1];
+    const bcy = B[1] - C[1];
+    const b = eDiff(two_product_twoProduct(acx, bcy), two_product_twoProduct(acy, bcx));
     let det = eEstimate(b);
     if (Math.abs(det) >= ccwerrboundB * detsum) {
         // Anti-clockwise or clockwise
         return det;
     }
-    let acxtail = twoDiff(A[0], C[0])[0];
-    let bcxtail = twoDiff(B[0], C[0])[0];
-    let acytail = twoDiff(A[1], C[1])[0];
-    let bcytail = twoDiff(B[1], C[1])[0];
+    const acxtail = twoDiff(A[0], C[0])[0];
+    const bcxtail = twoDiff(B[0], C[0])[0];
+    const acytail = twoDiff(A[1], C[1])[0];
+    const bcytail = twoDiff(B[1], C[1])[0];
     if (acxtail === 0 && acytail === 0 &&
         bcxtail === 0 && bcytail === 0) {
         // Straight
         return det;
     }
-    let errbound = ccwerrboundC * detsum + resulterrbound * Math.abs(det);
+    const errbound = ccwerrboundC * detsum + resulterrbound * Math.abs(det);
     det += (acx * bcytail + bcy * acxtail) - (acy * bcxtail + bcx * acytail);
     if (Math.abs(det) >= errbound) {
         return det;
     }
-    let a = eDiff(two_product_twoProduct(acxtail, bcy), two_product_twoProduct(acytail, bcx));
-    let c = fastExpansionSum(b, a);
-    let d = eDiff(two_product_twoProduct(acx, bcytail), two_product_twoProduct(acy, bcxtail));
-    let e = fastExpansionSum(c, d);
-    let f = eDiff(two_product_twoProduct(acxtail, bcytail), two_product_twoProduct(acytail, bcxtail));
+    const a = eDiff(two_product_twoProduct(acxtail, bcy), two_product_twoProduct(acytail, bcx));
+    const c = fastExpansionSum(b, a);
+    const d = eDiff(two_product_twoProduct(acx, bcytail), two_product_twoProduct(acy, bcxtail));
+    const e = fastExpansionSum(c, d);
+    const f = eDiff(two_product_twoProduct(acxtail, bcytail), two_product_twoProduct(acytail, bcxtail));
     let D = fastExpansionSum(e, f);
     D = e_compress_eCompress(D);
     return D[D.length - 1];
@@ -1810,9 +1791,9 @@ function isNonOverlapping(a, b) {
         [a, b] = [b, a];
     }
     // At this point abs(a) > abs(b)
-    let l = getLowestSetBit(a);
-    let h = getHighestSetBit(b);
-    let shift = exponent(a) - exponent(b);
+    const l = getLowestSetBit(a);
+    const h = getHighestSetBit(b);
+    const shift = exponent(a) - exponent(b);
     return (l + shift) > h;
 }
 /**
@@ -1977,6 +1958,59 @@ const operators = {
 
 
 
-BigFloat = __webpack_exports__;
-/******/ })()
-;
+var __webpack_exports__bitLength = __webpack_exports__.ZS;
+var __webpack_exports__doubleToBinaryString = __webpack_exports__.pr;
+var __webpack_exports__doubleToOctets = __webpack_exports__.xm;
+var __webpack_exports__eAbs = __webpack_exports__.uP;
+var __webpack_exports__eAdd = __webpack_exports__._L;
+var __webpack_exports__eAddDouble = __webpack_exports__.lG;
+var __webpack_exports__eCalculate = __webpack_exports__.$0;
+var __webpack_exports__eCompare = __webpack_exports__.AM;
+var __webpack_exports__eCompress = __webpack_exports__.Zx;
+var __webpack_exports__eDiff = __webpack_exports__.w1;
+var __webpack_exports__eDiv = __webpack_exports__.sZ;
+var __webpack_exports__eDivBy2 = __webpack_exports__.lX;
+var __webpack_exports__eEstimate = __webpack_exports__.$A;
+var __webpack_exports__eIntDiv = __webpack_exports__.yl;
+var __webpack_exports__eIntPow = __webpack_exports__.K9;
+var __webpack_exports__eIsInteger = __webpack_exports__.lb;
+var __webpack_exports__eLongDivide = __webpack_exports__.bN;
+var __webpack_exports__eMult = __webpack_exports__.xr;
+var __webpack_exports__eMultBy2 = __webpack_exports__.aB;
+var __webpack_exports__eMultByNeg2 = __webpack_exports__.kS;
+var __webpack_exports__eMultDouble1 = __webpack_exports__.fX;
+var __webpack_exports__eMultDouble2 = __webpack_exports__.xS;
+var __webpack_exports__eNegativeOf = __webpack_exports__.ab;
+var __webpack_exports__eProduct = __webpack_exports__.Fp;
+var __webpack_exports__eRem = __webpack_exports__.bx;
+var __webpack_exports__eSign = __webpack_exports__.qv;
+var __webpack_exports__eSum = __webpack_exports__.g_;
+var __webpack_exports__eToBitlength = __webpack_exports__.XB;
+var __webpack_exports__eToDd = __webpack_exports__.fN;
+var __webpack_exports__expBitLength = __webpack_exports__.kq;
+var __webpack_exports__expansionProduct = __webpack_exports__.Q7;
+var __webpack_exports__exponent = __webpack_exports__.ts;
+var __webpack_exports__fastExpansionSum = __webpack_exports__.xK;
+var __webpack_exports__fastTwoDiff = __webpack_exports__.Fz;
+var __webpack_exports__fastTwoSum = __webpack_exports__.vz;
+var __webpack_exports__getHighestSetBit = __webpack_exports__.kx;
+var __webpack_exports__getLowestSetBit = __webpack_exports__.hK;
+var __webpack_exports__growExpansion = __webpack_exports__.Yj;
+var __webpack_exports__isAdjacent = __webpack_exports__.Ku;
+var __webpack_exports__isBitAligned = __webpack_exports__.m5;
+var __webpack_exports__isNonOverlappingAll = __webpack_exports__.V1;
+var __webpack_exports__lsbExponent = __webpack_exports__.pt;
+var __webpack_exports__msbExponent = __webpack_exports__.Jw;
+var __webpack_exports__operators = __webpack_exports__.Gn;
+var __webpack_exports__orient2d = __webpack_exports__.IW;
+var __webpack_exports__parseDouble = __webpack_exports__.Ds;
+var __webpack_exports__parseDoubleDetailed = __webpack_exports__.JO;
+var __webpack_exports__reduceSignificand = __webpack_exports__.S4;
+var __webpack_exports__scaleExpansion = __webpack_exports__.Fs;
+var __webpack_exports__scaleExpansion2 = __webpack_exports__.R9;
+var __webpack_exports__significand = __webpack_exports__.aK;
+var __webpack_exports__split = __webpack_exports__.Vl;
+var __webpack_exports__twoDiff = __webpack_exports__.BH;
+var __webpack_exports__twoProduct = __webpack_exports__.Q6;
+var __webpack_exports__twoSum = __webpack_exports__.d9;
+export { __webpack_exports__bitLength as bitLength, __webpack_exports__doubleToBinaryString as doubleToBinaryString, __webpack_exports__doubleToOctets as doubleToOctets, __webpack_exports__eAbs as eAbs, __webpack_exports__eAdd as eAdd, __webpack_exports__eAddDouble as eAddDouble, __webpack_exports__eCalculate as eCalculate, __webpack_exports__eCompare as eCompare, __webpack_exports__eCompress as eCompress, __webpack_exports__eDiff as eDiff, __webpack_exports__eDiv as eDiv, __webpack_exports__eDivBy2 as eDivBy2, __webpack_exports__eEstimate as eEstimate, __webpack_exports__eIntDiv as eIntDiv, __webpack_exports__eIntPow as eIntPow, __webpack_exports__eIsInteger as eIsInteger, __webpack_exports__eLongDivide as eLongDivide, __webpack_exports__eMult as eMult, __webpack_exports__eMultBy2 as eMultBy2, __webpack_exports__eMultByNeg2 as eMultByNeg2, __webpack_exports__eMultDouble1 as eMultDouble1, __webpack_exports__eMultDouble2 as eMultDouble2, __webpack_exports__eNegativeOf as eNegativeOf, __webpack_exports__eProduct as eProduct, __webpack_exports__eRem as eRem, __webpack_exports__eSign as eSign, __webpack_exports__eSum as eSum, __webpack_exports__eToBitlength as eToBitlength, __webpack_exports__eToDd as eToDd, __webpack_exports__expBitLength as expBitLength, __webpack_exports__expansionProduct as expansionProduct, __webpack_exports__exponent as exponent, __webpack_exports__fastExpansionSum as fastExpansionSum, __webpack_exports__fastTwoDiff as fastTwoDiff, __webpack_exports__fastTwoSum as fastTwoSum, __webpack_exports__getHighestSetBit as getHighestSetBit, __webpack_exports__getLowestSetBit as getLowestSetBit, __webpack_exports__growExpansion as growExpansion, __webpack_exports__isAdjacent as isAdjacent, __webpack_exports__isBitAligned as isBitAligned, __webpack_exports__isNonOverlappingAll as isNonOverlappingAll, __webpack_exports__lsbExponent as lsbExponent, __webpack_exports__msbExponent as msbExponent, __webpack_exports__operators as operators, __webpack_exports__orient2d as orient2d, __webpack_exports__parseDouble as parseDouble, __webpack_exports__parseDoubleDetailed as parseDoubleDetailed, __webpack_exports__reduceSignificand as reduceSignificand, __webpack_exports__scaleExpansion as scaleExpansion, __webpack_exports__scaleExpansion2 as scaleExpansion2, __webpack_exports__significand as significand, __webpack_exports__split as split, __webpack_exports__twoDiff as twoDiff, __webpack_exports__twoProduct as twoProduct, __webpack_exports__twoSum as twoSum };

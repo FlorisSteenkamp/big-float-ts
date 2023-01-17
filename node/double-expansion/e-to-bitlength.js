@@ -17,21 +17,21 @@ function eToBitlength(a, l) {
     if (sign(a) === 0) {
         return [0];
     }
-    let maxMsb = msbExponent(a[a.length - 1]);
+    const maxMsb = msbExponent(a[a.length - 1]);
     let msb = maxMsb;
     let i = a.length - 1; // start at most significant byte
     while (i > 0) {
-        let msb_ = msbExponent(a[i - 1]);
+        const msb_ = msbExponent(a[i - 1]);
         if (maxMsb - msb_ > l) {
             break;
         }
         msb = msb_;
         i--;
     }
-    let keepBits = Math.min(l - (maxMsb - msb), 53);
+    const keepBits = Math.min(l - (maxMsb - msb), 53);
     let b = a[i];
     b = reduceSignificand(b, keepBits);
-    let result = a.slice(i);
+    const result = a.slice(i);
     result[0] = b;
     return result;
 }

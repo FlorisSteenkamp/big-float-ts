@@ -17,22 +17,22 @@ import { eCompress } from "../double-expansion/e-compress.js";
 function orient2dExact(a: number[], b: number[], c: number[]) {
     // det := ax(by - cy) - ay(bx - cx) + (bx*cy - by*cx)
 
-    let term1 = scaleExpansion(
+    const term1 = scaleExpansion(
         twoDiff(b[1], c[1]),
         a[0]
     );
 
-    let term2 = scaleExpansion(
+    const term2 = scaleExpansion(
         twoDiff(b[0], c[0]),
         -a[1]
     );
 
-    let term3 = eDiff(
+    const term3 = eDiff(
         twoProduct(b[0], c[1]),
         twoProduct(b[1], c[0]),
     );
 
-    let term4 = fastExpansionSum(term2, term3);
+    const term4 = fastExpansionSum(term2, term3);
     
     let det = fastExpansionSum(
         term1, 

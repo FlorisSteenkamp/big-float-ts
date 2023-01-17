@@ -28,7 +28,7 @@ function eLongDivide(
     
     // get the most significant double
     // out by at most 1 ulp, exact if d < MAX_SAFE_INT
-    let d = D[D.length-1];
+    const d = D[D.length-1];
 
     // trivial cases
     if (D.length === 1) { 
@@ -39,12 +39,12 @@ function eLongDivide(
 
     const signN = sign(N[N.length-1]);
     if (signN === 0) { return { div: [0], rem: [0] }}
-    let signD = sign(d);
+    const signD = sign(d);
 
-    let divs = [];
+    const divs = [];
     let oldLen = 0;
     while (true) {
-        let rems = [];
+        const rems = [];
 
         // loop from big `n[i]` to small `n[i]`
         for (let i=N.length-1; i>=0; i--) {
@@ -56,7 +56,7 @@ function eLongDivide(
 
             // Due to roundoff (and the fact we'e using `d` and not `D`!), `_div` does 
             // not necessarily represent the exact quotient.
-            let div = Math.round((n - (n % d)) / d);
+            const div = Math.round((n - (n % d)) / d);
 
             // get the remainder by calculating `rem = n - d*div`
             rems.push(scaleExpansion(D, div));  // exact

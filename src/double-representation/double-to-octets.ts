@@ -10,7 +10,7 @@
  * e.g. 123.456 -> [64, 94, 221, 47, 26, 159, 190, 119] 
  */
 function doubleToOctets(number: number) {
-    var buffer = new ArrayBuffer(8);
+    const buffer = new ArrayBuffer(8);
     new DataView(buffer).setFloat64(0, number, false);
     return Array.from(new Uint8Array(buffer));
 }

@@ -47,7 +47,7 @@ function scaleExpansion(e: number[], b: number): number[] {
     const h: number[] = [];
     //h[0] = (al*bl) - ((q - (ah*bh)) - (al*bh) - (ah*bl));
     const hh = (al*bl) - ((q - (ah*bh)) - (al*bh) - (ah*bl));
-    if (hh !== 0) { h.push(hh) };
+    if (hh !== 0) { h.push(hh) }
 
     for (let i=1; i<m; i++) {
         //const [t, T] = tp(e[i], b);
@@ -119,7 +119,7 @@ function scaleExpansion2(b: number, e: number[]): number[] {
     const h: number[] = [];
     //h[0] = (al*bl) - ((q - (ah*bh)) - (al*bh) - (ah*bl));
     const hh = (al*bl) - ((q - (ah*bh)) - (al*bh) - (ah*bl));
-    if (hh !== 0) { h.push(hh) };
+    if (hh !== 0) { h.push(hh) }
 
     for (let i=1; i<m; i++) {
         //const [t, T] = tp(e[i], b);

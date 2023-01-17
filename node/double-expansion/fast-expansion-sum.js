@@ -70,7 +70,6 @@ function fastExpansionSum(e, f) {
     if (hh !== 0) {
         h.push(hh);
     }
-    ;
     //let j = 0;
     j = 0;
     for (let i = 2; i < len; i++) {

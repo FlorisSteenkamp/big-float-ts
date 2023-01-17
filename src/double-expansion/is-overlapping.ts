@@ -42,10 +42,10 @@ function isNonOverlapping(a: number, b: number) {
     }
 
     // At this point abs(a) > abs(b)
-    let l = getLowestSetBit(a)!;
-    let h = getHighestSetBit(b)!;
+    const l = getLowestSetBit(a)!;
+    const h = getHighestSetBit(b)!;
 
-    let shift = exponent(a) - exponent(b);
+    const shift = exponent(a) - exponent(b);
 
     return (l + shift) > h;
 }
