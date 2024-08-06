@@ -1,4 +1,3 @@
-
 import { parseDouble } from "./parse-double.js";
 
 

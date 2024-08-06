@@ -1,6 +1,6 @@
 const path = require('path');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
-const ResolveTypeScriptPlugin = require("resolve-typescript-plugin");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 
 const config_Basic = {
@@ -10,18 +10,28 @@ const config_Basic = {
     resolve: {
         extensions: [
             '.js', '.mjs', '.cjs', 
-            '.jsx', '.cjsx', '.mjsx'
+            '.jsx', '.cjsx', '.mjsx',
+            '.tsx', '.ts', '.d.ts'
         ],
-        plugins: [new ResolveTypeScriptPlugin({
-            includeNodeModules: false
-        })]
+        extensionAlias: {
+            ".js": [".js", ".ts"],
+            ".cjs": [".cjs", ".cts"],
+            ".mjs": [".mjs", ".mts"]
+        },
+        alias: {}
     },
     module: {
         rules: [
             {
                 test: /\.tsx?$/,
                 use: 'ts-loader',
-                exclude: /node_modules/
+                exclude: /node_modules/,
+                sideEffects: false
+            },
+            {
+                test: /\.wat$/,
+                loader: "wast-loader",
+                type: "webassembly/experimental"
             }
         ]
     },
@@ -40,7 +50,8 @@ const config_Basic = {
             failOnError: true,
             // set the current working directory for displaying module paths
             cwd: process.cwd(),
-        })
+        }),
+        // new BundleAnalyzerPlugin()
     ],
     output: {
         path: path.resolve(__dirname, 'browser'),

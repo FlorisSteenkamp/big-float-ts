@@ -24,66 +24,65 @@ var __webpack_exports__ = {};
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "ZS": () => (/* reexport */ bitLength),
-  "pr": () => (/* reexport */ doubleToBinaryString),
-  "xm": () => (/* reexport */ doubleToOctets),
-  "uP": () => (/* reexport */ eAbs),
-  "_L": () => (/* binding */ eAdd),
-  "lG": () => (/* binding */ eAddDouble),
-  "$0": () => (/* reexport */ eCalculate),
-  "AM": () => (/* reexport */ eCompare),
-  "Zx": () => (/* reexport */ e_compress_eCompress),
-  "w1": () => (/* reexport */ eDiff),
-  "sZ": () => (/* reexport */ eDiv),
-  "lX": () => (/* reexport */ eDivBy2),
-  "$A": () => (/* reexport */ eEstimate),
-  "yl": () => (/* reexport */ eIntDiv),
-  "K9": () => (/* reexport */ eIntPow),
-  "lb": () => (/* reexport */ eIsInteger),
-  "bN": () => (/* reexport */ eLongDivide),
-  "xr": () => (/* binding */ eMult),
-  "aB": () => (/* reexport */ eMultBy2),
-  "kS": () => (/* reexport */ eMultByNeg2),
-  "fX": () => (/* binding */ eMultDouble1),
-  "xS": () => (/* binding */ eMultDouble2),
-  "ab": () => (/* reexport */ eNegativeOf),
-  "Fp": () => (/* reexport */ eProduct),
-  "bx": () => (/* reexport */ eRem),
-  "qv": () => (/* reexport */ e_sign_eSign),
-  "g_": () => (/* reexport */ eSum),
-  "XB": () => (/* reexport */ eToBitlength),
-  "fN": () => (/* reexport */ eToDd),
-  "kq": () => (/* reexport */ expBitLength),
-  "Q7": () => (/* reexport */ expansionProduct),
-  "ts": () => (/* reexport */ exponent),
-  "xK": () => (/* reexport */ fastExpansionSum),
-  "Fz": () => (/* reexport */ fastTwoDiff),
-  "vz": () => (/* reexport */ fast_two_sum_fastTwoSum),
-  "kx": () => (/* reexport */ getHighestSetBit),
-  "hK": () => (/* reexport */ getLowestSetBit),
-  "Yj": () => (/* reexport */ growExpansion),
-  "Ku": () => (/* reexport */ isAdjacent),
-  "m5": () => (/* reexport */ isBitAligned),
-  "V1": () => (/* reexport */ isNonOverlappingAll),
-  "pt": () => (/* reexport */ lsbExponent),
-  "Jw": () => (/* reexport */ msbExponent),
-  "Gn": () => (/* binding */ operators),
-  "IW": () => (/* reexport */ orient2d),
-  "Ds": () => (/* reexport */ parseDouble),
-  "JO": () => (/* reexport */ parseDoubleDetailed),
-  "S4": () => (/* reexport */ reduceSignificand),
-  "Fs": () => (/* reexport */ scaleExpansion),
-  "R9": () => (/* reexport */ scaleExpansion2),
-  "aK": () => (/* reexport */ significand),
-  "Vl": () => (/* reexport */ split),
-  "BH": () => (/* reexport */ twoDiff),
-  "Q6": () => (/* reexport */ two_product_twoProduct),
-  "d9": () => (/* reexport */ two_sum_twoSum)
+  ao: () => (/* reexport */ bitLength),
+  dC: () => (/* reexport */ doubleToBinaryString),
+  T7: () => (/* reexport */ doubleToOctets),
+  us: () => (/* reexport */ eAbs),
+  DI: () => (/* reexport */ fastExpansionSum),
+  mL: () => (/* reexport */ growExpansion),
+  MH: () => (/* reexport */ eCalculate),
+  pD: () => (/* reexport */ eCompare),
+  KW: () => (/* reexport */ e_compress_eCompress),
+  h1: () => (/* reexport */ eDiff),
+  pR: () => (/* reexport */ eDiv),
+  C0: () => (/* reexport */ eDivBy2),
+  QS: () => (/* reexport */ eEstimate),
+  qg: () => (/* reexport */ eIntDiv),
+  B4: () => (/* reexport */ eIntPow),
+  a5: () => (/* reexport */ eIsInteger),
+  xF: () => (/* reexport */ eLongDivide),
+  yl: () => (/* reexport */ expansionProduct),
+  bQ: () => (/* reexport */ eMultBy2),
+  L8: () => (/* reexport */ eMultByNeg2),
+  qJ: () => (/* reexport */ scaleExpansion),
+  xl: () => (/* reexport */ scaleExpansion2),
+  qb: () => (/* reexport */ eNegativeOf),
+  Ff: () => (/* reexport */ eProduct),
+  Q$: () => (/* reexport */ eRem),
+  Bu: () => (/* reexport */ eSign),
+  ze: () => (/* reexport */ eSum),
+  EN: () => (/* reexport */ eToBitlength),
+  Tv: () => (/* reexport */ eToDd),
+  df: () => (/* reexport */ expBitLength),
+  Lf: () => (/* reexport */ expansionProduct),
+  g6: () => (/* reexport */ exponent),
+  n6: () => (/* reexport */ fastExpansionSum),
+  gD: () => (/* reexport */ fastTwoDiff),
+  uJ: () => (/* reexport */ fast_two_sum_fastTwoSum),
+  QK: () => (/* reexport */ getHighestSetBit),
+  aX: () => (/* reexport */ getLowestSetBit),
+  jy: () => (/* reexport */ growExpansion),
+  RJ: () => (/* reexport */ isAdjacent),
+  O2: () => (/* reexport */ isBitAligned),
+  q7: () => (/* reexport */ isNonOverlappingAll),
+  pE: () => (/* reexport */ lsbExponent),
+  Ei: () => (/* reexport */ msbExponent),
+  c_: () => (/* reexport */ orient2d),
+  bt: () => (/* reexport */ parseDouble),
+  $n: () => (/* reexport */ parseDoubleDetailed),
+  K1: () => (/* reexport */ reduceSignificand),
+  uI: () => (/* reexport */ significand),
+  lD: () => (/* reexport */ split),
+  QC: () => (/* reexport */ twoDiff),
+  gB: () => (/* reexport */ two_product_twoProduct),
+  S4: () => (/* reexport */ two_sum_twoSum)
 });
 
 ;// CONCATENATED MODULE: ./src/double-expansion/e-sign.ts
 /**
- * Returns the sign of the given expansion.
+ * Returns the sign of the given expansion such that a negative value means a
+ * negative sign and a positive value means a positive sign, 0 meaning 0 of
+ * course.
  *
  * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
  *
@@ -92,7 +91,7 @@ __webpack_require__.d(__webpack_exports__, {
  *
  * @param e A floating point expansion with zeroes eliminated.
  */
-function e_sign_eSign(e) {
+function eSign(e) {
     return e[e.length - 1];
 }
 
@@ -398,7 +397,7 @@ function reduceSignificand(a, bits) {
 
 
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const sign = e_sign_eSign;
+const sign = eSign;
 const compress = e_compress_eCompress;
 /**
  * Returns a floating point expansion accurate to the given number of bits.
@@ -457,9 +456,9 @@ function eEstimate(e) {
 
 
 ;// CONCATENATED MODULE: ./src/double-expansion/fast-expansion-sum.ts
-
+// import { eCompress } from "./e-compress.js";
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const fast_expansion_sum_compress = (/* unused pure expression or super */ null && (eCompress));
+// const compress = eCompress;
 /**
  * Returns the result of adding two expansions.
  *
@@ -868,7 +867,7 @@ function bitLength(a) {
  */
 function expBitLength(a) {
     const a_ = e_compress_eCompress(a);
-    if (e_sign_eSign(a_) === 0) {
+    if (eSign(a_) === 0) {
         return 0;
     }
     const msbyte = a_[a_.length - 1];
@@ -1227,15 +1226,13 @@ function eRem(a, b) {
  * @param b another floating point expansion
  */
 function eCompare(a, b) {
-    return e_sign_eSign(eDiff(a, b));
+    return eSign(eDiff(a, b));
 }
 
 
 ;// CONCATENATED MODULE: ./src/double-expansion/e-abs.ts
 
-
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const e_abs_sign = (/* unused pure expression or super */ null && (eSign));
 const e_abs_negativeOf = eNegativeOf;
 /**
  * Returns the absolute value of the given floating point expansion.
@@ -1888,129 +1885,63 @@ function eIsInteger(a) {
 
 
 
-
-
-
-
 // Aliases for some functions which names were not changed due to them being
 // used extensively in the literature with a particular recognizable name
-const eAdd = fastExpansionSum;
-const eAddDouble = growExpansion;
-const eMult = expansionProduct;
-const eMultDouble1 = scaleExpansion;
-const eMultDouble2 = scaleExpansion2;
-const operators = {
-    //---- basic ----//
-    fastTwoDiff: fastTwoDiff,
-    fastTwoSum: fast_two_sum_fastTwoSum,
-    split: split,
-    twoDiff: twoDiff,
-    twoProduct: two_product_twoProduct,
-    twoSum: two_sum_twoSum,
-    reduceSignificand: reduceSignificand,
-    //---- double floating point expansions ----//
-    fastExpansionSum: fastExpansionSum, eAdd,
-    growExpansion: growExpansion, eAddDouble,
-    expansionProduct: expansionProduct, eMult,
-    scaleExpansion: scaleExpansion, eMultDouble1,
-    scaleExpansion2: scaleExpansion2, eMultDouble2,
-    eDiv: eDiv,
-    eLongDivide: eLongDivide,
-    eIntDiv: eIntDiv,
-    eRem: eRem,
-    eCompress: e_compress_eCompress,
-    eEstimate: eEstimate,
-    eDiff: eDiff,
-    eNegativeOf: eNegativeOf,
-    eMultBy2: eMultBy2,
-    eMultByNeg2: eMultByNeg2,
-    eDivBy2: eDivBy2,
-    eSign: e_sign_eSign,
-    eCompare: eCompare,
-    eAbs: eAbs,
-    eToBitlength: eToBitlength,
-    eIntPow: eIntPow,
-    eCalculate: eCalculate,
-    eSum: eSum,
-    eProduct: eProduct,
-    eToDd: eToDd,
-    //---- double floating point representation ----//
-    parseDouble: parseDouble,
-    parseDoubleDetailed: parseDoubleDetailed,
-    isBitAligned: isBitAligned,
-    msbExponent: msbExponent,
-    lsbExponent: lsbExponent,
-    bitLength: bitLength,
-    expBitLength: expBitLength,
-    doubleToBinaryString: doubleToBinaryString,
-    doubleToOctets: doubleToOctets,
-    getHighestSetBit: getHighestSetBit,
-    getLowestSetBit: getLowestSetBit,
-    exponent: exponent,
-    significand: significand,
-    //---- geometric primitives
-    orient2d: orient2d,
-    //---- others
-    isAdjacent: isAdjacent,
-    isNonOverlappingAll: isNonOverlappingAll,
-    eIsInteger: eIsInteger
-};
 
 
 
-var __webpack_exports__bitLength = __webpack_exports__.ZS;
-var __webpack_exports__doubleToBinaryString = __webpack_exports__.pr;
-var __webpack_exports__doubleToOctets = __webpack_exports__.xm;
-var __webpack_exports__eAbs = __webpack_exports__.uP;
-var __webpack_exports__eAdd = __webpack_exports__._L;
-var __webpack_exports__eAddDouble = __webpack_exports__.lG;
-var __webpack_exports__eCalculate = __webpack_exports__.$0;
-var __webpack_exports__eCompare = __webpack_exports__.AM;
-var __webpack_exports__eCompress = __webpack_exports__.Zx;
-var __webpack_exports__eDiff = __webpack_exports__.w1;
-var __webpack_exports__eDiv = __webpack_exports__.sZ;
-var __webpack_exports__eDivBy2 = __webpack_exports__.lX;
-var __webpack_exports__eEstimate = __webpack_exports__.$A;
-var __webpack_exports__eIntDiv = __webpack_exports__.yl;
-var __webpack_exports__eIntPow = __webpack_exports__.K9;
-var __webpack_exports__eIsInteger = __webpack_exports__.lb;
-var __webpack_exports__eLongDivide = __webpack_exports__.bN;
-var __webpack_exports__eMult = __webpack_exports__.xr;
-var __webpack_exports__eMultBy2 = __webpack_exports__.aB;
-var __webpack_exports__eMultByNeg2 = __webpack_exports__.kS;
-var __webpack_exports__eMultDouble1 = __webpack_exports__.fX;
-var __webpack_exports__eMultDouble2 = __webpack_exports__.xS;
-var __webpack_exports__eNegativeOf = __webpack_exports__.ab;
-var __webpack_exports__eProduct = __webpack_exports__.Fp;
-var __webpack_exports__eRem = __webpack_exports__.bx;
-var __webpack_exports__eSign = __webpack_exports__.qv;
-var __webpack_exports__eSum = __webpack_exports__.g_;
-var __webpack_exports__eToBitlength = __webpack_exports__.XB;
-var __webpack_exports__eToDd = __webpack_exports__.fN;
-var __webpack_exports__expBitLength = __webpack_exports__.kq;
-var __webpack_exports__expansionProduct = __webpack_exports__.Q7;
-var __webpack_exports__exponent = __webpack_exports__.ts;
-var __webpack_exports__fastExpansionSum = __webpack_exports__.xK;
-var __webpack_exports__fastTwoDiff = __webpack_exports__.Fz;
-var __webpack_exports__fastTwoSum = __webpack_exports__.vz;
-var __webpack_exports__getHighestSetBit = __webpack_exports__.kx;
-var __webpack_exports__getLowestSetBit = __webpack_exports__.hK;
-var __webpack_exports__growExpansion = __webpack_exports__.Yj;
-var __webpack_exports__isAdjacent = __webpack_exports__.Ku;
-var __webpack_exports__isBitAligned = __webpack_exports__.m5;
-var __webpack_exports__isNonOverlappingAll = __webpack_exports__.V1;
-var __webpack_exports__lsbExponent = __webpack_exports__.pt;
-var __webpack_exports__msbExponent = __webpack_exports__.Jw;
-var __webpack_exports__operators = __webpack_exports__.Gn;
-var __webpack_exports__orient2d = __webpack_exports__.IW;
-var __webpack_exports__parseDouble = __webpack_exports__.Ds;
-var __webpack_exports__parseDoubleDetailed = __webpack_exports__.JO;
-var __webpack_exports__reduceSignificand = __webpack_exports__.S4;
-var __webpack_exports__scaleExpansion = __webpack_exports__.Fs;
-var __webpack_exports__scaleExpansion2 = __webpack_exports__.R9;
-var __webpack_exports__significand = __webpack_exports__.aK;
-var __webpack_exports__split = __webpack_exports__.Vl;
-var __webpack_exports__twoDiff = __webpack_exports__.BH;
-var __webpack_exports__twoProduct = __webpack_exports__.Q6;
-var __webpack_exports__twoSum = __webpack_exports__.d9;
-export { __webpack_exports__bitLength as bitLength, __webpack_exports__doubleToBinaryString as doubleToBinaryString, __webpack_exports__doubleToOctets as doubleToOctets, __webpack_exports__eAbs as eAbs, __webpack_exports__eAdd as eAdd, __webpack_exports__eAddDouble as eAddDouble, __webpack_exports__eCalculate as eCalculate, __webpack_exports__eCompare as eCompare, __webpack_exports__eCompress as eCompress, __webpack_exports__eDiff as eDiff, __webpack_exports__eDiv as eDiv, __webpack_exports__eDivBy2 as eDivBy2, __webpack_exports__eEstimate as eEstimate, __webpack_exports__eIntDiv as eIntDiv, __webpack_exports__eIntPow as eIntPow, __webpack_exports__eIsInteger as eIsInteger, __webpack_exports__eLongDivide as eLongDivide, __webpack_exports__eMult as eMult, __webpack_exports__eMultBy2 as eMultBy2, __webpack_exports__eMultByNeg2 as eMultByNeg2, __webpack_exports__eMultDouble1 as eMultDouble1, __webpack_exports__eMultDouble2 as eMultDouble2, __webpack_exports__eNegativeOf as eNegativeOf, __webpack_exports__eProduct as eProduct, __webpack_exports__eRem as eRem, __webpack_exports__eSign as eSign, __webpack_exports__eSum as eSum, __webpack_exports__eToBitlength as eToBitlength, __webpack_exports__eToDd as eToDd, __webpack_exports__expBitLength as expBitLength, __webpack_exports__expansionProduct as expansionProduct, __webpack_exports__exponent as exponent, __webpack_exports__fastExpansionSum as fastExpansionSum, __webpack_exports__fastTwoDiff as fastTwoDiff, __webpack_exports__fastTwoSum as fastTwoSum, __webpack_exports__getHighestSetBit as getHighestSetBit, __webpack_exports__getLowestSetBit as getLowestSetBit, __webpack_exports__growExpansion as growExpansion, __webpack_exports__isAdjacent as isAdjacent, __webpack_exports__isBitAligned as isBitAligned, __webpack_exports__isNonOverlappingAll as isNonOverlappingAll, __webpack_exports__lsbExponent as lsbExponent, __webpack_exports__msbExponent as msbExponent, __webpack_exports__operators as operators, __webpack_exports__orient2d as orient2d, __webpack_exports__parseDouble as parseDouble, __webpack_exports__parseDoubleDetailed as parseDoubleDetailed, __webpack_exports__reduceSignificand as reduceSignificand, __webpack_exports__scaleExpansion as scaleExpansion, __webpack_exports__scaleExpansion2 as scaleExpansion2, __webpack_exports__significand as significand, __webpack_exports__split as split, __webpack_exports__twoDiff as twoDiff, __webpack_exports__twoProduct as twoProduct, __webpack_exports__twoSum as twoSum };
+
+
+var __webpack_exports__bitLength = __webpack_exports__.ao;
+var __webpack_exports__doubleToBinaryString = __webpack_exports__.dC;
+var __webpack_exports__doubleToOctets = __webpack_exports__.T7;
+var __webpack_exports__eAbs = __webpack_exports__.us;
+var __webpack_exports__eAdd = __webpack_exports__.DI;
+var __webpack_exports__eAddDouble = __webpack_exports__.mL;
+var __webpack_exports__eCalculate = __webpack_exports__.MH;
+var __webpack_exports__eCompare = __webpack_exports__.pD;
+var __webpack_exports__eCompress = __webpack_exports__.KW;
+var __webpack_exports__eDiff = __webpack_exports__.h1;
+var __webpack_exports__eDiv = __webpack_exports__.pR;
+var __webpack_exports__eDivBy2 = __webpack_exports__.C0;
+var __webpack_exports__eEstimate = __webpack_exports__.QS;
+var __webpack_exports__eIntDiv = __webpack_exports__.qg;
+var __webpack_exports__eIntPow = __webpack_exports__.B4;
+var __webpack_exports__eIsInteger = __webpack_exports__.a5;
+var __webpack_exports__eLongDivide = __webpack_exports__.xF;
+var __webpack_exports__eMult = __webpack_exports__.yl;
+var __webpack_exports__eMultBy2 = __webpack_exports__.bQ;
+var __webpack_exports__eMultByNeg2 = __webpack_exports__.L8;
+var __webpack_exports__eMultDouble1 = __webpack_exports__.qJ;
+var __webpack_exports__eMultDouble2 = __webpack_exports__.xl;
+var __webpack_exports__eNegativeOf = __webpack_exports__.qb;
+var __webpack_exports__eProduct = __webpack_exports__.Ff;
+var __webpack_exports__eRem = __webpack_exports__.Q$;
+var __webpack_exports__eSign = __webpack_exports__.Bu;
+var __webpack_exports__eSum = __webpack_exports__.ze;
+var __webpack_exports__eToBitlength = __webpack_exports__.EN;
+var __webpack_exports__eToDd = __webpack_exports__.Tv;
+var __webpack_exports__expBitLength = __webpack_exports__.df;
+var __webpack_exports__expansionProduct = __webpack_exports__.Lf;
+var __webpack_exports__exponent = __webpack_exports__.g6;
+var __webpack_exports__fastExpansionSum = __webpack_exports__.n6;
+var __webpack_exports__fastTwoDiff = __webpack_exports__.gD;
+var __webpack_exports__fastTwoSum = __webpack_exports__.uJ;
+var __webpack_exports__getHighestSetBit = __webpack_exports__.QK;
+var __webpack_exports__getLowestSetBit = __webpack_exports__.aX;
+var __webpack_exports__growExpansion = __webpack_exports__.jy;
+var __webpack_exports__isAdjacent = __webpack_exports__.RJ;
+var __webpack_exports__isBitAligned = __webpack_exports__.O2;
+var __webpack_exports__isNonOverlappingAll = __webpack_exports__.q7;
+var __webpack_exports__lsbExponent = __webpack_exports__.pE;
+var __webpack_exports__msbExponent = __webpack_exports__.Ei;
+var __webpack_exports__orient2d = __webpack_exports__.c_;
+var __webpack_exports__parseDouble = __webpack_exports__.bt;
+var __webpack_exports__parseDoubleDetailed = __webpack_exports__.$n;
+var __webpack_exports__reduceSignificand = __webpack_exports__.K1;
+var __webpack_exports__significand = __webpack_exports__.uI;
+var __webpack_exports__split = __webpack_exports__.lD;
+var __webpack_exports__twoDiff = __webpack_exports__.QC;
+var __webpack_exports__twoProduct = __webpack_exports__.gB;
+var __webpack_exports__twoSum = __webpack_exports__.S4;
+export { __webpack_exports__bitLength as bitLength, __webpack_exports__doubleToBinaryString as doubleToBinaryString, __webpack_exports__doubleToOctets as doubleToOctets, __webpack_exports__eAbs as eAbs, __webpack_exports__eAdd as eAdd, __webpack_exports__eAddDouble as eAddDouble, __webpack_exports__eCalculate as eCalculate, __webpack_exports__eCompare as eCompare, __webpack_exports__eCompress as eCompress, __webpack_exports__eDiff as eDiff, __webpack_exports__eDiv as eDiv, __webpack_exports__eDivBy2 as eDivBy2, __webpack_exports__eEstimate as eEstimate, __webpack_exports__eIntDiv as eIntDiv, __webpack_exports__eIntPow as eIntPow, __webpack_exports__eIsInteger as eIsInteger, __webpack_exports__eLongDivide as eLongDivide, __webpack_exports__eMult as eMult, __webpack_exports__eMultBy2 as eMultBy2, __webpack_exports__eMultByNeg2 as eMultByNeg2, __webpack_exports__eMultDouble1 as eMultDouble1, __webpack_exports__eMultDouble2 as eMultDouble2, __webpack_exports__eNegativeOf as eNegativeOf, __webpack_exports__eProduct as eProduct, __webpack_exports__eRem as eRem, __webpack_exports__eSign as eSign, __webpack_exports__eSum as eSum, __webpack_exports__eToBitlength as eToBitlength, __webpack_exports__eToDd as eToDd, __webpack_exports__expBitLength as expBitLength, __webpack_exports__expansionProduct as expansionProduct, __webpack_exports__exponent as exponent, __webpack_exports__fastExpansionSum as fastExpansionSum, __webpack_exports__fastTwoDiff as fastTwoDiff, __webpack_exports__fastTwoSum as fastTwoSum, __webpack_exports__getHighestSetBit as getHighestSetBit, __webpack_exports__getLowestSetBit as getLowestSetBit, __webpack_exports__growExpansion as growExpansion, __webpack_exports__isAdjacent as isAdjacent, __webpack_exports__isBitAligned as isBitAligned, __webpack_exports__isNonOverlappingAll as isNonOverlappingAll, __webpack_exports__lsbExponent as lsbExponent, __webpack_exports__msbExponent as msbExponent, __webpack_exports__orient2d as orient2d, __webpack_exports__parseDouble as parseDouble, __webpack_exports__parseDoubleDetailed as parseDoubleDetailed, __webpack_exports__reduceSignificand as reduceSignificand, __webpack_exports__significand as significand, __webpack_exports__split as split, __webpack_exports__twoDiff as twoDiff, __webpack_exports__twoProduct as twoProduct, __webpack_exports__twoSum as twoSum };

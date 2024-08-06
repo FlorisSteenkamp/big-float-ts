@@ -1,7 +1,5 @@
-import { eSign } from "./e-sign.js";
 import { eNegativeOf } from "./e-negative-of.js";
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const sign = eSign;
 const negativeOf = eNegativeOf;
 /**
  * Returns the absolute value of the given floating point expansion.

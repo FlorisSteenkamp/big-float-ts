@@ -1,6 +1,8 @@
 
 /**
- * Returns the sign of the given expansion. 
+ * Returns the sign of the given expansion such that a negative value means a
+ * negative sign and a positive value means a positive sign, 0 meaning 0 of
+ * course.
  * 
  * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
  * 

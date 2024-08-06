@@ -1,9 +1,8 @@
-
-import { eCompress } from "./e-compress.js";
+// import { eCompress } from "./e-compress.js";
 
 
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const compress = eCompress;
+// const compress = eCompress;
 
 
 /**
@@ -44,12 +43,12 @@ function fastExpansionSum(e: number[], f: number[]) {
         }
     }
 
-    while (i < lenE) {    
+    while (i < lenE) {
         g.push(e[i]);
         i++;
     }
 
-    while (j < lenF) {    
+    while (j < lenF) {
         g.push(f[j]);
         j++;
     }
@@ -129,12 +128,12 @@ function merge(e: number[], f: number[]) {
         }
     }
 
-    while (i < lenE) {    
+    while (i < lenE) {
         merged.push(e[i]);
         i++;
     }
 
-    while (j < lenF) {    
+    while (j < lenF) {
         merged.push(f[j]);
         j++;
     }
