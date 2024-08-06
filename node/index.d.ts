@@ -42,5 +42,5 @@ export { isNonOverlappingAll } from './double-expansion/is-overlapping.js';
 export { eIsInteger } from './double-expansion/e-is-integer.js';
 export { fastExpansionSum, fastExpansionSum as eAdd } from './double-expansion/fast-expansion-sum.js';
 export { growExpansion, growExpansion as eAddDouble } from './double-expansion/grow-expansion.js';
-export { scaleExpansion as eMultDouble1, scaleExpansion2 as eMultDouble2 } from './double-expansion/scale-expansion.js';
+export { scaleExpansion, scaleExpansion as eMultDouble1, scaleExpansion2, scaleExpansion2 as eMultDouble2 } from './double-expansion/scale-expansion.js';
 export { expansionProduct, expansionProduct as eMult } from './double-expansion/expansion-product.js';
