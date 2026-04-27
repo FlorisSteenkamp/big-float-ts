@@ -1,13 +1,14 @@
 {
     "compilerOptions": {
         "strict": true,
-        "module": "es2020",
-        "target": "es2020",
+        "module": "esnext",
+        "target": "esnext",
         "declaration": true,
         "noEmitOnError": true,
         "sourceMap": true,
-        "outDir": "node",
-        "moduleResolution": "node"  // node12 option was supposed to be available in TypeScript 4.5 but was dropped
+        "rootDir": "./src",
+        "outDir": "./node",
+        "moduleResolution": "bundler"
     },
     "include": [
         "src/index.ts"

@@ -20,67 +20,8 @@
 /******/ })();
 /******/ 
 /************************************************************************/
-var __webpack_exports__ = {};
 
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  ao: () => (/* reexport */ bitLength),
-  dC: () => (/* reexport */ doubleToBinaryString),
-  T7: () => (/* reexport */ doubleToOctets),
-  us: () => (/* reexport */ eAbs),
-  DI: () => (/* reexport */ fastExpansionSum),
-  mL: () => (/* reexport */ growExpansion),
-  MH: () => (/* reexport */ eCalculate),
-  pD: () => (/* reexport */ eCompare),
-  KW: () => (/* reexport */ e_compress_eCompress),
-  h1: () => (/* reexport */ eDiff),
-  pR: () => (/* reexport */ eDiv),
-  C0: () => (/* reexport */ eDivBy2),
-  QS: () => (/* reexport */ eEstimate),
-  qg: () => (/* reexport */ eIntDiv),
-  B4: () => (/* reexport */ eIntPow),
-  a5: () => (/* reexport */ eIsInteger),
-  xF: () => (/* reexport */ eLongDivide),
-  yl: () => (/* reexport */ expansionProduct),
-  bQ: () => (/* reexport */ eMultBy2),
-  L8: () => (/* reexport */ eMultByNeg2),
-  qJ: () => (/* reexport */ scaleExpansion),
-  xl: () => (/* reexport */ scaleExpansion2),
-  qb: () => (/* reexport */ eNegativeOf),
-  Ff: () => (/* reexport */ eProduct),
-  Q$: () => (/* reexport */ eRem),
-  Bu: () => (/* reexport */ eSign),
-  ze: () => (/* reexport */ eSum),
-  EN: () => (/* reexport */ eToBitlength),
-  Tv: () => (/* reexport */ eToDd),
-  df: () => (/* reexport */ expBitLength),
-  Lf: () => (/* reexport */ expansionProduct),
-  g6: () => (/* reexport */ exponent),
-  n6: () => (/* reexport */ fastExpansionSum),
-  gD: () => (/* reexport */ fastTwoDiff),
-  uJ: () => (/* reexport */ fast_two_sum_fastTwoSum),
-  QK: () => (/* reexport */ getHighestSetBit),
-  aX: () => (/* reexport */ getLowestSetBit),
-  jy: () => (/* reexport */ growExpansion),
-  RJ: () => (/* reexport */ isAdjacent),
-  O2: () => (/* reexport */ isBitAligned),
-  q7: () => (/* reexport */ isNonOverlappingAll),
-  pE: () => (/* reexport */ lsbExponent),
-  Ei: () => (/* reexport */ msbExponent),
-  c_: () => (/* reexport */ orient2d),
-  bt: () => (/* reexport */ parseDouble),
-  $n: () => (/* reexport */ parseDoubleDetailed),
-  K1: () => (/* reexport */ reduceSignificand),
-  K9: () => (/* reexport */ scaleExpansion),
-  ct: () => (/* reexport */ scaleExpansion2),
-  uI: () => (/* reexport */ significand),
-  lD: () => (/* reexport */ split),
-  QC: () => (/* reexport */ twoDiff),
-  gB: () => (/* reexport */ two_product_twoProduct),
-  S4: () => (/* reexport */ two_sum_twoSum)
-});
-
-;// CONCATENATED MODULE: ./src/double-expansion/e-sign.ts
+;// ./src/double-expansion/e-sign.ts
 /**
  * Returns the sign of the given expansion such that a negative value means a
  * negative sign and a positive value means a positive sign, 0 meaning 0 of
@@ -98,7 +39,7 @@ function eSign(e) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-representation/double-to-octets.ts
+;// ./src/double-representation/double-to-octets.ts
 // Modified from https://github.com/bartaz/ieee754-visualization/
 // under the MIT license
 // Copyright 2013 Bartek Szopka (original author)
@@ -114,7 +55,7 @@ function doubleToOctets(number) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-representation/double-to-binary-string.ts
+;// ./src/double-representation/double-to-binary-string.ts
 // Modified from https://github.com/bartaz/ieee754-visualization/
 // under the MIT license
 // Copyright 2013 Bartek Szopka (original author)
@@ -141,7 +82,7 @@ function int8ToBinaryString(i) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-representation/parse-double.ts
+;// ./src/double-representation/parse-double.ts
 // Modified from https://github.com/bartaz/ieee754-visualization/
 // under the MIT license
 // Copyright 2013 Bartek Szopka (original author)
@@ -158,7 +99,7 @@ function parseDouble(x) {
     const p0 = parts[0];
     const p1 = parts[1];
     const sign = p0 >> 7;
-    const exponent_ = ((p0 & 127) << 4) + ((p1 & 0b11110000) >> 4);
+    const exponent_ = ((p0 & 0b0111_1111) << 4) + ((p1 & 0b11110000) >> 4);
     //---- Check for negative / positive zero / denormalized numbers.
     const hiddenMsb = exponent_ === 0 ? 0 : 16;
     // Note: exponent === 0 => 0 or denormalized number (a.k.a. subnormal number).
@@ -167,7 +108,7 @@ function parseDouble(x) {
         : exponent_ - 1023;
     //---- Break up the significand into bytes
     const significand = parts.slice(1);
-    significand[0] = (p1 & 15) + hiddenMsb;
+    significand[0] = (p1 & 0b0000_1111) + hiddenMsb;
     return {
         sign,
         exponent,
@@ -196,7 +137,7 @@ function parseDoubleDetailed(x) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-representation/significand.ts
+;// ./src/double-representation/significand.ts
 
 /**
  * Return the significand of the given double with the hidden bit added (in case
@@ -208,7 +149,7 @@ function significand(a) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-representation/get-max-set-bit.ts
+;// ./src/double-representation/get-max-set-bit.ts
 
 /**
  * Returns the lowest set bit of the given value in [1, (2**31)-1],
@@ -285,7 +226,7 @@ function getHighestSetBit(a) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-representation/exponent.ts
+;// ./src/double-representation/exponent.ts
 
 /**
  * Returns the normalized exponent of the given number.
@@ -296,7 +237,7 @@ function exponent(a) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-representation/msb-exponent.ts
+;// ./src/double-representation/msb-exponent.ts
 
 
 /**
@@ -314,7 +255,7 @@ function msbExponent(a) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/e-compress.ts
+;// ./src/double-expansion/e-compress.ts
 /**
  * Returns the result of compressing the given floating point expansion.
  *
@@ -331,7 +272,7 @@ function msbExponent(a) {
  * magnitude. If h != 0, none of the h_i will be zero. Furthermore, the largest
  * component h_n approximates h with an error smaller than ulp(h_n).
  */
-function e_compress_eCompress(e) {
+function eCompress(e) {
     //return e;
     const e_ = e.slice();
     const m = e_.length;
@@ -368,7 +309,7 @@ function e_compress_eCompress(e) {
 }
 
 
-;// CONCATENATED MODULE: ./src/basic/reduce-significand.ts
+;// ./src/basic/reduce-significand.ts
 /**
  * Truncates a floating point value's significand and returns the result.
  * Similar to split, but with the ability to specify the number of bits to keep.
@@ -393,14 +334,14 @@ function reduceSignificand(a, bits) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/e-to-bitlength.ts
+;// ./src/double-expansion/e-to-bitlength.ts
 
 
 
 
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
 const sign = eSign;
-const compress = e_compress_eCompress;
+const compress = eCompress;
 /**
  * Returns a floating point expansion accurate to the given number of bits.
  * Extraneous bits are discarded.
@@ -433,7 +374,7 @@ function eToBitlength(a, l) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/e-estimate.ts
+;// ./src/double-expansion/e-estimate.ts
 /**
  * Returns the result of the given floating point expansion rounded to a double
  * floating point number.
@@ -457,7 +398,7 @@ function eEstimate(e) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/fast-expansion-sum.ts
+;// ./src/double-expansion/fast-expansion-sum.ts
 // import { eCompress } from "./e-compress.js";
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
 // const compress = eCompress;
@@ -602,7 +543,11 @@ function merge(e, f) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/scale-expansion.ts
+;// ./src/double-expansion/scale-expansion.ts
+/* unused harmony import specifier */ var twoProduct;
+/* unused harmony import specifier */ var twoSum;
+/* unused harmony import specifier */ var fastTwoSum;
+/* unused harmony import specifier */ var scale_expansion_eCompress;
 
 
 
@@ -612,7 +557,7 @@ const f = 134217729; // 2**27 + 1;
 const tp = (/* unused pure expression or super */ null && (twoProduct));
 const ts = (/* unused pure expression or super */ null && (twoSum));
 const fts = (/* unused pure expression or super */ null && (fastTwoSum));
-const scale_expansion_compress = (/* unused pure expression or super */ null && (eCompress));
+const scale_expansion_compress = (/* unused pure expression or super */ null && (scale_expansion_eCompress));
 /**
  * Returns the result of multiplying an expansion by a double.
  *
@@ -773,14 +718,15 @@ function scaleExpansion2(b, e) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/expansion-product.ts
+;// ./src/double-expansion/expansion-product.ts
+/* unused harmony import specifier */ var expansion_product_eCompress;
 
 
 
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
 const multByDouble = scaleExpansion;
 const add = fastExpansionSum;
-const expansion_product_compress = (/* unused pure expression or super */ null && (eCompress));
+const expansion_product_compress = (/* unused pure expression or super */ null && (expansion_product_eCompress));
 /**
  * Returns the product of two double floating point expansions.
  *
@@ -808,7 +754,7 @@ function expansionProduct(e, f) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/e-negative-of.ts
+;// ./src/double-expansion/e-negative-of.ts
 /**
  * Returns the negative of the given floating point expansion.
  * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
@@ -825,7 +771,7 @@ function eNegativeOf(e) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/e-diff.ts
+;// ./src/double-expansion/e-diff.ts
 
 
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
@@ -845,7 +791,7 @@ function eDiff(e, f) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-representation/bit-length.ts
+;// ./src/double-representation/bit-length.ts
 
 
 
@@ -868,7 +814,7 @@ function bitLength(a) {
  * @param a A double precision floating point expansion
  */
 function expBitLength(a) {
-    const a_ = e_compress_eCompress(a);
+    const a_ = eCompress(a);
     if (eSign(a_) === 0) {
         return 0;
     }
@@ -878,7 +824,7 @@ function expBitLength(a) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/e-div.ts
+;// ./src/double-expansion/e-div.ts
 
 
 
@@ -951,10 +897,11 @@ function eDiv(N, D, expansionLength) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/grow-expansion.ts
+;// ./src/double-expansion/grow-expansion.ts
+/* unused harmony import specifier */ var grow_expansion_eCompress;
 
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const grow_expansion_compress = (/* unused pure expression or super */ null && (eCompress));
+const grow_expansion_compress = (/* unused pure expression or super */ null && (grow_expansion_eCompress));
 /**
  * Returns the result of adding a double to an expansion.
  *
@@ -998,7 +945,7 @@ function growExpansion(e, b) {
 }
 
 
-;// CONCATENATED MODULE: ./src/basic/two-sum.ts
+;// ./src/basic/two-sum.ts
 /**
  * Returns the exact result of adding two doubles.
  *
@@ -1020,7 +967,7 @@ function two_sum_twoSum(a, b) {
 //const R = a + b; const _ = R - a; const r = (a - (R - _)) + (b - _); return [r,R]
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/e-sum.ts
+;// ./src/double-expansion/e-sum.ts
 
 
 
@@ -1067,7 +1014,7 @@ function eSum(terms) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/e-long-divide.ts
+;// ./src/double-expansion/e-long-divide.ts
 
 
 
@@ -1078,7 +1025,7 @@ function eSum(terms) {
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
 const e_long_divide_eNegativeOf = eNegativeOf;
 const e_long_divide_fastExpansionSum = fastExpansionSum;
-const e_long_divide_eCompress = e_compress_eCompress;
+const e_long_divide_eCompress = eCompress;
 const e_long_divide_growExpansion = growExpansion;
 const e_long_divide_eSum = eSum;
 const e_long_divide_scaleExpansion = scaleExpansion;
@@ -1183,7 +1130,7 @@ function eLongDivide(N, D) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/e-int-div.ts
+;// ./src/double-expansion/e-int-div.ts
 
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
 const e_int_div_eLongDivide = eLongDivide;
@@ -1197,7 +1144,7 @@ function eIntDiv(a, b) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/e-rem.ts
+;// ./src/double-expansion/e-rem.ts
 
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
 const e_rem_eLongDivide = eLongDivide;
@@ -1211,7 +1158,7 @@ function eRem(a, b) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/e-compare.ts
+;// ./src/double-expansion/e-compare.ts
 
 
 /**
@@ -1232,7 +1179,7 @@ function eCompare(a, b) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/e-abs.ts
+;// ./src/double-expansion/e-abs.ts
 
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
 const e_abs_negativeOf = eNegativeOf;
@@ -1251,7 +1198,7 @@ function eAbs(e) {
 }
 
 
-;// CONCATENATED MODULE: ./src/basic/fast-two-diff.ts
+;// ./src/basic/fast-two-diff.ts
 /**
  * Returns the difference and exact error of subtracting two floating point
  * numbers.
@@ -1270,7 +1217,7 @@ function fastTwoDiff(a, b) {
 }
 
 
-;// CONCATENATED MODULE: ./src/basic/fast-two-sum.ts
+;// ./src/basic/fast-two-sum.ts
 /**
  * Returns the sum and exact error of adding two floating point numbers.
  * Uses an EFT (error-free transformation), i.e. a+b === x+y exactly.
@@ -1289,7 +1236,7 @@ function fast_two_sum_fastTwoSum(a, b) {
 //const R = a + b; const r = b - (R - a); return [r, R];
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/e-mult-by-2.ts
+;// ./src/double-expansion/e-mult-by-2.ts
 /**
  * Returns the result of multiplying a floating point expansion by 2.
  * * **error free**
@@ -1306,7 +1253,7 @@ function eMultBy2(e) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/e-mult-by-neg-2.ts
+;// ./src/double-expansion/e-mult-by-neg-2.ts
 /**
  * Multiply a floating point expansion by -2.
  * * **error free**
@@ -1323,7 +1270,7 @@ function eMultByNeg2(e) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/e-div-by-2.ts
+;// ./src/double-expansion/e-div-by-2.ts
 /**
  * Returns the result of dividing a floating point expansion by 2.
  * * **error free**
@@ -1341,7 +1288,7 @@ function eDivBy2(e) {
 }
 
 
-;// CONCATENATED MODULE: ./src/basic/split.ts
+;// ./src/basic/split.ts
 /**
  * === Math.ceil(p/2) where p is the # of significand bits in a double === 53.
  */
@@ -1368,7 +1315,7 @@ function split(a) {
 // const c = f * a; const a_h = c - (c - a); const a_l = a - a_h; return [a_h, a_l];
 
 
-;// CONCATENATED MODULE: ./src/basic/two-diff.ts
+;// ./src/basic/two-diff.ts
 /**
  * Returns the exact result of subtracting b from a (as a floating point
  * expansion).
@@ -1383,7 +1330,7 @@ function twoDiff(a, b) {
 }
 
 
-;// CONCATENATED MODULE: ./src/basic/two-product.ts
+;// ./src/basic/two-product.ts
 const two_product_f = 134217729; // 2**27 + 1;
 /**
  * Returns the exact result of multiplying two doubles.
@@ -1419,7 +1366,7 @@ function two_product_twoProduct(a, b) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-representation/is-bit-aligned.ts
+;// ./src/double-representation/is-bit-aligned.ts
 
 
 /**
@@ -1462,7 +1409,7 @@ function isBitAligned(a, maxBitLength, gridSpacingExponent) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-representation/lsb-exponent.ts
+;// ./src/double-representation/lsb-exponent.ts
 
 
 /**
@@ -1479,7 +1426,8 @@ function lsbExponent(a) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/e-calculate.ts
+;// ./src/double-expansion/e-calculate.ts
+/* unused harmony import specifier */ var e_calculate_eCompress;
 
 
 
@@ -1494,7 +1442,7 @@ const e_calculate_multByDouble = scaleExpansion;
 const e_calculate_ts = two_sum_twoSum;
 const e_calculate_addDouble = growExpansion;
 const e_calculate_add = fastExpansionSum;
-const e_calculate_compress = (/* unused pure expression or super */ null && (eCompress));
+const e_calculate_compress = (/* unused pure expression or super */ null && (e_calculate_eCompress));
 /**
  * Return the result of summing an array of terms, each term being an array of
  * floating point expansions to be multiplied together.
@@ -1553,7 +1501,7 @@ function eCalculate(terms) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/e-product.ts
+;// ./src/double-expansion/e-product.ts
 
 
 
@@ -1562,7 +1510,7 @@ function eCalculate(terms) {
 const e_product_mult = expansionProduct;
 const e_product_tp = two_product_twoProduct;
 const e_product_multByDouble = scaleExpansion;
-const e_product_compress = e_compress_eCompress;
+const e_product_compress = eCompress;
 /**
  * Return the result of multiplying together an array of floating point
  * expansions.
@@ -1598,7 +1546,7 @@ function eProduct(term) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/e-int-pow.ts
+;// ./src/double-expansion/e-int-pow.ts
 
 
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
@@ -1629,10 +1577,10 @@ function eIntPow(a, p) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/e-to-double-double.ts
+;// ./src/double-expansion/e-to-double-double.ts
 
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const e_to_double_double_compress = e_compress_eCompress;
+const e_to_double_double_compress = eCompress;
 /**
  * Returns the result of converting a floating point expansion to a
  * double-double precision floating point number.
@@ -1650,7 +1598,7 @@ function eToDd(e) {
 }
 
 
-;// CONCATENATED MODULE: ./src/geometric-primitives/orient2d.ts
+;// ./src/geometric-primitives/orient2d.ts
 
 
 
@@ -1744,12 +1692,12 @@ function orient2dAdapt(A, B, C, detsum) {
     const e = fastExpansionSum(c, d);
     const f = eDiff(two_product_twoProduct(acxtail, bcytail), two_product_twoProduct(acytail, bcxtail));
     let D = fastExpansionSum(e, f);
-    D = e_compress_eCompress(D);
+    D = eCompress(D);
     return D[D.length - 1];
 }
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/is-overlapping.ts
+;// ./src/double-expansion/is-overlapping.ts
 
 
 /**
@@ -1813,7 +1761,7 @@ function isNonOverlappingAll(e) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/is-adjacent.ts
+;// ./src/double-expansion/is-adjacent.ts
 
 /**
  * Returns true if x and y are adjacent, false otherwise.
@@ -1831,10 +1779,10 @@ function isAdjacent(x, y) {
 }
 
 
-;// CONCATENATED MODULE: ./src/double-expansion/e-is-integer.ts
+;// ./src/double-expansion/e-is-integer.ts
 
 function eIsInteger(a) {
-    a = e_compress_eCompress(a);
+    a = eCompress(a);
     for (let i = 0; i < a.length; i++) {
         if (a[i] % 1 !== 0) {
             return false;
@@ -1844,7 +1792,7 @@ function eIsInteger(a) {
 }
 
 
-;// CONCATENATED MODULE: ./src/index.ts
+;// ./src/index.ts
 
 
 
@@ -1894,58 +1842,4 @@ function eIsInteger(a) {
 
 
 
-var __webpack_exports__bitLength = __webpack_exports__.ao;
-var __webpack_exports__doubleToBinaryString = __webpack_exports__.dC;
-var __webpack_exports__doubleToOctets = __webpack_exports__.T7;
-var __webpack_exports__eAbs = __webpack_exports__.us;
-var __webpack_exports__eAdd = __webpack_exports__.DI;
-var __webpack_exports__eAddDouble = __webpack_exports__.mL;
-var __webpack_exports__eCalculate = __webpack_exports__.MH;
-var __webpack_exports__eCompare = __webpack_exports__.pD;
-var __webpack_exports__eCompress = __webpack_exports__.KW;
-var __webpack_exports__eDiff = __webpack_exports__.h1;
-var __webpack_exports__eDiv = __webpack_exports__.pR;
-var __webpack_exports__eDivBy2 = __webpack_exports__.C0;
-var __webpack_exports__eEstimate = __webpack_exports__.QS;
-var __webpack_exports__eIntDiv = __webpack_exports__.qg;
-var __webpack_exports__eIntPow = __webpack_exports__.B4;
-var __webpack_exports__eIsInteger = __webpack_exports__.a5;
-var __webpack_exports__eLongDivide = __webpack_exports__.xF;
-var __webpack_exports__eMult = __webpack_exports__.yl;
-var __webpack_exports__eMultBy2 = __webpack_exports__.bQ;
-var __webpack_exports__eMultByNeg2 = __webpack_exports__.L8;
-var __webpack_exports__eMultDouble1 = __webpack_exports__.qJ;
-var __webpack_exports__eMultDouble2 = __webpack_exports__.xl;
-var __webpack_exports__eNegativeOf = __webpack_exports__.qb;
-var __webpack_exports__eProduct = __webpack_exports__.Ff;
-var __webpack_exports__eRem = __webpack_exports__.Q$;
-var __webpack_exports__eSign = __webpack_exports__.Bu;
-var __webpack_exports__eSum = __webpack_exports__.ze;
-var __webpack_exports__eToBitlength = __webpack_exports__.EN;
-var __webpack_exports__eToDd = __webpack_exports__.Tv;
-var __webpack_exports__expBitLength = __webpack_exports__.df;
-var __webpack_exports__expansionProduct = __webpack_exports__.Lf;
-var __webpack_exports__exponent = __webpack_exports__.g6;
-var __webpack_exports__fastExpansionSum = __webpack_exports__.n6;
-var __webpack_exports__fastTwoDiff = __webpack_exports__.gD;
-var __webpack_exports__fastTwoSum = __webpack_exports__.uJ;
-var __webpack_exports__getHighestSetBit = __webpack_exports__.QK;
-var __webpack_exports__getLowestSetBit = __webpack_exports__.aX;
-var __webpack_exports__growExpansion = __webpack_exports__.jy;
-var __webpack_exports__isAdjacent = __webpack_exports__.RJ;
-var __webpack_exports__isBitAligned = __webpack_exports__.O2;
-var __webpack_exports__isNonOverlappingAll = __webpack_exports__.q7;
-var __webpack_exports__lsbExponent = __webpack_exports__.pE;
-var __webpack_exports__msbExponent = __webpack_exports__.Ei;
-var __webpack_exports__orient2d = __webpack_exports__.c_;
-var __webpack_exports__parseDouble = __webpack_exports__.bt;
-var __webpack_exports__parseDoubleDetailed = __webpack_exports__.$n;
-var __webpack_exports__reduceSignificand = __webpack_exports__.K1;
-var __webpack_exports__scaleExpansion = __webpack_exports__.K9;
-var __webpack_exports__scaleExpansion2 = __webpack_exports__.ct;
-var __webpack_exports__significand = __webpack_exports__.uI;
-var __webpack_exports__split = __webpack_exports__.lD;
-var __webpack_exports__twoDiff = __webpack_exports__.QC;
-var __webpack_exports__twoProduct = __webpack_exports__.gB;
-var __webpack_exports__twoSum = __webpack_exports__.S4;
-export { __webpack_exports__bitLength as bitLength, __webpack_exports__doubleToBinaryString as doubleToBinaryString, __webpack_exports__doubleToOctets as doubleToOctets, __webpack_exports__eAbs as eAbs, __webpack_exports__eAdd as eAdd, __webpack_exports__eAddDouble as eAddDouble, __webpack_exports__eCalculate as eCalculate, __webpack_exports__eCompare as eCompare, __webpack_exports__eCompress as eCompress, __webpack_exports__eDiff as eDiff, __webpack_exports__eDiv as eDiv, __webpack_exports__eDivBy2 as eDivBy2, __webpack_exports__eEstimate as eEstimate, __webpack_exports__eIntDiv as eIntDiv, __webpack_exports__eIntPow as eIntPow, __webpack_exports__eIsInteger as eIsInteger, __webpack_exports__eLongDivide as eLongDivide, __webpack_exports__eMult as eMult, __webpack_exports__eMultBy2 as eMultBy2, __webpack_exports__eMultByNeg2 as eMultByNeg2, __webpack_exports__eMultDouble1 as eMultDouble1, __webpack_exports__eMultDouble2 as eMultDouble2, __webpack_exports__eNegativeOf as eNegativeOf, __webpack_exports__eProduct as eProduct, __webpack_exports__eRem as eRem, __webpack_exports__eSign as eSign, __webpack_exports__eSum as eSum, __webpack_exports__eToBitlength as eToBitlength, __webpack_exports__eToDd as eToDd, __webpack_exports__expBitLength as expBitLength, __webpack_exports__expansionProduct as expansionProduct, __webpack_exports__exponent as exponent, __webpack_exports__fastExpansionSum as fastExpansionSum, __webpack_exports__fastTwoDiff as fastTwoDiff, __webpack_exports__fastTwoSum as fastTwoSum, __webpack_exports__getHighestSetBit as getHighestSetBit, __webpack_exports__getLowestSetBit as getLowestSetBit, __webpack_exports__growExpansion as growExpansion, __webpack_exports__isAdjacent as isAdjacent, __webpack_exports__isBitAligned as isBitAligned, __webpack_exports__isNonOverlappingAll as isNonOverlappingAll, __webpack_exports__lsbExponent as lsbExponent, __webpack_exports__msbExponent as msbExponent, __webpack_exports__orient2d as orient2d, __webpack_exports__parseDouble as parseDouble, __webpack_exports__parseDoubleDetailed as parseDoubleDetailed, __webpack_exports__reduceSignificand as reduceSignificand, __webpack_exports__scaleExpansion as scaleExpansion, __webpack_exports__scaleExpansion2 as scaleExpansion2, __webpack_exports__significand as significand, __webpack_exports__split as split, __webpack_exports__twoDiff as twoDiff, __webpack_exports__twoProduct as twoProduct, __webpack_exports__twoSum as twoSum };
+export { bitLength, doubleToBinaryString, doubleToOctets, eAbs, fastExpansionSum as eAdd, growExpansion as eAddDouble, eCalculate, eCompare, eCompress, eDiff, eDiv, eDivBy2, eEstimate, eIntDiv, eIntPow, eIsInteger, eLongDivide, expansionProduct as eMult, eMultBy2, eMultByNeg2, scaleExpansion as eMultDouble1, scaleExpansion2 as eMultDouble2, eNegativeOf, eProduct, eRem, eSign, eSum, eToBitlength, eToDd, expBitLength, expansionProduct, exponent, fastExpansionSum, fastTwoDiff, fast_two_sum_fastTwoSum as fastTwoSum, getHighestSetBit, getLowestSetBit, growExpansion, isAdjacent, isBitAligned, isNonOverlappingAll, lsbExponent, msbExponent, orient2d, parseDouble, parseDoubleDetailed, reduceSignificand, scaleExpansion, scaleExpansion2, significand, split, twoDiff, two_product_twoProduct as twoProduct, two_sum_twoSum as twoSum };
