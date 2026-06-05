@@ -1,0 +1,1 @@
+{"version":3,"file":"limb-bit-length.js","sourceRoot":"","sources":["../../src/infinite-precision/limb-bit-length.ts"],"names":[],"mappings":"AACA,0EAA0E;AAC1E,SAAS,eAAe,CAChB,CAAS;IAEb,OAAO,CAAC,KAAK,CAAC;QACV,CAAC,CAAC,CAAC;QACH,CAAC,CAAC,EAAE,GAAG,IAAI,CAAC,KAAK,CAAC,CAAC,CAAC,CAAC;AAC7B,CAAC;AAED,OAAO,EAAE,eAAe,EAAE,CAAA"}

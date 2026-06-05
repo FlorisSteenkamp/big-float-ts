@@ -1,4 +1,3 @@
-
 import { fastExpansionSum } from "./fast-expansion-sum.js";
 import { scaleExpansion } from "./scale-expansion.js";
 import { eCompress } from "./e-compress.js";

@@ -1,41 +1,523 @@
-/******/ // The require scope
-/******/ var __webpack_require__ = {};
-/******/ 
-/************************************************************************/
-/******/ /* webpack/runtime/define property getters */
-/******/ (() => {
-/******/ 	// define getter functions for harmony exports
-/******/ 	__webpack_require__.d = (exports, definition) => {
-/******/ 		for(var key in definition) {
-/******/ 			if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 				Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 			}
-/******/ 		}
-/******/ 	};
-/******/ })();
-/******/ 
-/******/ /* webpack/runtime/hasOwnProperty shorthand */
-/******/ (() => {
-/******/ 	__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ })();
-/******/ 
-/************************************************************************/
 
-;// ./src/double-expansion/e-sign.ts
+;// ./src/basic/two-product.ts
+const f = 134217729; // 2**27 + 1;
 /**
- * Returns the sign of the given expansion such that a negative value means a
- * negative sign and a positive value means a positive sign, 0 meaning 0 of
- * course.
+ * Returns the exact result of multiplying two doubles.
+ *
+ * * the resulting array is the reverse of the standard twoSum in the literature.
+ *
+ * Theorem 18 (Shewchuk): Let a and b be p-bit floating-point numbers, where
+ * p >= 6. Then the following algorithm will produce a nonoverlapping expansion
+ * x + y such that ab = x + y, where x is an approximation to ab and y
+ * represents the roundoff error in the calculation of x. Furthermore, if
+ * round-to-even tiebreaking is used, x and y are non-adjacent.
+ *
+ * See https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf
+ * @param a A double
+ * @param b Another double
+ */
+function twoProduct(a, b) {
+    const x = a * b;
+    //const [ah, al] = split(a);
+    const c = f * a;
+    const ah = c - (c - a);
+    const al = a - ah;
+    //const [bh, bl] = split(b);
+    const d = f * b;
+    const bh = d - (d - b);
+    const bl = b - bh;
+    const y = (al * bl) - ((x - (ah * bh)) - (al * bh) - (ah * bl));
+    //const err1 = x - (ah * bh);
+    //const err2 = err1 - (al * bh);
+    //const err3 = err2 - (ah * bl);
+    //const y = (al * bl) - err3;
+    return [y, x];
+}
+
+
+;// ./src/double-expansion/fast-expansion-sum.ts
+// import { eCompress } from "./e-compress.js";
+// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
+// const compress = eCompress;
+/**
+ * Returns the result of adding two expansions.
+ *
+ * Theorem 13: Let e = sum_(i=1)^m(e_i) and f = sum_(i=1)^n(f_i) be strongly
+ * nonoverlapping expansions of m and n p-bit components, respectively, where
+ * p >= 4. Suppose that the components of both e and f are sorted in order of
+ * increasing magnitude, except that any of the e_i or f_i may be zero. On a
+ * machine whose arithmetic uses the round-to-even rule, the following algorithm
+ * will produce a strongly nonoverlapping expansion h such that
+ * sum_(i=1)^(m+n)(e_i + f_i) = e + f, where the components of h are also in
+ * order of increasing magnitude, except that any of the h_i may be zero.
+ *
+ * See https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf
+ */
+function fastExpansionSum(e, f) {
+    //const g = merge(e,f);
+    // inlined (above line)
+    const lenE = e.length;
+    const lenF = f.length;
+    let i = 0;
+    let j = 0;
+    const g = [];
+    while (i < lenE && j < lenF) {
+        if (e[i] === 0) {
+            i++;
+            continue;
+        }
+        if (f[j] === 0) {
+            j++;
+            continue;
+        }
+        if (Math.abs(e[i]) <= Math.abs(f[j])) {
+            g.push(e[i]);
+            i++;
+        }
+        else {
+            g.push(f[j]);
+            j++;
+        }
+    }
+    while (i < lenE) {
+        g.push(e[i]);
+        i++;
+    }
+    while (j < lenF) {
+        g.push(f[j]);
+        j++;
+    }
+    if (g.length === 0) {
+        return [0];
+    }
+    // end inlined
+    const len = g.length;
+    if (len === 1) {
+        return g;
+    }
+    //const h: number[] = new Array(len);
+    const h = [];
+    //const q: number;
+    //[h[0], q] = fastTwoSum(g[1], g[0]);
+    // inlined (above line)
+    const a = g[1];
+    const b = g[0];
+    let q = a + b;
+    //h[0] = b - (q - a);
+    const hh = b - (q - a);
+    if (hh !== 0) {
+        h.push(hh);
+    }
+    //let j = 0;
+    j = 0;
+    for (let i = 2; i < len; i++) {
+        //[h[i-1], q] = twoSum(q, g[i]);
+        // inlined (above line)
+        const b = g[i];
+        const R = q + b;
+        const _ = R - q;
+        //h[i-1] = (q - (R - _)) + (b - _);
+        const hh = (q - (R - _)) + (b - _);
+        if (hh !== 0) {
+            h.push(hh);
+        }
+        q = R;
+    }
+    //h[len-1] = q;
+    //h.push(q);
+    if (q !== 0 || h.length === 0) {
+        h.push(q);
+    }
+    //return compress(h);
+    return h;
+}
+/**
+ * Returns the result of merging an expansion e and f into a single expansion,
+ * in order of nondecreasing magnitude (possibly with interspersed zeros).
+ * (This function is zero-eliminating)
  *
  * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
  *
- * From Shewchuk: "A nonoverlapping expansion is desirable because it is easy to
- * determine its sign (take the sign of the largest component) ... "
- *
- * @param e A floating point expansion with zeroes eliminated.
+ * @param e a floating point expansion
+ * @param f another floating point expansion
  */
-function eSign(e) {
-    return e[e.length - 1];
+function merge(e, f) {
+    const lenE = e.length;
+    const lenF = f.length;
+    let i = 0;
+    let j = 0;
+    const merged = [];
+    while (i < lenE && j < lenF) {
+        if (e[i] === 0) {
+            i++;
+            continue;
+        }
+        if (f[j] === 0) {
+            j++;
+            continue;
+        }
+        if (Math.abs(e[i]) <= Math.abs(f[j])) {
+            merged.push(e[i]);
+            i++;
+        }
+        else {
+            merged.push(f[j]);
+            j++;
+        }
+    }
+    while (i < lenE) {
+        merged.push(e[i]);
+        i++;
+    }
+    while (j < lenF) {
+        merged.push(f[j]);
+        j++;
+    }
+    if (merged.length === 0) {
+        return [0];
+    }
+    return merged;
+}
+
+
+;// ./src/double-expansion/e-negative-of.ts
+/**
+ * Returns the negative of the given floating point expansion.
+ * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
+ *
+ * @param e a floating point expansion
+ */
+function eNegativeOf(e) {
+    const m = e.length;
+    const h = new Array(m);
+    for (let i = 0; i < m; i++) {
+        h[i] = -e[i];
+    }
+    return h;
+}
+
+
+;// ./src/double-expansion/e-diff.ts
+
+
+// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
+const negativeOf = eNegativeOf;
+const add = fastExpansionSum;
+/**
+ * Returns the difference between two floating point expansions, i.e. e - f.
+ *
+ * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
+ *
+ * @param e a floating point expansion
+ * @param f another floating point expansion
+ */
+function eDiff(e, f) {
+    const g = negativeOf(f);
+    return add(e, g);
+}
+
+
+;// ./src/double-expansion/e-estimate.ts
+/**
+ * Returns the result of the given floating point expansion rounded to a double
+ * floating point number.
+ *
+ * The result is within 1 ulps of the actual value, e.g. imagine the worst case
+ * situation where we add (in 4dot4) 1111.1000 + 0.000011111111... The result
+ * will be 1111.1000 whereas as the correct result should be 1111.1001 and we
+ * thus lost 1 ulp of accuracy. It does not matter that the expansion contain
+ * several floats since none is overlapping.
+ *
+ * See Shewchuk https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf
+ *
+ * @param e a floating point expansion
+ */
+function eEstimate(e) {
+    let Q = e[0];
+    for (let i = 1; i < e.length; i++) {
+        Q += e[i];
+    }
+    return Q;
+}
+
+
+;// ./src/basic/two-diff.ts
+/**
+ * Returns the exact result of subtracting b from a (as a floating point
+ * expansion).
+ * @param a
+ * @param b
+ */
+function twoDiff(a, b) {
+    const x = a - b;
+    const bvirt = a - x;
+    const y = (a - (x + bvirt)) + (bvirt - b);
+    return [y, x];
+}
+
+
+;// ./src/double-expansion/e-compress.ts
+/**
+ * Returns the result of compressing the given floating point expansion.
+ *
+ * * primarily for internal library use
+ *
+ * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
+ *
+ * Theorem 23 (Shewchuck): Let e = sum_(i=1)^m(e_i) be a nonoverlapping
+ * expansion of m p-bit components, where m >= 3. Suppose that the components of
+ * e are sorted in order of increasing magnitude, except that any of the e_i may
+ * be zero. Then the following algorithm will produce a nonoverlapping expansion
+ * (nonadjacent if round-to even tiebreaking is used) such that
+ * h = sum_(i=1)^n(h_i) = e, where the components h_i are in order of increasing
+ * magnitude. If h != 0, none of the h_i will be zero. Furthermore, the largest
+ * component h_n approximates h with an error smaller than ulp(h_n).
+ */
+function eCompress(e) {
+    //return e;
+    const e_ = e.slice();
+    const m = e_.length;
+    if (m === 1) {
+        return e_;
+    }
+    let Q = e_[m - 1];
+    let bottom = m;
+    for (let i = m - 2; i >= 0; --i) {
+        const a = Q;
+        const b = e_[i];
+        Q = a + b;
+        const bv = Q - a;
+        const q = b - bv;
+        if (q) {
+            e_[--bottom] = Q;
+            Q = q;
+        }
+    }
+    let top = 0;
+    for (let i = bottom; i < m; ++i) {
+        const a = e_[i];
+        const b = Q;
+        Q = a + b;
+        const bv = Q - a;
+        const q = b - bv;
+        if (q) {
+            e_[top++] = q;
+        }
+    }
+    e_[top++] = Q;
+    e_.length = top;
+    return e_;
+}
+
+
+;// ./src/geometric-primitives/orient2d.ts
+
+
+
+
+
+
+const ccwerrboundA = 3.330669073875472e-16;
+const ccwerrboundB = 2.220446049250315e-16;
+const ccwerrboundC = 1.109335647967049e-31;
+const resulterrbound = 3.330669073875471e-16;
+/**
+ * * Ported from [Shewchuk](http://docs.ros.org/kinetic/api/asr_approx_mvbb/html/Predicates_8cpp_source.html)
+ * * see also https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf
+ *
+ * * Adaptive exact 2d orientation test.
+ *
+ * * Robust.
+ *
+ * Return a positive value if the points pa, pb, and pc occur in
+ * counterclockwise order; a negative value if they occur in clockwise order;
+ * and zero if they are collinear.  The result is also a rough approximation of
+ * twice the signed area of the triangle defined by the three points.
+ *
+ * The result returned is the determinant of a matrix. This determinant is
+ * computed adaptively, in the sense that exact arithmetic is used only to the
+ * degree it is needed to ensure that the returned value has the correct sign.
+ * Hence, orient2d() is usually quite fast, but will run more slowly when the
+ * input points are collinear or nearly so.
+ */
+function orient2d(A, B, C) {
+    const detleft = (A[0] - C[0]) * (B[1] - C[1]);
+    const detright = (A[1] - C[1]) * (B[0] - C[0]);
+    const det = detleft - detright;
+    let detsum;
+    if (detleft > 0) {
+        if (detright <= 0) {
+            // Anti-clockwise
+            return det;
+        }
+        else {
+            detsum = detleft + detright;
+        }
+    }
+    else if (detleft < 0) {
+        if (detright >= 0) {
+            // Clockwise
+            return det;
+        }
+        else {
+            detsum = -detleft - detright;
+        }
+    }
+    else {
+        // Anti-clockwise, clockwise or straight
+        return det;
+    }
+    if (Math.abs(det) >= ccwerrboundA * detsum) {
+        // Anti-clockwise or clockwise
+        return det;
+    }
+    return orient2dAdapt(A, B, C, detsum);
+}
+function orient2dAdapt(A, B, C, detsum) {
+    const acx = A[0] - C[0];
+    const bcx = B[0] - C[0];
+    const acy = A[1] - C[1];
+    const bcy = B[1] - C[1];
+    const b = eDiff(twoProduct(acx, bcy), twoProduct(acy, bcx));
+    let det = eEstimate(b);
+    if (Math.abs(det) >= ccwerrboundB * detsum) {
+        // Anti-clockwise or clockwise
+        return det;
+    }
+    const acxtail = twoDiff(A[0], C[0])[0];
+    const bcxtail = twoDiff(B[0], C[0])[0];
+    const acytail = twoDiff(A[1], C[1])[0];
+    const bcytail = twoDiff(B[1], C[1])[0];
+    if (acxtail === 0 && acytail === 0 &&
+        bcxtail === 0 && bcytail === 0) {
+        // Straight
+        return det;
+    }
+    const errbound = ccwerrboundC * detsum + resulterrbound * Math.abs(det);
+    det += (acx * bcytail + bcy * acxtail) - (acy * bcxtail + bcx * acytail);
+    if (Math.abs(det) >= errbound) {
+        return det;
+    }
+    const a = eDiff(twoProduct(acxtail, bcy), twoProduct(acytail, bcx));
+    const c = fastExpansionSum(b, a);
+    const d = eDiff(twoProduct(acx, bcytail), twoProduct(acy, bcxtail));
+    const e = fastExpansionSum(c, d);
+    const f = eDiff(twoProduct(acxtail, bcytail), twoProduct(acytail, bcxtail));
+    let D = fastExpansionSum(e, f);
+    D = eCompress(D);
+    return D[D.length - 1];
+}
+
+
+;// ./src/basic/fast-two-diff.ts
+/**
+ * Returns the difference and exact error of subtracting two floating point
+ * numbers.
+ * Uses an EFT (error-free transformation), i.e. a-b === x+y exactly.
+ * The returned result is a non-overlapping expansion (smallest value first!).
+ *
+ * Precondition: abs(a) >= abs(b) - A fast test that can be used is
+ * (a > b) === (a > -b)
+ *
+ * See https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf
+ */
+function fastTwoDiff(a, b) {
+    const x = a - b;
+    const y = (a - x) - b;
+    return [y, x];
+}
+
+
+;// ./src/basic/fast-two-sum.ts
+/**
+ * Returns the sum and exact error of adding two floating point numbers.
+ * Uses an EFT (error-free transformation), i.e. a+b === x+y exactly.
+ * The returned sum is a non-overlapping expansion (smallest value first!).
+ *
+ * Precondition: abs(a) >= abs(b) - A fast test that can be used is
+ * (a > b) === (a > -b)
+ *
+ * See https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf
+ */
+function fastTwoSum(a, b) {
+    const x = a + b;
+    return [b - (x - a), x];
+}
+// inlined
+//const R = a + b; const r = b - (R - a); return [r, R];
+
+
+;// ./src/basic/two-sum.ts
+/**
+ * Returns the exact result of adding two doubles.
+ *
+ * * the resulting array is the reverse of the standard twoSum in the literature.
+ *
+ * Theorem 7 (Knuth): Let a and b be p-bit floating-point numbers. Then the
+ * following algorithm will produce a nonoverlapping expansion x + y such that
+ * a + b = x + y, where x is an approximation to a + b and y is the roundoff
+ * error in the calculation of x.
+ *
+ * See https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf
+ */
+function twoSum(a, b) {
+    const x = a + b;
+    const bv = x - a;
+    return [(a - (x - bv)) + (b - bv), x];
+}
+// inlined
+//const R = a + b; const _ = R - a; const r = (a - (R - _)) + (b - _); return [r,R]
+
+
+;// ./src/basic/split.ts
+/**
+ * === Math.ceil(p/2) where p is the # of significand bits in a double === 53.
+ */
+const split_f = 134217729; // 2**27 + 1;
+/**
+ * Returns the result of splitting a double into 2 26-bit doubles.
+ *
+ * Theorem 17 (Veltkamp-Dekker): Let a be a p-bit floating-point number, where
+ * p >= 3. Choose a splitting point s such that p/2 <= s <= p-1. Then the
+ * following algorithm will produce a (p-s)-bit value a_hi and a
+ * nonoverlapping (s-1)-bit value a_lo such that abs(a_hi) >= abs(a_lo) and
+ * a = a_hi + a_lo.
+ *
+ * see e.g. [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
+ * @param a A double floating point number
+ */
+function split(a) {
+    const c = split_f * a;
+    const a_h = c - (c - a);
+    const a_l = a - a_h;
+    return [a_h, a_l];
+}
+// inlined - input a, output a_h, a_l
+// const c = f * a; const a_h = c - (c - a); const a_l = a - a_h; return [a_h, a_l];
+
+
+;// ./src/basic/reduce-significand.ts
+/**
+ * Truncates a floating point value's significand and returns the result.
+ * Similar to split, but with the ability to specify the number of bits to keep.
+ *
+ * Theorem 17 (Veltkamp-Dekker): Let a be a p-bit floating-point number, where
+ * p >= 3. Choose a splitting point s such that p/2 <= s <= p-1. Then the
+ * following algorithm will produce a (p-s)-bit value a_hi and a
+ * nonoverlapping (s-1)-bit value a_lo such that abs(a_hi) >= abs(a_lo) and
+ * a = a_hi + a_lo.
+ *
+ * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
+ *
+ * @param a a double
+ * @param bits the number of significand bits to leave intact
+ */
+function reduceSignificand(a, bits) {
+    const s = 53 - bits;
+    const f = 2 ** s + 1;
+    const c = f * a;
+    const r = c - (c - a);
+    return r;
 }
 
 
@@ -237,6 +719,49 @@ function exponent(a) {
 }
 
 
+;// ./src/double-representation/is-bit-aligned.ts
+
+
+/**
+ * Returns true if the given number is bit-aligned in the sense that its a
+ * multiple of a given power of 2, say e, and such that the number, say a,
+ * conforms to: a/2^e < 2^(l-e), where l is the max allowed bit length.
+ * This essentially means the numbers act somewhat like fixed-point numbers
+ * which can drastically speed up some geometric algorithms and also reduce
+ * their complexity.
+ *
+ * Visually:
+ * These numbers (a,b and c) are bit aligned with e === 3 and max
+ * bitlength === 6:
+ *    a -> 00|101100|000
+ *    b -> 00|000100|000
+ *    c -> 00|110111|000
+ * These are not
+ *    a -> 01|101100|000
+ *    b -> 00|000100|000
+ * These are not
+ *    a -> 00|101100|000
+ *    b -> 00|000100|100
+ * These are not
+ *    a -> 00|101100|100
+ *    b -> 00|000100|100
+ * @param as An array of numbers to check
+ * @param maxBitLength The max allowed bitlength
+ * @param gridSpacingExponent The grid spacing === 1^gridSpacingExponent
+ */
+function isBitAligned(a, maxBitLength, gridSpacingExponent) {
+    if (a === 0) {
+        return true;
+    }
+    const e = exponent(a);
+    const maxSetBit = getHighestSetBit(a) - 52 + e;
+    const minSetBit = getLowestSetBit(a) - 52 + e;
+    const minBitBigEnough = minSetBit >= gridSpacingExponent;
+    const maxBitSmallEnough = maxSetBit <= maxBitLength - 1 + gridSpacingExponent;
+    return minBitBigEnough && maxBitSmallEnough;
+}
+
+
 ;// ./src/double-representation/msb-exponent.ts
 
 
@@ -255,82 +780,71 @@ function msbExponent(a) {
 }
 
 
-;// ./src/double-expansion/e-compress.ts
+;// ./src/double-representation/lsb-exponent.ts
+
+
 /**
- * Returns the result of compressing the given floating point expansion.
- *
- * * primarily for internal library use
- *
- * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
- *
- * Theorem 23 (Shewchuck): Let e = sum_(i=1)^m(e_i) be a nonoverlapping
- * expansion of m p-bit components, where m >= 3. Suppose that the components of
- * e are sorted in order of increasing magnitude, except that any of the e_i may
- * be zero. Then the following algorithm will produce a nonoverlapping expansion
- * (nonadjacent if round-to even tiebreaking is used) such that
- * h = sum_(i=1)^n(h_i) = e, where the components h_i are in order of increasing
- * magnitude. If h != 0, none of the h_i will be zero. Furthermore, the largest
- * component h_n approximates h with an error smaller than ulp(h_n).
+ * Returns the true exponent of the lsb that is set of the given number or
+ * NaN if a === 0 or +-inf or NaN.
+ * @param a An array of numbers to check
  */
-function eCompress(e) {
-    //return e;
-    const e_ = e.slice();
-    const m = e_.length;
-    if (m === 1) {
-        return e_;
+function lsbExponent(a) {
+    if (a === 0 || !Number.isFinite(a)) {
+        return NaN;
     }
-    let Q = e_[m - 1];
-    let bottom = m;
-    for (let i = m - 2; i >= 0; --i) {
-        const a = Q;
-        const b = e_[i];
-        Q = a + b;
-        const bv = Q - a;
-        const q = b - bv;
-        if (q) {
-            e_[--bottom] = Q;
-            Q = q;
-        }
-    }
-    let top = 0;
-    for (let i = bottom; i < m; ++i) {
-        const a = e_[i];
-        const b = Q;
-        Q = a + b;
-        const bv = Q - a;
-        const q = b - bv;
-        if (q) {
-            e_[top++] = q;
-        }
-    }
-    e_[top++] = Q;
-    e_.length = top;
-    return e_;
+    const e = exponent(a);
+    return getLowestSetBit(a) - 52 + e;
 }
 
 
-;// ./src/basic/reduce-significand.ts
+;// ./src/double-expansion/e-sign.ts
 /**
- * Truncates a floating point value's significand and returns the result.
- * Similar to split, but with the ability to specify the number of bits to keep.
- *
- * Theorem 17 (Veltkamp-Dekker): Let a be a p-bit floating-point number, where
- * p >= 3. Choose a splitting point s such that p/2 <= s <= p-1. Then the
- * following algorithm will produce a (p-s)-bit value a_hi and a
- * nonoverlapping (s-1)-bit value a_lo such that abs(a_hi) >= abs(a_lo) and
- * a = a_hi + a_lo.
+ * Returns the sign of the given expansion such that a negative value means a
+ * negative sign and a positive value means a positive sign, 0 meaning 0 of
+ * course.
  *
  * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
  *
- * @param a a double
- * @param bits the number of significand bits to leave intact
+ * From Shewchuk: "A nonoverlapping expansion is desirable because it is easy to
+ * determine its sign (take the sign of the largest component) ... "
+ *
+ * @param e A floating point expansion with zeroes eliminated.
  */
-function reduceSignificand(a, bits) {
-    const s = 53 - bits;
-    const f = 2 ** s + 1;
-    const c = f * a;
-    const r = c - (c - a);
-    return r;
+function eSign(e) {
+    return e[e.length - 1];
+}
+
+
+;// ./src/double-representation/bit-length.ts
+
+
+
+
+/**
+ * Returns the bit-length of the significand of the given number in such a way
+ * that trailing zeros are not counted.
+ * @param a A double precision floating point number
+ */
+function bitLength(a) {
+    if (a === 0) {
+        return 0;
+    }
+    return getHighestSetBit(a) - getLowestSetBit(a) + 1;
+}
+/**
+ * Returns the bit-length of the significand of the given floating point
+ * expansion in such a way that trailing zeros are not counted.
+ * * precondition: subnormals not currently supported
+ * @param a A double precision floating point expansion
+ */
+function expBitLength(a) {
+    const a_ = eCompress(a);
+    if (eSign(a_) === 0) {
+        return 0;
+    }
+    const msbyte = a_[a_.length - 1];
+    const lsbyte = a_[0];
+    return exponent(msbyte) - exponent(lsbyte) + (53 - getLowestSetBit(lsbyte));
 }
 
 
@@ -374,189 +888,20 @@ function eToBitlength(a, l) {
 }
 
 
-;// ./src/double-expansion/e-estimate.ts
-/**
- * Returns the result of the given floating point expansion rounded to a double
- * floating point number.
- *
- * The result is within 1 ulps of the actual value, e.g. imagine the worst case
- * situation where we add (in 4dot4) 1111.1000 + 0.000011111111... The result
- * will be 1111.1000 whereas as the correct result should be 1111.1001 and we
- * thus lost 1 ulp of accuracy. It does not matter that the expansion contain
- * several floats since none is overlapping.
- *
- * See Shewchuk https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf
- *
- * @param e a floating point expansion
- */
-function eEstimate(e) {
-    let Q = e[0];
-    for (let i = 1; i < e.length; i++) {
-        Q += e[i];
-    }
-    return Q;
-}
-
-
-;// ./src/double-expansion/fast-expansion-sum.ts
-// import { eCompress } from "./e-compress.js";
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-// const compress = eCompress;
-/**
- * Returns the result of adding two expansions.
- *
- * Theorem 13: Let e = sum_(i=1)^m(e_i) and f = sum_(i=1)^n(f_i) be strongly
- * nonoverlapping expansions of m and n p-bit components, respectively, where
- * p >= 4. Suppose that the components of both e and f are sorted in order of
- * increasing magnitude, except that any of the e_i or f_i may be zero. On a
- * machine whose arithmetic uses the round-to-even rule, the following algorithm
- * will produce a strongly nonoverlapping expansion h such that
- * sum_(i=1)^(m+n)(e_i + f_i) = e + f, where the components of h are also in
- * order of increasing magnitude, except that any of the h_i may be zero.
- *
- * See https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf
- */
-function fastExpansionSum(e, f) {
-    //const g = merge(e,f);
-    // inlined (above line)
-    const lenE = e.length;
-    const lenF = f.length;
-    let i = 0;
-    let j = 0;
-    const g = [];
-    while (i < lenE && j < lenF) {
-        if (e[i] === 0) {
-            i++;
-            continue;
-        }
-        if (f[j] === 0) {
-            j++;
-            continue;
-        }
-        if (Math.abs(e[i]) <= Math.abs(f[j])) {
-            g.push(e[i]);
-            i++;
-        }
-        else {
-            g.push(f[j]);
-            j++;
-        }
-    }
-    while (i < lenE) {
-        g.push(e[i]);
-        i++;
-    }
-    while (j < lenF) {
-        g.push(f[j]);
-        j++;
-    }
-    if (g.length === 0) {
-        return [0];
-    }
-    // end inlined
-    const len = g.length;
-    if (len === 1) {
-        return g;
-    }
-    //const h: number[] = new Array(len);
-    const h = [];
-    //const q: number;
-    //[h[0], q] = fastTwoSum(g[1], g[0]);
-    // inlined (above line)
-    const a = g[1];
-    const b = g[0];
-    let q = a + b;
-    //h[0] = b - (q - a);
-    const hh = b - (q - a);
-    if (hh !== 0) {
-        h.push(hh);
-    }
-    //let j = 0;
-    j = 0;
-    for (let i = 2; i < len; i++) {
-        //[h[i-1], q] = twoSum(q, g[i]);
-        // inlined (above line)
-        const b = g[i];
-        const R = q + b;
-        const _ = R - q;
-        //h[i-1] = (q - (R - _)) + (b - _);
-        const hh = (q - (R - _)) + (b - _);
-        if (hh !== 0) {
-            h.push(hh);
-        }
-        q = R;
-    }
-    //h[len-1] = q;
-    //h.push(q);
-    if (q !== 0 || h.length === 0) {
-        h.push(q);
-    }
-    //return compress(h);
-    return h;
-}
-/**
- * Returns the result of merging an expansion e and f into a single expansion,
- * in order of nondecreasing magnitude (possibly with interspersed zeros).
- * (This function is zero-eliminating)
- *
- * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
- *
- * @param e a floating point expansion
- * @param f another floating point expansion
- */
-function merge(e, f) {
-    const lenE = e.length;
-    const lenF = f.length;
-    let i = 0;
-    let j = 0;
-    const merged = [];
-    while (i < lenE && j < lenF) {
-        if (e[i] === 0) {
-            i++;
-            continue;
-        }
-        if (f[j] === 0) {
-            j++;
-            continue;
-        }
-        if (Math.abs(e[i]) <= Math.abs(f[j])) {
-            merged.push(e[i]);
-            i++;
-        }
-        else {
-            merged.push(f[j]);
-            j++;
-        }
-    }
-    while (i < lenE) {
-        merged.push(e[i]);
-        i++;
-    }
-    while (j < lenF) {
-        merged.push(f[j]);
-        j++;
-    }
-    if (merged.length === 0) {
-        return [0];
-    }
-    return merged;
-}
-
-
 ;// ./src/double-expansion/scale-expansion.ts
-/* unused harmony import specifier */ var twoProduct;
-/* unused harmony import specifier */ var twoSum;
-/* unused harmony import specifier */ var fastTwoSum;
+/* unused harmony import specifier */ var scale_expansion_twoProduct;
+/* unused harmony import specifier */ var scale_expansion_twoSum;
+/* unused harmony import specifier */ var scale_expansion_fastTwoSum;
 /* unused harmony import specifier */ var scale_expansion_eCompress;
 
 
 
 
-const f = 134217729; // 2**27 + 1;
+const scale_expansion_f = 134217729; // 2**27 + 1;
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const tp = (/* unused pure expression or super */ null && (twoProduct));
-const ts = (/* unused pure expression or super */ null && (twoSum));
-const fts = (/* unused pure expression or super */ null && (fastTwoSum));
+const tp = (/* unused pure expression or super */ null && (scale_expansion_twoProduct));
+const ts = (/* unused pure expression or super */ null && (scale_expansion_twoSum));
+const fts = (/* unused pure expression or super */ null && (scale_expansion_fastTwoSum));
 const scale_expansion_compress = (/* unused pure expression or super */ null && (scale_expansion_eCompress));
 /**
  * Returns the result of multiplying an expansion by a double.
@@ -583,10 +928,10 @@ function scaleExpansion(e, b) {
     // inlined (above line)
     const a = e[0];
     let q = a * b;
-    const c = f * a;
+    const c = scale_expansion_f * a;
     const ah = c - (c - a);
     const al = a - ah;
-    const d = f * b;
+    const d = scale_expansion_f * b;
     const bh = d - (d - b);
     const bl = b - bh;
     const h = [];
@@ -600,10 +945,10 @@ function scaleExpansion(e, b) {
         // inlined (above line)
         const a = e[i];
         const T = a * b;
-        const c = f * a;
+        const c = scale_expansion_f * a;
         const ah = c - (c - a);
         const al = a - ah;
-        const d = f * b;
+        const d = scale_expansion_f * b;
         const bh = d - (d - b);
         const bl = b - bh;
         const t = (al * bl) - ((T - (ah * bh)) - (al * bh) - (ah * bl));
@@ -662,10 +1007,10 @@ function scaleExpansion2(b, e) {
     // inlined (above line)
     const a = e[0];
     let q = a * b;
-    const c = f * a;
+    const c = scale_expansion_f * a;
     const ah = c - (c - a);
     const al = a - ah;
-    const d = f * b;
+    const d = scale_expansion_f * b;
     const bh = d - (d - b);
     const bl = b - bh;
     const h = [];
@@ -679,10 +1024,10 @@ function scaleExpansion2(b, e) {
         // inlined (above line)
         const a = e[i];
         const T = a * b;
-        const c = f * a;
+        const c = scale_expansion_f * a;
         const ah = c - (c - a);
         const al = a - ah;
-        const d = f * b;
+        const d = scale_expansion_f * b;
         const bh = d - (d - b);
         const bl = b - bh;
         const t = (al * bl) - ((T - (ah * bh)) - (al * bh) - (ah * bl));
@@ -725,7 +1070,7 @@ function scaleExpansion2(b, e) {
 
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
 const multByDouble = scaleExpansion;
-const add = fastExpansionSum;
+const expansion_product_add = fastExpansionSum;
 const expansion_product_compress = (/* unused pure expression or super */ null && (expansion_product_eCompress));
 /**
  * Returns the product of two double floating point expansions.
@@ -747,80 +1092,10 @@ const expansion_product_compress = (/* unused pure expression or super */ null &
 function expansionProduct(e, f) {
     let sum = [0];
     for (let i = 0; i < e.length; i++) {
-        sum = add(sum, multByDouble(f, e[i]));
+        sum = expansion_product_add(sum, multByDouble(f, e[i]));
     }
     //return compress(sum);
     return sum;
-}
-
-
-;// ./src/double-expansion/e-negative-of.ts
-/**
- * Returns the negative of the given floating point expansion.
- * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
- *
- * @param e a floating point expansion
- */
-function eNegativeOf(e) {
-    const m = e.length;
-    const h = new Array(m);
-    for (let i = 0; i < m; i++) {
-        h[i] = -e[i];
-    }
-    return h;
-}
-
-
-;// ./src/double-expansion/e-diff.ts
-
-
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const negativeOf = eNegativeOf;
-const e_diff_add = fastExpansionSum;
-/**
- * Returns the difference between two floating point expansions, i.e. e - f.
- *
- * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
- *
- * @param e a floating point expansion
- * @param f another floating point expansion
- */
-function eDiff(e, f) {
-    const g = negativeOf(f);
-    return e_diff_add(e, g);
-}
-
-
-;// ./src/double-representation/bit-length.ts
-
-
-
-
-/**
- * Returns the bit-length of the significand of the given number in such a way
- * that trailing zeros are not counted.
- * @param a A double precision floating point number
- */
-function bitLength(a) {
-    if (a === 0) {
-        return 0;
-    }
-    return getHighestSetBit(a) - getLowestSetBit(a) + 1;
-}
-/**
- * Returns the bit-length of the significand of the given floating point
- * expansion in such a way that trailing zeros are not counted.
- * * precondition: subnormals not currently supported
- * @param a A double precision floating point expansion
- */
-function expBitLength(a) {
-    const a_ = eCompress(a);
-    if (eSign(a_) === 0) {
-        return 0;
-    }
-    const msbyte = a_[a_.length - 1];
-    const lsbyte = a_[0];
-    return exponent(msbyte) - exponent(lsbyte) + (53 - getLowestSetBit(lsbyte));
 }
 
 
@@ -945,34 +1220,12 @@ function growExpansion(e, b) {
 }
 
 
-;// ./src/basic/two-sum.ts
-/**
- * Returns the exact result of adding two doubles.
- *
- * * the resulting array is the reverse of the standard twoSum in the literature.
- *
- * Theorem 7 (Knuth): Let a and b be p-bit floating-point numbers. Then the
- * following algorithm will produce a nonoverlapping expansion x + y such that
- * a + b = x + y, where x is an approximation to a + b and y is the roundoff
- * error in the calculation of x.
- *
- * See https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf
- */
-function two_sum_twoSum(a, b) {
-    const x = a + b;
-    const bv = x - a;
-    return [(a - (x - bv)) + (b - bv), x];
-}
-// inlined
-//const R = a + b; const _ = R - a; const r = (a - (R - _)) + (b - _); return [r,R]
-
-
 ;// ./src/double-expansion/e-sum.ts
 
 
 
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const e_sum_ts = two_sum_twoSum;
+const e_sum_ts = twoSum;
 const addDouble = growExpansion;
 const e_sum_add = fastExpansionSum;
 /**
@@ -1198,44 +1451,6 @@ function eAbs(e) {
 }
 
 
-;// ./src/basic/fast-two-diff.ts
-/**
- * Returns the difference and exact error of subtracting two floating point
- * numbers.
- * Uses an EFT (error-free transformation), i.e. a-b === x+y exactly.
- * The returned result is a non-overlapping expansion (smallest value first!).
- *
- * Precondition: abs(a) >= abs(b) - A fast test that can be used is
- * (a > b) === (a > -b)
- *
- * See https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf
- */
-function fastTwoDiff(a, b) {
-    const x = a - b;
-    const y = (a - x) - b;
-    return [y, x];
-}
-
-
-;// ./src/basic/fast-two-sum.ts
-/**
- * Returns the sum and exact error of adding two floating point numbers.
- * Uses an EFT (error-free transformation), i.e. a+b === x+y exactly.
- * The returned sum is a non-overlapping expansion (smallest value first!).
- *
- * Precondition: abs(a) >= abs(b) - A fast test that can be used is
- * (a > b) === (a > -b)
- *
- * See https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf
- */
-function fast_two_sum_fastTwoSum(a, b) {
-    const x = a + b;
-    return [b - (x - a), x];
-}
-// inlined
-//const R = a + b; const r = b - (R - a); return [r, R];
-
-
 ;// ./src/double-expansion/e-mult-by-2.ts
 /**
  * Returns the result of multiplying a floating point expansion by 2.
@@ -1288,144 +1503,6 @@ function eDivBy2(e) {
 }
 
 
-;// ./src/basic/split.ts
-/**
- * === Math.ceil(p/2) where p is the # of significand bits in a double === 53.
- */
-const split_f = 134217729; // 2**27 + 1;
-/**
- * Returns the result of splitting a double into 2 26-bit doubles.
- *
- * Theorem 17 (Veltkamp-Dekker): Let a be a p-bit floating-point number, where
- * p >= 3. Choose a splitting point s such that p/2 <= s <= p-1. Then the
- * following algorithm will produce a (p-s)-bit value a_hi and a
- * nonoverlapping (s-1)-bit value a_lo such that abs(a_hi) >= abs(a_lo) and
- * a = a_hi + a_lo.
- *
- * see e.g. [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
- * @param a A double floating point number
- */
-function split(a) {
-    const c = split_f * a;
-    const a_h = c - (c - a);
-    const a_l = a - a_h;
-    return [a_h, a_l];
-}
-// inlined - input a, output a_h, a_l
-// const c = f * a; const a_h = c - (c - a); const a_l = a - a_h; return [a_h, a_l];
-
-
-;// ./src/basic/two-diff.ts
-/**
- * Returns the exact result of subtracting b from a (as a floating point
- * expansion).
- * @param a
- * @param b
- */
-function twoDiff(a, b) {
-    const x = a - b;
-    const bvirt = a - x;
-    const y = (a - (x + bvirt)) + (bvirt - b);
-    return [y, x];
-}
-
-
-;// ./src/basic/two-product.ts
-const two_product_f = 134217729; // 2**27 + 1;
-/**
- * Returns the exact result of multiplying two doubles.
- *
- * * the resulting array is the reverse of the standard twoSum in the literature.
- *
- * Theorem 18 (Shewchuk): Let a and b be p-bit floating-point numbers, where
- * p >= 6. Then the following algorithm will produce a nonoverlapping expansion
- * x + y such that ab = x + y, where x is an approximation to ab and y
- * represents the roundoff error in the calculation of x. Furthermore, if
- * round-to-even tiebreaking is used, x and y are non-adjacent.
- *
- * See https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf
- * @param a A double
- * @param b Another double
- */
-function two_product_twoProduct(a, b) {
-    const x = a * b;
-    //const [ah, al] = split(a);
-    const c = two_product_f * a;
-    const ah = c - (c - a);
-    const al = a - ah;
-    //const [bh, bl] = split(b);
-    const d = two_product_f * b;
-    const bh = d - (d - b);
-    const bl = b - bh;
-    const y = (al * bl) - ((x - (ah * bh)) - (al * bh) - (ah * bl));
-    //const err1 = x - (ah * bh);
-    //const err2 = err1 - (al * bh);
-    //const err3 = err2 - (ah * bl);
-    //const y = (al * bl) - err3;
-    return [y, x];
-}
-
-
-;// ./src/double-representation/is-bit-aligned.ts
-
-
-/**
- * Returns true if the given number is bit-aligned in the sense that its a
- * multiple of a given power of 2, say e, and such that the number, say a,
- * conforms to: a/2^e < 2^(l-e), where l is the max allowed bit length.
- * This essentially means the numbers act somewhat like fixed-point numbers
- * which can drastically speed up some geometric algorithms and also reduce
- * their complexity.
- *
- * Visually:
- * These numbers (a,b and c) are bit aligned with e === 3 and max
- * bitlength === 6:
- *    a -> 00|101100|000
- *    b -> 00|000100|000
- *    c -> 00|110111|000
- * These are not
- *    a -> 01|101100|000
- *    b -> 00|000100|000
- * These are not
- *    a -> 00|101100|000
- *    b -> 00|000100|100
- * These are not
- *    a -> 00|101100|100
- *    b -> 00|000100|100
- * @param as An array of numbers to check
- * @param maxBitLength The max allowed bitlength
- * @param gridSpacingExponent The grid spacing === 1^gridSpacingExponent
- */
-function isBitAligned(a, maxBitLength, gridSpacingExponent) {
-    if (a === 0) {
-        return true;
-    }
-    const e = exponent(a);
-    const maxSetBit = getHighestSetBit(a) - 52 + e;
-    const minSetBit = getLowestSetBit(a) - 52 + e;
-    const minBitBigEnough = minSetBit >= gridSpacingExponent;
-    const maxBitSmallEnough = maxSetBit <= maxBitLength - 1 + gridSpacingExponent;
-    return minBitBigEnough && maxBitSmallEnough;
-}
-
-
-;// ./src/double-representation/lsb-exponent.ts
-
-
-/**
- * Returns the true exponent of the lsb that is set of the given number or
- * NaN if a === 0 or +-inf or NaN.
- * @param a An array of numbers to check
- */
-function lsbExponent(a) {
-    if (a === 0 || !Number.isFinite(a)) {
-        return NaN;
-    }
-    const e = exponent(a);
-    return getLowestSetBit(a) - 52 + e;
-}
-
-
 ;// ./src/double-expansion/e-calculate.ts
 /* unused harmony import specifier */ var e_calculate_eCompress;
 
@@ -1437,9 +1514,9 @@ function lsbExponent(a) {
 
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
 const e_calculate_mult = expansionProduct;
-const e_calculate_tp = two_product_twoProduct;
+const e_calculate_tp = twoProduct;
 const e_calculate_multByDouble = scaleExpansion;
-const e_calculate_ts = two_sum_twoSum;
+const e_calculate_ts = twoSum;
 const e_calculate_addDouble = growExpansion;
 const e_calculate_add = fastExpansionSum;
 const e_calculate_compress = (/* unused pure expression or super */ null && (e_calculate_eCompress));
@@ -1508,7 +1585,7 @@ function eCalculate(terms) {
 
 // We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
 const e_product_mult = expansionProduct;
-const e_product_tp = two_product_twoProduct;
+const e_product_tp = twoProduct;
 const e_product_multByDouble = scaleExpansion;
 const e_product_compress = eCompress;
 /**
@@ -1595,105 +1672,6 @@ function eToDd(e) {
         return [0, e[0]]; // double-doubles have a fixed length of 2
     }
     return [e[len - 2], e[len - 1]]; // return only most significant parts
-}
-
-
-;// ./src/geometric-primitives/orient2d.ts
-
-
-
-
-
-
-const ccwerrboundA = 3.330669073875472e-16;
-const ccwerrboundB = 2.220446049250315e-16;
-const ccwerrboundC = 1.109335647967049e-31;
-const resulterrbound = 3.330669073875471e-16;
-/**
- * * Ported from [Shewchuk](http://docs.ros.org/kinetic/api/asr_approx_mvbb/html/Predicates_8cpp_source.html)
- * * see also https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf
- *
- * * Adaptive exact 2d orientation test.
- *
- * * Robust.
- *
- * Return a positive value if the points pa, pb, and pc occur in
- * counterclockwise order; a negative value if they occur in clockwise order;
- * and zero if they are collinear.  The result is also a rough approximation of
- * twice the signed area of the triangle defined by the three points.
- *
- * The result returned is the determinant of a matrix. This determinant is
- * computed adaptively, in the sense that exact arithmetic is used only to the
- * degree it is needed to ensure that the returned value has the correct sign.
- * Hence, orient2d() is usually quite fast, but will run more slowly when the
- * input points are collinear or nearly so.
- */
-function orient2d(A, B, C) {
-    const detleft = (A[0] - C[0]) * (B[1] - C[1]);
-    const detright = (A[1] - C[1]) * (B[0] - C[0]);
-    const det = detleft - detright;
-    let detsum;
-    if (detleft > 0) {
-        if (detright <= 0) {
-            // Anti-clockwise
-            return det;
-        }
-        else {
-            detsum = detleft + detright;
-        }
-    }
-    else if (detleft < 0) {
-        if (detright >= 0) {
-            // Clockwise
-            return det;
-        }
-        else {
-            detsum = -detleft - detright;
-        }
-    }
-    else {
-        // Anti-clockwise, clockwise or straight
-        return det;
-    }
-    if (Math.abs(det) >= ccwerrboundA * detsum) {
-        // Anti-clockwise or clockwise
-        return det;
-    }
-    return orient2dAdapt(A, B, C, detsum);
-}
-function orient2dAdapt(A, B, C, detsum) {
-    const acx = A[0] - C[0];
-    const bcx = B[0] - C[0];
-    const acy = A[1] - C[1];
-    const bcy = B[1] - C[1];
-    const b = eDiff(two_product_twoProduct(acx, bcy), two_product_twoProduct(acy, bcx));
-    let det = eEstimate(b);
-    if (Math.abs(det) >= ccwerrboundB * detsum) {
-        // Anti-clockwise or clockwise
-        return det;
-    }
-    const acxtail = twoDiff(A[0], C[0])[0];
-    const bcxtail = twoDiff(B[0], C[0])[0];
-    const acytail = twoDiff(A[1], C[1])[0];
-    const bcytail = twoDiff(B[1], C[1])[0];
-    if (acxtail === 0 && acytail === 0 &&
-        bcxtail === 0 && bcytail === 0) {
-        // Straight
-        return det;
-    }
-    const errbound = ccwerrboundC * detsum + resulterrbound * Math.abs(det);
-    det += (acx * bcytail + bcy * acxtail) - (acy * bcxtail + bcx * acytail);
-    if (Math.abs(det) >= errbound) {
-        return det;
-    }
-    const a = eDiff(two_product_twoProduct(acxtail, bcy), two_product_twoProduct(acytail, bcx));
-    const c = fastExpansionSum(b, a);
-    const d = eDiff(two_product_twoProduct(acx, bcytail), two_product_twoProduct(acy, bcxtail));
-    const e = fastExpansionSum(c, d);
-    const f = eDiff(two_product_twoProduct(acxtail, bcytail), two_product_twoProduct(acytail, bcxtail));
-    let D = fastExpansionSum(e, f);
-    D = eCompress(D);
-    return D[D.length - 1];
 }
 
 
@@ -1792,7 +1770,709 @@ function eIsInteger(a) {
 }
 
 
+;// ./src/infinite-precision/dyadic-float.ts
+/**
+ * Arbitrary-precision dyadic floating-point number — core representation.
+ *
+ * A value is represented as:
+ *
+ *      x = (-1)^sign * mantissa * 2^exp
+ *
+ * where:
+ *  - sign     : 0 for non-negative, 1 for negative.
+ *  - mantissa : a non-negative arbitrary-precision integer stored as an
+ *               array of base-2^LIMB_BITS "limbs", little-endian
+ *               (mantissa[0] is least significant). Each limb is an integer
+ *               in [0, 2^LIMB_BITS) held inside a double.
+ *  - exp      : an integer power-of-two scale, completely decoupled from the
+ *               mantissa. This is what removes the overflow/underflow defect
+ *               of a Shewchuk expansion: the exponent is no longer pinned to
+ *               the double range.
+ *
+ * Because the values are dyadic (denominator is always a power of two),
+ * addition, subtraction and multiplication are EXACT and closed in this
+ * representation. Only division requires rounding.
+ *
+ * Limbs use radix 2^26 so that the product of any two limbs is < 2^52 and is
+ * therefore exactly representable in a double — schoolbook multiplication and
+ * carry propagation can be done entirely in floating point.
+ */
+/** Number of value bits per limb. 26 keeps limb*limb < 2^52 (exact in a double). */
+const LIMB_BITS = 26;
+/** Radix of a single limb: 2^LIMB_BITS. */
+const LIMB_BASE = 2 ** LIMB_BITS;
+
+
+;// ./src/infinite-precision/helpers/normalize.ts
+
+/**
+ * Reduce a DyadicFloat to canonical form, in place:
+ *  - propagate any carries so every limb is in [0, LIMB_BASE),
+ *  - drop high-order zero limbs,
+ *  - factor out trailing zero limbs into `exp` so the low limb is non-zero,
+ *  - collapse to canonical zero when the mantissa is empty.
+ *
+ * * **destructive**: Returns the same object for convenience.
+ */
+function dfNormalize(x) {
+    const m = x.mantissa;
+    // 1. Carry-propagate so each limb is a clean integer in range.
+    let carry = 0;
+    for (let i = 0; i < m.length; i++) {
+        const v = m[i] + carry;
+        const low = v % LIMB_BASE;
+        m[i] = low;
+        carry = (v - low) / LIMB_BASE;
+    }
+    while (carry > 0) {
+        const low = carry % LIMB_BASE;
+        m.push(low);
+        carry = (carry - low) / LIMB_BASE;
+    }
+    // 2. Trim leading (most-significant) zero limbs.
+    while (m.length > 0 && m[m.length - 1] === 0) {
+        m.pop();
+    }
+    // 3. Canonical zero.
+    if (m.length === 0) {
+        // @ts-ignore
+        x.sign = 0;
+        // @ts-ignore
+        x.exp = 0;
+        return x;
+    }
+    // 4. Factor trailing zero limbs into the exponent.
+    let lowZeroLimbs = 0;
+    while (lowZeroLimbs < m.length && m[lowZeroLimbs] === 0) {
+        lowZeroLimbs++;
+    }
+    if (lowZeroLimbs > 0) {
+        m.splice(0, lowZeroLimbs);
+        // @ts-ignore
+        x.exp += lowZeroLimbs * LIMB_BITS;
+    }
+    // 5. TODO: optionally factor trailing zero BITS of m[0] into exp so the
+    //    mantissa low bit is odd (a stricter canonical form). Left as a hook.
+    return x;
+}
+
+
+;// ./src/infinite-precision/zero.ts
+/**
+ * The canonical zero: `{ sign: 0, mantissa: [], exp: 0 }`.
+ */
+const DF_ZERO = { sign: 0, mantissa: [], exp: 0 };
+
+
+;// ./src/infinite-precision/from-double.ts
+
+
+
+const _scratch = new DataView(new ArrayBuffer(8));
+/**
+ * Build a DyadicFloat from a JS double. Exact for all finite doubles
+ * (including subnormals and ±0). Throws on NaN / ±Infinity.
+ */
+function dfFromDouble(v) {
+    if (v === 0)
+        return DF_ZERO; // covers +0 and -0
+    _scratch.setFloat64(0, v);
+    const hi = _scratch.getUint32(0);
+    const lo = _scratch.getUint32(4);
+    const sign = hi >>> 31;
+    const expField = (hi >>> 20) & 0x7ff;
+    const fracHigh = hi & 0xfffff; // low 20 bits of the high word
+    if (expField === 0x7ff) {
+        throw new Error('fromNumber: value must be finite');
+    }
+    // 52-bit fraction as an exact integer (fracHigh < 2^20, lo < 2^32).
+    const frac = fracHigh * 2 ** 32 + lo;
+    // value = (-1)^sign * mantissaInt * 2^e2
+    let mantissaInt;
+    let e2;
+    if (expField === 0) {
+        // Subnormal: no hidden bit, biased exponent treated as 1.
+        mantissaInt = frac;
+        e2 = -1074;
+    }
+    else {
+        // Normal: add the hidden leading 1 bit.
+        mantissaInt = frac + 2 ** 52;
+        e2 = expField - 1075; // (expField - 1023) - 52
+    }
+    // Split the (<= 53-bit) significand into base-2^26 limbs; normalize fixes
+    // the high limb (which may be >= LIMB_BASE) via carry propagation.
+    const low = mantissaInt % LIMB_BASE;
+    const high = Math.floor(mantissaInt / LIMB_BASE);
+    return dfNormalize({ sign, mantissa: [low, high], exp: e2 });
+}
+
+
+;// ./src/infinite-precision/is-zero.ts
+/**
+ * Returns `true` if `x` represents the `DyadicFloat` value zero,
+ * `false` otherwise.
+ */
+function dfIsZero(x) {
+    return x.mantissa.length === 0;
+}
+
+
+;// ./src/infinite-precision/shift-left.ts
+
+/**
+ * Shift a mantissa up by `bits` bits (multiply by 2^bits), returning a new
+ * limb array. Used to align two operands to a common exponent.
+ */
+function dfShiftLeft(m, bits) {
+    if (bits === 0 || m.length === 0)
+        return m.slice();
+    const limbShift = Math.floor(bits / LIMB_BITS);
+    const bitShift = bits % LIMB_BITS;
+    const out = new Array(limbShift).fill(0);
+    if (bitShift === 0) {
+        for (let i = 0; i < m.length; i++)
+            out.push(m[i]);
+        return out;
+    }
+    let carry = 0;
+    for (let i = 0; i < m.length; i++) {
+        const v = m[i] * (2 ** bitShift) + carry;
+        out.push(v % LIMB_BASE);
+        carry = Math.floor(v / LIMB_BASE);
+    }
+    while (carry > 0) {
+        out.push(carry % LIMB_BASE);
+        carry = Math.floor(carry / LIMB_BASE);
+    }
+    return out;
+}
+
+
+;// ./src/infinite-precision/align.ts
+
+/**
+ * Align two values to a common (lower) exponent so their mantissas can be
+ * added/subtracted limb-by-limb. Returns the two shifted mantissas and the
+ * shared exponent. Does not mutate inputs.
+ */
+function dfAlign(a, b) {
+    const exp = Math.min(a.exp, b.exp);
+    const ma = dfShiftLeft(a.mantissa, a.exp - exp);
+    const mb = dfShiftLeft(b.mantissa, b.exp - exp);
+    return { ma, mb, exp };
+}
+
+
+;// ./src/infinite-precision/add-magnitude.ts
+
+/**
+ * Add two aligned magnitude limb arrays:
+ * * returns a + b (not normalized).
+ * * * Exact
+ */
+function dfAddMagnitude(a, b) {
+    const n = Math.max(a.length, b.length);
+    const out = new Array(n);
+    let carry = 0;
+    for (let i = 0; i < n; i++) {
+        const v = (a[i] ?? 0) + (b[i] ?? 0) + carry;
+        out[i] = v % LIMB_BASE;
+        carry = (v - out[i]) / LIMB_BASE;
+    }
+    if (carry > 0)
+        out.push(carry);
+    return out;
+}
+
+
+;// ./src/infinite-precision/sub-magnitude.ts
+
+/**
+ * Subtract aligned magnitudes: returns a - b, ASSUMING a >= b.
+ * Result is not normalized (may carry leading zeros).
+ */
+function dfSubMagnitude(a, b) {
+    const out = new Array(a.length);
+    let borrow = 0;
+    for (let i = 0; i < a.length; i++) {
+        let v = a[i] - (b[i] ?? 0) - borrow;
+        if (v < 0) {
+            v += LIMB_BASE;
+            borrow = 1;
+        }
+        else {
+            borrow = 0;
+        }
+        out[i] = v;
+    }
+    // borrow should be 0 here when a >= b.
+    return out;
+}
+
+
+;// ./src/infinite-precision/compare-magnitude-aligned.ts
+/**
+ * Compare two aligned magnitude limb arrays (same exponent assumed).
+ * Returns -1, 0 or 1 for a<b, a==b, a>b respectively.
+ */
+function dfCompareMagnitudeAligned(a, b) {
+    if (a.length !== b.length) {
+        return a.length < b.length ? -1 : 1;
+    }
+    for (let i = a.length - 1; i >= 0; i--) {
+        if (a[i] !== b[i]) {
+            return a[i] < b[i] ? -1 : 1;
+        }
+    }
+    return 0;
+}
+
+
+;// ./src/infinite-precision/add.ts
+
+
+
+
+
+
+
+/**
+ * Adds two dyadic floats: a + b.
+ * * Exact
+ */
+function dfAdd(a, b) {
+    if (dfIsZero(a)) {
+        return { sign: b.sign, mantissa: b.mantissa.slice(), exp: b.exp };
+    }
+    if (dfIsZero(b)) {
+        return { sign: a.sign, mantissa: a.mantissa.slice(), exp: a.exp };
+    }
+    const { ma, mb, exp } = dfAlign(a, b);
+    let result;
+    if (a.sign === b.sign) {
+        // Same sign: magnitudes add, sign preserved.
+        result = { sign: a.sign, mantissa: dfAddMagnitude(ma, mb), exp };
+    }
+    else {
+        // Opposite signs: subtract smaller magnitude from larger.
+        const cmp = dfCompareMagnitudeAligned(ma, mb);
+        if (cmp === 0) {
+            return DF_ZERO; // equal magnitudes cancel to zero
+        }
+        result = cmp > 0
+            ? { sign: a.sign, mantissa: dfSubMagnitude(ma, mb), exp }
+            : { sign: b.sign, mantissa: dfSubMagnitude(mb, ma), exp };
+    }
+    return dfNormalize(result);
+}
+
+
+;// ./src/double-expansion/to-dyadic-float.ts
+
+
+
+/**
+ * Convert a Shewchuk floating-point expansion to a DyadicFloat.
+ *
+ * The expansion's exact value is the sum of its components; this conversion is
+ * exact since every finite double is an exact dyadic number and dyadic
+ * addition is closed and exact.
+ *
+ * The components need not be nonoverlapping or sorted — any array of finite
+ * doubles is accepted and its exact sum is returned.
+ *
+ * @param e a floating point expansion
+ */
+function toDyadicFloat(e) {
+    let acc = DF_ZERO;
+    for (let i = 0; i < e.length; i++) {
+        acc = dfAdd(acc, dfFromDouble(e[i]));
+    }
+    return acc;
+}
+
+
+;// ./src/infinite-precision/get-bit.ts
+
+/** Return bit `i` (0 = least significant) of the integer represented by `m`. */
+function dfGetBit(m, i) {
+    const limb = Math.floor(i / LIMB_BITS);
+    if (limb < 0 || limb >= m.length)
+        return 0;
+    return (m[limb] >> (i % LIMB_BITS)) & 1;
+}
+
+
+;// ./src/infinite-precision/limb-bit-length.ts
+/** Number of significant bits in a single limb (limb is in [0, 2^26)). */
+function dfLimbBitLength(v) {
+    return v === 0
+        ? 0
+        : 32 - Math.clz32(v);
+}
+
+
+;// ./src/infinite-precision/low-bits-set.ts
+
+/** True iff any of the low `k` bits (positions 0..k-1) of `m` are set. */
+function dfLowBitsSet(m, k) {
+    if (k <= 0)
+        return false;
+    const fullLimbs = Math.floor(k / LIMB_BITS);
+    for (let i = 0; i < fullLimbs && i < m.length; i++) {
+        if (m[i] !== 0)
+            return true;
+    }
+    const rem = k % LIMB_BITS;
+    if (rem > 0 && fullLimbs < m.length) {
+        const mask = (1 << rem) - 1;
+        if ((m[fullLimbs] & mask) !== 0)
+            return true;
+    }
+    return false;
+}
+
+
+;// ./src/infinite-precision/mantissa-bit-length.ts
+
+
+/**
+ * Number of significant bits of the integer represented by `m`
+ * (position of the most-significant set bit, plus one). Zero for an empty
+ * mantissa. Assumes `m` is normalized (top limb non-zero).
+ */
+function dfMantissaBitLength(m) {
+    if (m.length === 0)
+        return 0;
+    return (m.length - 1) * LIMB_BITS + dfLimbBitLength(m[m.length - 1]);
+}
+
+
+;// ./src/infinite-precision/mul.ts
+
+
+
+
+/**
+ * Multiply: a * b. Exact.
+ *
+ * Schoolbook O(n*m) multiply. Each partial product a[i]*b[j] < 2^52 so it is
+ * exact in a double; carries are propagated as we go and finished off by
+ * `normalize`.
+ *
+ * TODO: consider a Karatsuba threshold for large operands.
+ */
+function dfMul(a, b) {
+    if (dfIsZero(a) || dfIsZero(b)) {
+        return DF_ZERO;
+    }
+    const ma = a.mantissa;
+    const mb = b.mantissa;
+    const out = new Array(ma.length + mb.length).fill(0);
+    for (let i = 0; i < ma.length; i++) {
+        const ai = ma[i];
+        if (ai === 0)
+            continue;
+        let carry = 0;
+        for (let j = 0; j < mb.length; j++) {
+            const v = out[i + j] + ai * mb[j] + carry;
+            const low = v % LIMB_BASE;
+            out[i + j] = low;
+            carry = (v - low) / LIMB_BASE;
+        }
+        out[i + mb.length] += carry;
+    }
+    return dfNormalize({
+        sign: a.sign ^ b.sign,
+        mantissa: out,
+        exp: a.exp + b.exp,
+    });
+}
+
+
+;// ./src/infinite-precision/neg.ts
+
+
+/**
+ * Returns the negative of the given `DyadicFloat`.
+ */
+function dfNeg(x) {
+    if (dfIsZero(x)) {
+        return DF_ZERO;
+    }
+    return {
+        sign: x.sign ^ 1,
+        mantissa: x.mantissa.slice(),
+        exp: x.exp
+    };
+}
+
+
+;// ./src/infinite-precision/shift-right.ts
+
+/**
+ * Shift a mantissa down by `bits` bits (floor-divide by 2^bits), returning a
+ * new limb array. The discarded low bits are lost — used to truncate a
+ * mantissa toward zero. The result is not guaranteed normalized.
+ */
+function dfShiftRight(m, bits) {
+    if (bits === 0 || m.length === 0)
+        return m.slice();
+    const limbShift = Math.floor(bits / LIMB_BITS);
+    if (limbShift >= m.length)
+        return [];
+    const bitShift = bits % LIMB_BITS;
+    if (bitShift === 0) {
+        return m.slice(limbShift);
+    }
+    const inv = LIMB_BITS - bitShift;
+    const lowMask = (1 << bitShift) - 1;
+    const out = new Array(m.length - limbShift);
+    for (let i = limbShift; i < m.length; i++) {
+        const low = m[i] >> bitShift;
+        const high = i + 1 < m.length ? (m[i + 1] & lowMask) * (2 ** inv) : 0;
+        out[i - limbShift] = (low + high) % LIMB_BASE;
+    }
+    return out;
+}
+
+
+;// ./src/infinite-precision/round.ts
+
+
+
+
+
+
+
+/**
+ * Limit a DyadicFloat to at most `prec` significant mantissa bits using
+ * round-to-nearest, ties-to-even.
+ *
+ * Unlike `truncate` (which always rounds toward zero), this keeps the closest
+ * representable value with `prec` significant bits, breaking exact halfway
+ * cases toward the even mantissa. The error is therefore at most half an ulp
+ * of the retained precision.
+ *
+ * Values already within `prec` bits are returned unchanged (copied).
+ *
+ * @param x a `DyadicFloat`
+ * @param prec maximum number of significant mantissa bits (must be positive)
+ */
+function dfRound(x, prec) {
+    if (dfIsZero(x)) {
+        return DF_ZERO;
+    }
+    const m = x.mantissa;
+    const bitlen = dfMantissaBitLength(m);
+    if (bitlen <= prec) {
+        return { sign: x.sign, mantissa: m.slice(), exp: x.exp };
+    }
+    const shift = bitlen - prec;
+    const kept = dfShiftRight(m, shift);
+    // Round-to-nearest, ties-to-even on the discarded low `shift` bits.
+    const roundBit = dfGetBit(m, shift - 1);
+    const sticky = dfLowBitsSet(m, shift - 1);
+    const keptIsOdd = dfGetBit(m, shift) === 1;
+    if (roundBit === 1 && (sticky || keptIsOdd)) {
+        kept[0] = (kept[0] ?? 0) + 1; // normalize propagates the carry
+    }
+    return dfNormalize({ sign: x.sign, mantissa: kept, exp: x.exp + shift });
+}
+
+
+;// ./src/infinite-precision/sub.ts
+
+
+/**
+ * Subtract: a - b.
+ * * exact
+ */
+function dfSub(a, b) {
+    return dfAdd(a, dfNeg(b));
+}
+
+
+;// ./src/infinite-precision/helpers/ldexp.ts
+/**
+ * Compute `x * 2^e` as a double, stepping the exponent so intermediate
+ * multipliers stay finite. Handles overflow to ±Infinity and gradual
+ * underflow / subnormals correctly.
+ */
+function ldexp(x, e) {
+    if (x === 0) {
+        return 0;
+    }
+    while (e > 1023) {
+        x *= 2 ** 1023;
+        e -= 1023;
+        if (!isFinite(x)) {
+            return x;
+        }
+    }
+    while (e < -1074) {
+        x *= 2 ** -1074;
+        e += 1074;
+        if (x === 0) {
+            return 0;
+        }
+    }
+    return x * 2 ** e;
+}
+
+;// ./src/infinite-precision/to-double.ts
+
+
+
+
+
+/**
+ * Convert to the nearest JS double using round-to-nearest, ties-to-even.
+ * Overflows to ±Infinity and underflows to ±0 as IEEE-754 dictates.
+ * Assumes `x` is normalized.
+ */
+function dfToDouble(x) {
+    if (dfIsZero(x)) {
+        return 0;
+    }
+    const m = x.mantissa;
+    const bitlen = dfMantissaBitLength(m);
+    // Number of low bits to discard so the kept significand fits in 53 bits.
+    const shift = Math.max(0, bitlen - 53);
+    // Build q = floor(M / 2^shift) (at most 53 bits => exact in a double).
+    let q = 0;
+    for (let i = bitlen - 1; i >= shift; i--) {
+        q = q * 2 + dfGetBit(m, i);
+    }
+    let e2 = x.exp + shift;
+    if (shift > 0) {
+        // Round-to-nearest, ties-to-even on the discarded low `shift` bits.
+        const roundBit = dfGetBit(m, shift - 1);
+        const sticky = dfLowBitsSet(m, shift - 1);
+        if (roundBit === 1 && (sticky || q % 2 === 1)) {
+            q += 1;
+            if (q === 2 ** 53) {
+                // Mantissa carried out of 53 bits; renormalize.
+                q /= 2;
+                e2 += 1;
+            }
+        }
+    }
+    const magnitude = ldexp(q, e2);
+    return x.sign === 1 ? -magnitude : magnitude;
+}
+
+
+;// ./src/infinite-precision/to-expansion.ts
+
+
+
+
+/** Bits packed into each expansion component (a double holds 53). */
+const CHUNK_BITS = 53;
+/**
+ * Convert a DyadicFloat to a Shewchuk floating-point expansion.
+ *
+ * The returned array is a nonoverlapping expansion, sorted in order of
+ * increasing magnitude, whose exact sum equals the value of `x`. The
+ * conversion is exact (the dyadic value and the expansion's sum are equal).
+ *
+ * The integer significand is sliced into successive 53-bit windows; each
+ * nonzero window becomes one component scaled by the appropriate power of two.
+ * Because the windows occupy disjoint bit ranges, the components are
+ * nonoverlapping by construction.
+ *
+ * A zero value yields `[0]`.
+ *
+ * @param x a normalized DyadicFloat
+ */
+function dfToExpansion(x) {
+    if (dfIsZero(x)) {
+        return [0];
+    }
+    const m = x.mantissa;
+    const bitlen = dfMantissaBitLength(m);
+    const negative = x.sign === 1;
+    const e = [];
+    for (let start = 0; start < bitlen; start += CHUNK_BITS) {
+        const count = Math.min(CHUNK_BITS, bitlen - start);
+        // Build this window's bits as an exact integer in [0, 2^53).
+        let q = 0;
+        for (let i = count - 1; i >= 0; i--) {
+            q = q * 2 + dfGetBit(m, start + i);
+        }
+        if (q === 0) {
+            continue;
+        } // skip empty windows
+        const component = ldexp(q, x.exp + start);
+        e.push(negative ? -component : component);
+    }
+    // The significand was nonzero, but every window could round to a zero
+    // double on underflow; keep the contract of returning a valid expansion.
+    if (e.length === 0) {
+        return [0];
+    }
+    return e;
+}
+
+
+;// ./src/infinite-precision/truncate.ts
+
+
+
+
+
+/**
+ * Limit a DyadicFloat to at most `prec` significant mantissa bits by
+ * truncating toward zero.
+ *
+ * The low bits of the mantissa are discarded and the same count is folded into
+ * `exp`, so the value stays (-1)^sign * mantissa' * 2^exp' with mantissa'
+ * holding at most `prec` significant bits. Because only low bits are dropped,
+ * the magnitude never increases: the result is the closest representable value
+ * to `x` whose magnitude does not exceed |x| (round toward zero).
+ *
+ * Values already within `prec` bits are returned unchanged (copied).
+ *
+ * @param x a `DyadicFloat`
+ * @param prec maximum number of significant mantissa bits (must be positive)
+ */
+function dfTruncate(x, prec) {
+    if (dfIsZero(x)) {
+        return DF_ZERO;
+    }
+    const bitlen = dfMantissaBitLength(x.mantissa);
+    if (bitlen <= prec) {
+        return { sign: x.sign, mantissa: x.mantissa.slice(), exp: x.exp };
+    }
+    const shift = bitlen - prec;
+    return dfNormalize({
+        sign: x.sign,
+        mantissa: dfShiftRight(x.mantissa, shift),
+        exp: x.exp + shift
+    });
+}
+
+
 ;// ./src/index.ts
+//----------------------
+// Geometric primitives
+//----------------------
+
+//---------------------------------
+// Double precision core functions
+//---------------------------------
+
+
+
+
+
+
+
+//-----------------------
+// Double representation
+//-----------------------
 
 
 
@@ -1804,14 +2484,9 @@ function eIsInteger(a) {
 
 
 
-
-
-
-
-
-
-
-
+//---------------------
+// Shewchuk expansions
+//---------------------
 
 
 
@@ -1842,4 +2517,27 @@ function eIsInteger(a) {
 
 
 
-export { bitLength, doubleToBinaryString, doubleToOctets, eAbs, fastExpansionSum as eAdd, growExpansion as eAddDouble, eCalculate, eCompare, eCompress, eDiff, eDiv, eDivBy2, eEstimate, eIntDiv, eIntPow, eIsInteger, eLongDivide, expansionProduct as eMult, eMultBy2, eMultByNeg2, scaleExpansion as eMultDouble1, scaleExpansion2 as eMultDouble2, eNegativeOf, eProduct, eRem, eSign, eSum, eToBitlength, eToDd, expBitLength, expansionProduct, exponent, fastExpansionSum, fastTwoDiff, fast_two_sum_fastTwoSum as fastTwoSum, getHighestSetBit, getLowestSetBit, growExpansion, isAdjacent, isBitAligned, isNonOverlappingAll, lsbExponent, msbExponent, orient2d, parseDouble, parseDoubleDetailed, reduceSignificand, scaleExpansion, scaleExpansion2, significand, split, twoDiff, two_product_twoProduct as twoProduct, two_sum_twoSum as twoSum };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export { DF_ZERO, bitLength, dfAdd, dfAddMagnitude, dfAlign, dfCompareMagnitudeAligned, dfFromDouble, dfGetBit, dfIsZero, dfLimbBitLength, dfLowBitsSet, dfMantissaBitLength, dfMul, dfNeg, dfNormalize, dfRound, dfShiftLeft, dfShiftRight, dfSub, dfSubMagnitude, dfToDouble, dfToExpansion, dfTruncate, doubleToBinaryString, doubleToOctets, eAbs, fastExpansionSum as eAdd, growExpansion as eAddDouble, eCalculate, eCompare, eCompress, eDiff, eDiv, eDivBy2, eEstimate, eIntDiv, eIntPow, eIsInteger, eLongDivide, expansionProduct as eMult, eMultBy2, eMultByNeg2, scaleExpansion as eMultDouble1, scaleExpansion2 as eMultDouble2, eNegativeOf, eProduct, eRem, eSign, eSum, eToBitlength, eToDd, expBitLength, expansionProduct, exponent, fastExpansionSum, fastTwoDiff, fastTwoSum, getHighestSetBit, getLowestSetBit, growExpansion, isAdjacent, isBitAligned, isNonOverlappingAll, lsbExponent, msbExponent, orient2d, parseDouble, parseDoubleDetailed, reduceSignificand, scaleExpansion, scaleExpansion2, significand, split, toDyadicFloat, twoDiff, twoProduct, twoSum };

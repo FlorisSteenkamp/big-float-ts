@@ -1,4 +1,3 @@
-
 import { expansionProduct } from "./expansion-product.js";
 import { twoProduct } from "../basic/two-product.js";
 import { scaleExpansion } from "./scale-expansion.js";

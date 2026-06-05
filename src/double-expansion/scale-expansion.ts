@@ -1,4 +1,3 @@
-
 import { twoProduct } from '../basic/two-product.js';
 import { twoSum } from '../basic/two-sum.js';
 import { fastTwoSum } from '../basic/fast-two-sum.js';
