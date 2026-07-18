@@ -2,6 +2,8 @@
  * Return the result of summing an array of terms, each term being an array of
  * floating point expansions to be multiplied together.
  *
+ * * the result is not compressed, call `eCompress` on the result if required.
+ *
  * * The result is exact in the form of a non-overlapping floating point
  * expansion.
  * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)

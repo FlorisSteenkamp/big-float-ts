@@ -1,11 +1,5 @@
-
-import { fastExpansionSum } from "./fast-expansion-sum.js";
+import { fastExpansionSum as add } from "./fast-expansion-sum.js";
 import { eNegativeOf } from "./e-negative-of.js";
-
-
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const negativeOf = eNegativeOf;
-const add = fastExpansionSum;
 
 
 /**
@@ -17,7 +11,7 @@ const add = fastExpansionSum;
  * @param f another floating point expansion
  */
 function eDiff(e: number[], f: number[]) {
-    const g = negativeOf(f);
+    const g = eNegativeOf(f);
     return add(e, g);
 }
 

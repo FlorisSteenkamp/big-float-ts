@@ -14,6 +14,8 @@ export { twoProduct } from './basic/two-product.js';
 export { twoSum } from './basic/two-sum.js';
 export { split } from './basic/split.js';
 export { reduceSignificand } from './basic/reduce-significand.js';
+export { ddToDouble } from './basic/dd-to-double.js';
+export { doubleToDd } from './basic/double-to-dd.js';
 
 
 //-----------------------
@@ -55,6 +57,7 @@ export { eSum } from './double-expansion/e-sum.js';
 export { eProduct } from './double-expansion/e-product.js';
 export { eIntPow } from './double-expansion/e-int-pow.js';
 export { eToDd } from './double-expansion/e-to-double-double.js';
+export { ddToE } from './double-expansion/dd-to-expansion.js';
 export { isAdjacent } from './double-expansion/is-adjacent.js';
 export { isNonOverlappingAll } from './double-expansion/is-overlapping.js';
 export { eIsInteger } from './double-expansion/e-is-integer.js';
@@ -67,7 +70,7 @@ export {
     scaleExpansion2, scaleExpansion2 as eMultDouble2
 } from './double-expansion/scale-expansion.js';
 export { expansionProduct, expansionProduct as eMult } from './double-expansion/expansion-product.js';
-export { toDyadicFloat } from './double-expansion/to-dyadic-float.js';
+export { eToDyadicFloat } from './double-expansion/e-to-dyadic-float.js';
 
 
 //----------------------------------

@@ -3,8 +3,8 @@ import { eAbs } from '../../src/double-expansion/e-abs.js';
 
 
 describe('eAbs', function() {
-	it('should correctly calculate the absolute value of some double-double precision values', 
-	function() {
+    it('should correctly calculate the absolute value of some double-double precision values', 
+    function() {
         // Some double-doubles
         let a = [-4.357806199228875e-10, 11_638_607.274152497];
         let b = [8.661162134715461e-10, 9_722_431.969870245];

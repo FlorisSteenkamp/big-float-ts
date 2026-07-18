@@ -4,8 +4,9 @@
         "rootDir": ".",
         "noEmit": true,
         "declaration": false,
-        "sourceMap": false,
-        "allowJs": true
+        "sourceMap": true,
+        "allowJs": true,
+        "types": ["node", "jest"]
     },
     "include": [
         "src/**/*.ts",

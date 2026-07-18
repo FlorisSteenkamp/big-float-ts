@@ -1,14 +1,8 @@
 import { eEstimate } from "./e-estimate.js";
-import { expansionProduct } from "./expansion-product.js";
-import { eDiff } from "./e-diff.js";
-import { eToBitlength } from "./e-to-bitlength.js";
-import { expBitLength } from "../double-representation/bit-length.js";
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const mult = expansionProduct;
-const toBitlength = eToBitlength;
-const bitLength = expBitLength;
-const diff = eDiff;
-const estimate = eEstimate;
+import { expansionProduct as mult } from "./expansion-product.js";
+import { eDiff as diff } from "./e-diff.js";
+import { eToBitlength as toBitlength } from "./e-to-bitlength.js";
+import { expBitLength as bitLength } from "../double-representation/bit-length.js";
 /**
  * Returns the result of a/b using Goldschmidt division.
  *
@@ -39,7 +33,7 @@ function eDiv(N, D, expansionLength) {
         expansionLength = (resultBitlengthUpperBound / 53) + 1;
         exact = true;
     }
-    let F = [1 / estimate(D_)]; // Initial guess - out by 1/2 upls
+    let F = [1 / eEstimate(D_)]; // Initial guess - out by 1/2 upls
     let i = 1;
     while (true) {
         N_ = mult(N_, F);

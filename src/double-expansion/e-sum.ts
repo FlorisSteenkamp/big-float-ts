@@ -1,13 +1,6 @@
-
-import { twoSum } from "../basic/two-sum.js";
-import { growExpansion } from "./grow-expansion.js";
-import { fastExpansionSum } from "./fast-expansion-sum.js";
-
-
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const ts = twoSum;
-const addDouble = growExpansion;
-const add = fastExpansionSum;
+import { twoSum as ts } from "../basic/two-sum.js";
+import { growExpansion as addDouble } from "./grow-expansion.js";
+import { fastExpansionSum as add } from "./fast-expansion-sum.js";
 
 
 /**

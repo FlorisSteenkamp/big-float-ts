@@ -1,14 +1,7 @@
-import { expansionProduct } from "./expansion-product.js";
-import { twoProduct } from "../basic/two-product.js";
-import { scaleExpansion } from "./scale-expansion.js";
+import { expansionProduct as mult } from "./expansion-product.js";
+import { twoProduct as tp } from "../basic/two-product.js";
+import { scaleExpansion as multByDouble } from "./scale-expansion.js";
 import { eCompress } from "./e-compress.js";
-
-
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const mult = expansionProduct;
-const tp = twoProduct;
-const multByDouble = scaleExpansion;
-const compress = eCompress;
 
 
 
@@ -40,7 +33,7 @@ function eProduct(term: number[][]) {
         }
     }
 
-    return compress(product);
+    return eCompress(product);
     //return product;
 }
 

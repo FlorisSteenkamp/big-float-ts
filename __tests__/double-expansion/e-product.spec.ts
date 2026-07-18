@@ -23,8 +23,8 @@ function check(term: number[][], res: number) {
 
 
 describe('eCalculate', function() {
-	it('should correctly calculate the product of several floating point expansions',
-	function() {
+    it('should correctly calculate the product of several floating point expansions',
+    function() {
         check(
             [[2**-8, 2**-4, 1]],
             1.06640625
@@ -51,7 +51,7 @@ describe('eCalculate', function() {
             [[1], [2**-8, 2**-4, 1]],
             1.06640625
         );
-	});
+    });
 });
 
 

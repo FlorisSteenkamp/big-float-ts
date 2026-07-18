@@ -4,8 +4,8 @@ import { eCompress } from '../../src/double-expansion/e-compress.js';
 
 
 describe('to bit length', function() {
-	it('should set the bit length of some doubles correctly', 
-	function() {
+    it('should set the bit length of some doubles correctly', 
+    function() {
         {
             let a = eCompress([134134123111*(2**-52), 1341]);
             let res = eToBitlength(a, 56);
@@ -83,5 +83,5 @@ describe('to bit length', function() {
             let res = eToBitlength(a, 4);
             expect(res).toEqual([1280]);
         }
-	});
+    });
 });

@@ -1,11 +1,5 @@
-
-import { eProduct } from "./e-product.js";
-import { expansionProduct } from "./expansion-product.js";
-
-
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const mult = expansionProduct;
-const prod = eProduct;
+import { eProduct as prod } from "./e-product.js";
+import { expansionProduct as mult } from "./expansion-product.js";
 
 
 /**

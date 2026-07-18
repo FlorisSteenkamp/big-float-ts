@@ -2,9 +2,9 @@ import { describe, expect, it } from '@jest/globals';
 import { eToDd } from '../../src/double-expansion/e-to-double-double.js';
 
 
-describe('', function() {
-	it('should ', 
-	function() {
+describe('`eToDd`', function() {
+    it('should correctly convert an Schewchuk floating point expansion to a double-double precision floating point number', 
+    function() {
         // A floating point expansion
         let a = [
             -2.234264249842695e-47,

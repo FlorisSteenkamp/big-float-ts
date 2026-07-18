@@ -58,8 +58,8 @@ const D2 = [
 ];
 
 describe('eLongDivide', function() {
-	it('should correctly do long division, returning the correct quotient and remainder of some Shewchuk expansions', 
-	function() {
+    it('should correctly do long division, returning the correct quotient and remainder of some Shewchuk expansions', 
+    function() {
         testLongDivide(e7, [10]);
         testLongDivide(e1, [MSI]);
         testLongDivide(e1, [MSI_plus1]);

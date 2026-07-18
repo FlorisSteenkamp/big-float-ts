@@ -1,14 +1,10 @@
-import { fastExpansionSum } from "./fast-expansion-sum.js";
-import { scaleExpansion } from "./scale-expansion.js";
-import { eCompress } from "./e-compress.js";
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const multByDouble = scaleExpansion;
-const add = fastExpansionSum;
-const compress = eCompress;
+import { fastExpansionSum as add } from "./fast-expansion-sum.js";
+import { scaleExpansion as multByDouble } from "./scale-expansion.js";
 /**
  * Returns the product of two double floating point expansions.
  *
  * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
+ * * the result is not compressed, call `eCompress` on the result if required.
  *
  * As per Shewchuk in the above paper: "To find the product of two expansions
  * e and f, use SCALE-EXPANSION (with zero elimination) to form the expansions
@@ -27,7 +23,6 @@ function expansionProduct(e, f) {
     for (let i = 0; i < e.length; i++) {
         sum = add(sum, multByDouble(f, e[i]));
     }
-    //return compress(sum);
     return sum;
 }
 export { expansionProduct };

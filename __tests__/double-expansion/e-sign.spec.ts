@@ -3,8 +3,8 @@ import { eSign } from '../../src/double-expansion/e-sign.js';
 
 
 describe('eign', function() {
-	it('should correctly return the sign of some floating point expansions', 
-	function() {
+    it('should correctly return the sign of some floating point expansions', 
+    function() {
         // Some floating point expansions
         let a = [-4.357806199228875e-10, 11_638_607.274152497];
         let b = [8.661162134715461e-10, 9_722_431.969870245];

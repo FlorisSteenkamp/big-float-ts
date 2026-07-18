@@ -1,10 +1,6 @@
 // import { eCompress } from "./e-compress.js";
 
 
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-// const compress = eCompress;
-
-
 /**
  * Returns the result of adding two expansions.
  * 

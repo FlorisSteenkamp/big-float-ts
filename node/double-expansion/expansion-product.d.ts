@@ -2,6 +2,7 @@
  * Returns the product of two double floating point expansions.
  *
  * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
+ * * the result is not compressed, call `eCompress` on the result if required.
  *
  * As per Shewchuk in the above paper: "To find the product of two expansions
  * e and f, use SCALE-EXPANSION (with zero elimination) to form the expansions

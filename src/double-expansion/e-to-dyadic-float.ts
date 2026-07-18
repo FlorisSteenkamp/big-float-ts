@@ -16,7 +16,7 @@ import { DF_ZERO } from '../infinite-precision/zero.js';
  *
  * @param e a floating point expansion
  */
-function toDyadicFloat(e: number[]): DyadicFloat {
+function eToDyadicFloat(e: number[]): DyadicFloat {
     let acc = DF_ZERO;
     for (let i = 0; i < e.length; i++) {
         acc = dfAdd(acc, dfFromDouble(e[i]));
@@ -26,4 +26,4 @@ function toDyadicFloat(e: number[]): DyadicFloat {
 }
 
 
-export { toDyadicFloat }
+export { eToDyadicFloat }

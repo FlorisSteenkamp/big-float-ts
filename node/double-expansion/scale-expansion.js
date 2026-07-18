@@ -1,13 +1,4 @@
-import { twoProduct } from '../basic/two-product.js';
-import { twoSum } from '../basic/two-sum.js';
-import { fastTwoSum } from '../basic/fast-two-sum.js';
-import { eCompress } from './e-compress.js';
 const f = 134217729; // 2**27 + 1;
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const tp = twoProduct;
-const ts = twoSum;
-const fts = fastTwoSum;
-const compress = eCompress;
 /**
  * Returns the result of multiplying an expansion by a double.
  *

@@ -1,13 +1,7 @@
-
 import { eSign } from "./e-sign.js";
 import { msbExponent } from "../double-representation/msb-exponent.js";
 import { eCompress } from "./e-compress.js";
 import { reduceSignificand } from "../basic/reduce-significand.js";
-
-
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const sign = eSign;
-const compress = eCompress;
 
 
 /**
@@ -21,8 +15,8 @@ function eToBitlength(
         a: number[], 
         l: number) {
 
-    a = compress(a);
-    if (sign(a) === 0) { return [0]; }
+    a = eCompress(a);
+    if (eSign(a) === 0) { return [0]; }
 
     const maxMsb = msbExponent(a[a.length-1]);
     let msb = maxMsb;

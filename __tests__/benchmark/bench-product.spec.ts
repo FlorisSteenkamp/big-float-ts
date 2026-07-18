@@ -9,7 +9,7 @@ import { eCompress } from '../../src/double-expansion/e-compress.js';
 
 
 describe('benchmark: expansion product', function() {
-	it('1', function() {
+    it('1', function() {
         // const N = 1000_000;
         const N = 4;
         const vsA: number[][] = [];     // Schewchuck
@@ -53,5 +53,5 @@ describe('benchmark: expansion product', function() {
         console.log(`mul (DyadicFloat): ${elapsedB.toFixed(2)} ms`);
 
         // expect(1).toEqual(1);
-	});
+    });
 });

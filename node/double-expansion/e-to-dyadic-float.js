@@ -1,4 +1,6 @@
-import type { DyadicFloat } from '../infinite-precision/dyadic-float.js';
+import { dfFromDouble } from '../infinite-precision/from-double.js';
+import { dfAdd } from '../infinite-precision/add.js';
+import { DF_ZERO } from '../infinite-precision/zero.js';
 /**
  * Convert a Shewchuk floating-point expansion to a DyadicFloat.
  *
@@ -11,5 +13,12 @@ import type { DyadicFloat } from '../infinite-precision/dyadic-float.js';
  *
  * @param e a floating point expansion
  */
-declare function toDyadicFloat(e: number[]): DyadicFloat;
-export { toDyadicFloat };
+function eToDyadicFloat(e) {
+    let acc = DF_ZERO;
+    for (let i = 0; i < e.length; i++) {
+        acc = dfAdd(acc, dfFromDouble(e[i]));
+    }
+    return acc;
+}
+export { eToDyadicFloat };
+//# sourceMappingURL=e-to-dyadic-float.js.map

@@ -16,8 +16,8 @@ function check(sum: number[][], expected: number) {
 
 
 describe('eCalculate sum', function() {
-	it('should calculate sum correctly',
-	function() {
+    it('should calculate sum correctly',
+    function() {
         // zero should equal 0
         check(
             [[0]],
@@ -71,7 +71,7 @@ describe('eCalculate sum', function() {
             ],
             15.83217927367012458725782448
         );
-	});
+    });
 });
 
 

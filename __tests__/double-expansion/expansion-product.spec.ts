@@ -33,8 +33,8 @@ function check(e: number[], f: number[], expected: number[]) {
 
 
 describe('expansion product', function() {
-	it('should calculate some expansion products correctly',
-	function() {
+    it('should calculate some expansion products correctly',
+    function() {
         check(
             [-2.7755575615628914e-17, 0.30000000000000004],  // 0.3
             [-2.7755575615628914e-17, 0.30000000000000004],  // * 0.3
@@ -114,5 +114,5 @@ describe('expansion product', function() {
                 9.98001e-31
             ]
         );
-	});
+    });
 });

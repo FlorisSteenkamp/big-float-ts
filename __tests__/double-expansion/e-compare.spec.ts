@@ -3,8 +3,8 @@ import { eCompare } from '../../src/double-expansion/e-compare.js';
 
 
 describe('eCompare', function() {
-	it('should correctly eCompare some floating point number expansions', 
-	function() {
+    it('should correctly eCompare some floating point number expansions', 
+    function() {
         // 0 === 0
         expect(eCompare([0], [0]) === 0).toBeTruthy(); 
 
@@ -21,5 +21,5 @@ describe('eCompare', function() {
             [-2.7755575615628914e-17, 0.30000000000000004], 
             [0.3]) > 0
         ).toBeTruthy(); 
-	});
+    });
 });

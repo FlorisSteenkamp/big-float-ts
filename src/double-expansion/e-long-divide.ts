@@ -1,20 +1,10 @@
-
-import { eNegativeOf as eNegativeOf_ } from './e-negative-of.js'
-import { fastExpansionSum as fastExpansionSum_ } from './fast-expansion-sum.js'
-import { eCompress as eCompress_ } from './e-compress.js';
-import { growExpansion as growExpansion_ } from './grow-expansion.js'; 
-import { eSum as eSum_ } from './e-sum.js';
-import { scaleExpansion as scaleExpansion_ } from './scale-expansion.js';
-import { eDiff as eDiff_ } from './e-diff.js';
-
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const eNegativeOf = eNegativeOf_;
-const fastExpansionSum = fastExpansionSum_;
-const eCompress = eCompress_;
-const growExpansion = growExpansion_;
-const eSum = eSum_;
-const scaleExpansion = scaleExpansion_;
-const eDiff = eDiff_;
+import { eNegativeOf } from './e-negative-of.js'
+import { fastExpansionSum } from './fast-expansion-sum.js'
+import { eCompress } from './e-compress.js';
+import { growExpansion } from './grow-expansion.js'; 
+import { eSum } from './e-sum.js';
+import { scaleExpansion } from './scale-expansion.js';
+import { eDiff } from './e-diff.js';
 
 
 const sign = Math.sign;

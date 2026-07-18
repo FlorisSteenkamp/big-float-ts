@@ -21,8 +21,8 @@ function check(sum: number[][][], res: number) {
 
 
 describe('eCalculate', function() {
-	it('should calculate correctly',
-	function() {
+    it('should calculate correctly',
+    function() {
         // zero should equal 0
         check(
             [[[2**-8, 2**-4, 1]]],
@@ -102,7 +102,7 @@ describe('eCalculate', function() {
             ]],
             1.06640625
         );
-	});
+    });
 });
 
 

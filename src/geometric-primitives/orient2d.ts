@@ -1,4 +1,3 @@
-
 import { twoProduct } from "../basic/two-product.js";
 import { eDiff } from "../double-expansion/e-diff.js";
 import { eEstimate } from "../double-expansion/e-estimate.js";

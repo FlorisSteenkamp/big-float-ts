@@ -1,8 +1,4 @@
-import { eCompress } from "./e-compress.js";
-
-
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const compress = eCompress;
+import { eCompress as compress } from "./e-compress.js";
 
 
 /**
@@ -15,7 +11,7 @@ const compress = eCompress;
  * Then the following algorithm will produce a nonoverlapping expansion such 
  * that h = sum_i(h_i) = e + b, where the components h_1, ..., h_(m+1) are also
  * in order of increasing magnitude, except that any of the h_i may be zero. 
- * Furthermore, if e is nonadjacent and round-to-even tiebreaking is used, then 	
+ * Furthermore, if e is nonadjacent and round-to-even tiebreaking is used, then 
  * h is nonadjacent.
  * See https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf
  * @param e A floating point expansion

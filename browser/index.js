@@ -37,8 +37,6 @@ function twoProduct(a, b) {
 
 ;// ./src/double-expansion/fast-expansion-sum.ts
 // import { eCompress } from "./e-compress.js";
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-// const compress = eCompress;
 /**
  * Returns the result of adding two expansions.
  *
@@ -200,9 +198,6 @@ function eNegativeOf(e) {
 ;// ./src/double-expansion/e-diff.ts
 
 
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const negativeOf = eNegativeOf;
-const add = fastExpansionSum;
 /**
  * Returns the difference between two floating point expansions, i.e. e - f.
  *
@@ -212,8 +207,8 @@ const add = fastExpansionSum;
  * @param f another floating point expansion
  */
 function eDiff(e, f) {
-    const g = negativeOf(f);
-    return add(e, g);
+    const g = eNegativeOf(f);
+    return fastExpansionSum(e, g);
 }
 
 
@@ -258,23 +253,23 @@ function twoDiff(a, b) {
 
 ;// ./src/double-expansion/e-compress.ts
 /**
- * Returns the result of compressing the given floating point expansion.
- *
- * * primarily for internal library use
+ * Returns the result of compressing the given Shewchuk floating point expansion.
  *
  * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
  *
- * Theorem 23 (Shewchuck): Let e = sum_(i=1)^m(e_i) be a nonoverlapping
- * expansion of m p-bit components, where m >= 3. Suppose that the components of
- * e are sorted in order of increasing magnitude, except that any of the e_i may
- * be zero. Then the following algorithm will produce a nonoverlapping expansion
+ * Theorem 23 (Shewchuk): Let `e = sum_(i=1)^m(e_i)` be a nonoverlapping
+ * expansion of m p-bit components, where m >= 3.
+ *
+ * Suppose that the components of `e` are sorted in order of increasing magnitude,
+ * except that any of the e_i may be zero.
+ *
+ * Then the following algorithm will produce a nonoverlapping expansion
  * (nonadjacent if round-to even tiebreaking is used) such that
- * h = sum_(i=1)^n(h_i) = e, where the components h_i are in order of increasing
- * magnitude. If h != 0, none of the h_i will be zero. Furthermore, the largest
- * component h_n approximates h with an error smaller than ulp(h_n).
+ * `h = sum_(i=1)^n(h_i) = e`, where the components `h_i` are in order of increasing
+ * magnitude. If `h != 0`, none of the `h_i` will be zero. Furthermore, the largest
+ * component `h_n` approximates `h` with an error smaller than `ulp(h_n)`.
  */
 function eCompress(e) {
-    //return e;
     const e_ = e.slice();
     const m = e_.length;
     if (m === 1) {
@@ -518,6 +513,30 @@ function reduceSignificand(a, bits) {
     const c = f * a;
     const r = c - (c - a);
     return r;
+}
+
+
+;// ./src/basic/dd-to-double.ts
+/**
+ * Returns a double floating point number by truncating the given double-double
+ * floating point number.
+ *
+ * * usually better to inline this function: `return dd[1]`
+ */
+function ddToDouble(dd) {
+    return dd[1];
+}
+
+
+;// ./src/basic/double-to-dd.ts
+/**
+ * Returns a double-double floating point number from the given double
+ * floating point number.
+ *
+ * * usually better to inline this function: `return [0,d]`
+ */
+function doubleToDd(d) {
+    return [0, d];
 }
 
 
@@ -853,9 +872,6 @@ function expBitLength(a) {
 
 
 
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const sign = eSign;
-const compress = eCompress;
 /**
  * Returns a floating point expansion accurate to the given number of bits.
  * Extraneous bits are discarded.
@@ -864,8 +880,8 @@ const compress = eCompress;
  */
 // TODO - make faster
 function eToBitlength(a, l) {
-    a = compress(a);
-    if (sign(a) === 0) {
+    a = eCompress(a);
+    if (eSign(a) === 0) {
         return [0];
     }
     const maxMsb = msbExponent(a[a.length - 1]);
@@ -889,20 +905,7 @@ function eToBitlength(a, l) {
 
 
 ;// ./src/double-expansion/scale-expansion.ts
-/* unused harmony import specifier */ var scale_expansion_twoProduct;
-/* unused harmony import specifier */ var scale_expansion_twoSum;
-/* unused harmony import specifier */ var scale_expansion_fastTwoSum;
-/* unused harmony import specifier */ var scale_expansion_eCompress;
-
-
-
-
 const scale_expansion_f = 134217729; // 2**27 + 1;
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const tp = (/* unused pure expression or super */ null && (scale_expansion_twoProduct));
-const ts = (/* unused pure expression or super */ null && (scale_expansion_twoSum));
-const fts = (/* unused pure expression or super */ null && (scale_expansion_fastTwoSum));
-const scale_expansion_compress = (/* unused pure expression or super */ null && (scale_expansion_eCompress));
 /**
  * Returns the result of multiplying an expansion by a double.
  *
@@ -1064,18 +1067,13 @@ function scaleExpansion2(b, e) {
 
 
 ;// ./src/double-expansion/expansion-product.ts
-/* unused harmony import specifier */ var expansion_product_eCompress;
 
 
-
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const multByDouble = scaleExpansion;
-const expansion_product_add = fastExpansionSum;
-const expansion_product_compress = (/* unused pure expression or super */ null && (expansion_product_eCompress));
 /**
  * Returns the product of two double floating point expansions.
  *
  * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
+ * * the result is not compressed, call `eCompress` on the result if required.
  *
  * As per Shewchuk in the above paper: "To find the product of two expansions
  * e and f, use SCALE-EXPANSION (with zero elimination) to form the expansions
@@ -1092,9 +1090,8 @@ const expansion_product_compress = (/* unused pure expression or super */ null &
 function expansionProduct(e, f) {
     let sum = [0];
     for (let i = 0; i < e.length; i++) {
-        sum = expansion_product_add(sum, multByDouble(f, e[i]));
+        sum = fastExpansionSum(sum, scaleExpansion(f, e[i]));
     }
-    //return compress(sum);
     return sum;
 }
 
@@ -1105,12 +1102,6 @@ function expansionProduct(e, f) {
 
 
 
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const mult = expansionProduct;
-const toBitlength = eToBitlength;
-const e_div_bitLength = expBitLength;
-const diff = eDiff;
-const estimate = eEstimate;
 /**
  * Returns the result of a/b using Goldschmidt division.
  *
@@ -1133,18 +1124,18 @@ function eDiv(N, D, expansionLength) {
     let exact = false;
     let resultBitlengthUpperBound = 0;
     if (!expansionLength) {
-        const bitlengthN = e_div_bitLength(N_);
-        const bitlengthD = e_div_bitLength(D_);
+        const bitlengthN = expBitLength(N_);
+        const bitlengthD = expBitLength(D_);
         // resultBitlengthUpperBound is only valid if the division is known
         // to be exact
         resultBitlengthUpperBound = bitlengthN - bitlengthD + 1;
         expansionLength = (resultBitlengthUpperBound / 53) + 1;
         exact = true;
     }
-    let F = [1 / estimate(D_)]; // Initial guess - out by 1/2 upls
+    let F = [1 / eEstimate(D_)]; // Initial guess - out by 1/2 upls
     let i = 1;
     while (true) {
-        N_ = mult(N_, F);
+        N_ = expansionProduct(N_, F);
         // The precision bitlength doubles on each iteration
         if (i > expansionLength) {
             // we now have roughly double the needed precision - we actually 
@@ -1154,7 +1145,7 @@ function eDiv(N, D, expansionLength) {
                 // We must throw away bits known to be zero. 
                 // Any bits > expansionLength * 53 must be thrown away as they
                 // are wrong - all other bits are exact.
-                N_ = toBitlength(N_, resultBitlengthUpperBound);
+                N_ = eToBitlength(N_, resultBitlengthUpperBound);
                 // TODO - below is just for testing - remove later
                 //if (compare(mult(D, N_), N) !== 0) {
                 //    console.log(mult(D, N_))
@@ -1165,18 +1156,14 @@ function eDiv(N, D, expansionLength) {
             // Returning only significant bits helps with sign determination later on.
             return N_.slice(N_.length - expansionLength, N_.length);
         }
-        D_ = mult(D_, F);
-        F = diff([2], D_);
+        D_ = expansionProduct(D_, F);
+        F = eDiff([2], D_);
         i *= 2;
     }
 }
 
 
 ;// ./src/double-expansion/grow-expansion.ts
-/* unused harmony import specifier */ var grow_expansion_eCompress;
-
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const grow_expansion_compress = (/* unused pure expression or super */ null && (grow_expansion_eCompress));
 /**
  * Returns the result of adding a double to an expansion.
  *
@@ -1224,10 +1211,6 @@ function growExpansion(e, b) {
 
 
 
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const e_sum_ts = twoSum;
-const addDouble = growExpansion;
-const e_sum_add = fastExpansionSum;
 /**
  * Returns the result of summing an array of floating point expansions.
  *
@@ -1248,18 +1231,18 @@ function eSum(terms) {
         // add
         if (term.length === 1) {
             if (total.length === 1) {
-                total = e_sum_ts(total[0], term[0]);
+                total = twoSum(total[0], term[0]);
             }
             else {
-                total = addDouble(total, term[0]);
+                total = growExpansion(total, term[0]);
             }
         }
         else {
             if (total.length === 1) {
-                total = addDouble(term, total[0]);
+                total = growExpansion(term, total[0]);
             }
             else {
-                total = e_sum_add(total, term);
+                total = fastExpansionSum(total, term);
             }
         }
     }
@@ -1275,18 +1258,10 @@ function eSum(terms) {
 
 
 
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const e_long_divide_eNegativeOf = eNegativeOf;
-const e_long_divide_fastExpansionSum = fastExpansionSum;
-const e_long_divide_eCompress = eCompress;
-const e_long_divide_growExpansion = growExpansion;
-const e_long_divide_eSum = eSum;
-const e_long_divide_scaleExpansion = scaleExpansion;
-const e_long_divide_eDiff = eDiff;
-const e_long_divide_sign = Math.sign;
+const sign = Math.sign;
 function eLongDivide(N, D) {
-    N = e_long_divide_eCompress(N);
-    D = e_long_divide_eCompress(D);
+    N = eCompress(N);
+    D = eCompress(D);
     // get the most significant double
     // out by at most 1 ulp, exact if d < MAX_SAFE_INT
     const d = D[D.length - 1];
@@ -1299,14 +1274,14 @@ function eLongDivide(N, D) {
             return { div: N, rem: [0] };
         }
         if (d === -1) {
-            return { div: e_long_divide_eNegativeOf(N), rem: [0] };
+            return { div: eNegativeOf(N), rem: [0] };
         }
     }
-    const signN = e_long_divide_sign(N[N.length - 1]);
+    const signN = sign(N[N.length - 1]);
     if (signN === 0) {
         return { div: [0], rem: [0] };
     }
-    const signD = e_long_divide_sign(d);
+    const signD = sign(d);
     const divs = [];
     let oldLen = 0;
     while (true) {
@@ -1321,13 +1296,13 @@ function eLongDivide(N, D) {
             // not necessarily represent the exact quotient.
             const div = Math.round((n - (n % d)) / d);
             // get the remainder by calculating `rem = n - d*div`
-            rems.push(e_long_divide_scaleExpansion(D, div)); // exact
+            rems.push(scaleExpansion(D, div)); // exact
             if (div === 0) {
                 break;
             }
             divs.push(div);
         }
-        N = e_long_divide_eCompress(e_long_divide_eDiff(N, e_long_divide_eSum(rems)));
+        N = eCompress(eDiff(N, eSum(rems)));
         if (oldLen === divs.length) {
             break;
         }
@@ -1336,14 +1311,14 @@ function eLongDivide(N, D) {
     let rem = N;
     let div = [0];
     for (let i = 0; i < divs.length; i++) {
-        div = e_long_divide_growExpansion(div, divs[i]);
+        div = growExpansion(div, divs[i]);
     }
-    div = e_long_divide_eCompress(div);
+    div = eCompress(div);
     //----------------------
     // fix signs (possibly)
     //----------------------
     //const signDiv = sign(div[div.length-1]);
-    const signRem = e_long_divide_sign(rem[rem.length - 1]);
+    const signRem = sign(rem[rem.length - 1]);
     //const signND = signN * signD;
     // We must have:
     // sign(div) === sign(n) * sign(d)
@@ -1354,28 +1329,28 @@ function eLongDivide(N, D) {
             if (signD > 0) {
                 // div = div - 1  (div is positive)
                 // rem = rem + D
-                div = e_long_divide_growExpansion(div, -1);
-                rem = e_long_divide_fastExpansionSum(rem, D);
+                div = growExpansion(div, -1);
+                rem = fastExpansionSum(rem, D);
             }
             else {
                 // div = div + 1  (div is positive)
                 // rem = rem - D
-                div = e_long_divide_growExpansion(div, +1);
-                rem = e_long_divide_fastExpansionSum(rem, e_long_divide_eNegativeOf(D));
+                div = growExpansion(div, +1);
+                rem = fastExpansionSum(rem, eNegativeOf(D));
             }
         }
         else if (signN < 0) {
             if (signD > 0) {
                 // div = div + 1 (div is negative)
                 // rem = rem - D
-                div = e_long_divide_growExpansion(div, +1);
-                rem = e_long_divide_fastExpansionSum(rem, e_long_divide_eNegativeOf(D));
+                div = growExpansion(div, +1);
+                rem = fastExpansionSum(rem, eNegativeOf(D));
             }
             else {
                 // div = div - 1  (div is positive)
                 // rem = rem + D
-                div = e_long_divide_growExpansion(div, -1);
-                rem = e_long_divide_fastExpansionSum(rem, D);
+                div = growExpansion(div, -1);
+                rem = fastExpansionSum(rem, D);
             }
         }
     }
@@ -1385,29 +1360,25 @@ function eLongDivide(N, D) {
 
 ;// ./src/double-expansion/e-int-div.ts
 
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const e_int_div_eLongDivide = eLongDivide;
 /**
  * Returns the result of the integer division a/b.
  *
  * * **precondition:** a and b must be integers, b !== 0
  */
 function eIntDiv(a, b) {
-    return e_int_div_eLongDivide(a, b).div;
+    return eLongDivide(a, b).div;
 }
 
 
 ;// ./src/double-expansion/e-rem.ts
 
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const e_rem_eLongDivide = eLongDivide;
 /**
  * Returns a % b
  *
  * * **precondition:** a and b must be integers, b !== 0
  */
 function eRem(a, b) {
-    return e_rem_eLongDivide(a, b).rem;
+    return eLongDivide(a, b).rem;
 }
 
 
@@ -1434,8 +1405,6 @@ function eCompare(a, b) {
 
 ;// ./src/double-expansion/e-abs.ts
 
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const e_abs_negativeOf = eNegativeOf;
 /**
  * Returns the absolute value of the given floating point expansion.
  *
@@ -1445,7 +1414,7 @@ const e_abs_negativeOf = eNegativeOf;
  */
 function eAbs(e) {
     if (e[e.length - 1] < 0) {
-        return e_abs_negativeOf(e);
+        return eNegativeOf(e);
     }
     return e;
 }
@@ -1504,25 +1473,17 @@ function eDivBy2(e) {
 
 
 ;// ./src/double-expansion/e-calculate.ts
-/* unused harmony import specifier */ var e_calculate_eCompress;
 
 
 
 
 
 
-
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const e_calculate_mult = expansionProduct;
-const e_calculate_tp = twoProduct;
-const e_calculate_multByDouble = scaleExpansion;
-const e_calculate_ts = twoSum;
-const e_calculate_addDouble = growExpansion;
-const e_calculate_add = fastExpansionSum;
-const e_calculate_compress = (/* unused pure expression or super */ null && (e_calculate_eCompress));
 /**
  * Return the result of summing an array of terms, each term being an array of
  * floating point expansions to be multiplied together.
+ *
+ * * the result is not compressed, call `eCompress` on the result if required.
  *
  * * The result is exact in the form of a non-overlapping floating point
  * expansion.
@@ -1542,38 +1503,37 @@ function eCalculate(terms) {
             const multiplicant = term[j];
             if (multiplicant.length == 1) {
                 if (product.length === 1) {
-                    product = e_calculate_tp(product[0], multiplicant[0]);
+                    product = twoProduct(product[0], multiplicant[0]);
                 }
                 else {
-                    product = e_calculate_multByDouble(product, multiplicant[0]);
+                    product = scaleExpansion(product, multiplicant[0]);
                 }
             }
             else if (product.length === 1) {
-                product = e_calculate_multByDouble(multiplicant, product[0]);
+                product = scaleExpansion(multiplicant, product[0]);
             }
             else {
-                product = e_calculate_mult(multiplicant, product);
+                product = expansionProduct(multiplicant, product);
             }
         }
         // add
         if (product.length === 1) {
             if (total.length === 1) {
-                total = e_calculate_ts(total[0], product[0]);
+                total = twoSum(total[0], product[0]);
             }
             else {
-                total = e_calculate_addDouble(total, product[0]);
+                total = growExpansion(total, product[0]);
             }
         }
         else {
             if (total.length === 1) {
-                total = e_calculate_addDouble(product, total[0]);
+                total = growExpansion(product, total[0]);
             }
             else {
-                total = e_calculate_add(total, product);
+                total = fastExpansionSum(total, product);
             }
         }
     }
-    //return compress(total);
     return total;
 }
 
@@ -1583,11 +1543,6 @@ function eCalculate(terms) {
 
 
 
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const e_product_mult = expansionProduct;
-const e_product_tp = twoProduct;
-const e_product_multByDouble = scaleExpansion;
-const e_product_compress = eCompress;
 /**
  * Return the result of multiplying together an array of floating point
  * expansions.
@@ -1605,20 +1560,20 @@ function eProduct(term) {
         const multiplicant = term[j];
         if (multiplicant.length == 1) {
             if (product.length === 1) {
-                product = e_product_tp(product[0], multiplicant[0]);
+                product = twoProduct(product[0], multiplicant[0]);
             }
             else {
-                product = e_product_multByDouble(product, multiplicant[0]);
+                product = scaleExpansion(product, multiplicant[0]);
             }
         }
         else if (product.length === 1) {
-            product = e_product_multByDouble(multiplicant, product[0]);
+            product = scaleExpansion(multiplicant, product[0]);
         }
         else {
-            product = e_product_mult(multiplicant, product);
+            product = expansionProduct(multiplicant, product);
         }
     }
-    return e_product_compress(product);
+    return eCompress(product);
     //return product;
 }
 
@@ -1626,9 +1581,6 @@ function eProduct(term) {
 ;// ./src/double-expansion/e-int-pow.ts
 
 
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const e_int_pow_mult = expansionProduct;
-const prod = eProduct;
 /**
  * Returns a**i, where i is a non-negative integer.
  * @param a a floating point expansion
@@ -1644,34 +1596,48 @@ function eIntPow(a, p) {
         return a;
     }
     if (p === 2) {
-        return e_int_pow_mult(a, a);
+        return expansionProduct(a, a);
     }
     const as = [];
     for (let i = 0; i < p; i++) {
         as.push(a);
     }
-    return prod(as);
+    return eProduct(as);
 }
 
 
 ;// ./src/double-expansion/e-to-double-double.ts
 
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const e_to_double_double_compress = eCompress;
 /**
  * Returns the result of converting a floating point expansion to a
  * double-double precision floating point number.
+ *
+ * * uses truncation to convert thus accurate to within 1 ulp on low double;
+ * (a slower summing method could reduce the max error to 1/2 ulp)
  */
 function eToDd(e) {
-    e = e_to_double_double_compress(e);
+    e = eCompress(e);
     const len = e.length;
     if (len === 2) {
         return e; // already a double-double
     }
-    else if (len === 1) {
+    else if (len <= 1) {
         return [0, e[0]]; // double-doubles have a fixed length of 2
     }
     return [e[len - 2], e[len - 1]]; // return only most significant parts
+}
+
+
+;// ./src/double-expansion/dd-to-expansion.ts
+/**
+ * Returns the result of converting a double-double precision floating point
+ * number to a floating point expansion.
+ */
+function ddToE(dd) {
+    if (dd[0] === 0) {
+        return [dd[1]];
+    }
+    return dd; // return only most significant parts
 }
 
 
@@ -1849,7 +1815,7 @@ function dfNormalize(x) {
     if (lowZeroLimbs > 0) {
         m.splice(0, lowZeroLimbs);
         // @ts-ignore
-        x.exp += lowZeroLimbs * LIMB_BITS;
+        x.exp += lowZeroLimbs * (/* inlined export .LIMB_BITS */26);
     }
     // 5. TODO: optionally factor trailing zero BITS of m[0] into exp so the
     //    mantissa low bit is odd (a stricter canonical form). Left as a hook.
@@ -1927,8 +1893,8 @@ function dfIsZero(x) {
 function dfShiftLeft(m, bits) {
     if (bits === 0 || m.length === 0)
         return m.slice();
-    const limbShift = Math.floor(bits / LIMB_BITS);
-    const bitShift = bits % LIMB_BITS;
+    const limbShift = Math.floor(bits / (/* inlined export .LIMB_BITS */26));
+    const bitShift = bits % (/* inlined export .LIMB_BITS */26);
     const out = new Array(limbShift).fill(0);
     if (bitShift === 0) {
         for (let i = 0; i < m.length; i++)
@@ -2068,7 +2034,7 @@ function dfAdd(a, b) {
 }
 
 
-;// ./src/double-expansion/to-dyadic-float.ts
+;// ./src/double-expansion/e-to-dyadic-float.ts
 
 
 
@@ -2084,7 +2050,7 @@ function dfAdd(a, b) {
  *
  * @param e a floating point expansion
  */
-function toDyadicFloat(e) {
+function eToDyadicFloat(e) {
     let acc = DF_ZERO;
     for (let i = 0; i < e.length; i++) {
         acc = dfAdd(acc, dfFromDouble(e[i]));
@@ -2097,10 +2063,10 @@ function toDyadicFloat(e) {
 
 /** Return bit `i` (0 = least significant) of the integer represented by `m`. */
 function dfGetBit(m, i) {
-    const limb = Math.floor(i / LIMB_BITS);
+    const limb = Math.floor(i / (/* inlined export .LIMB_BITS */26));
     if (limb < 0 || limb >= m.length)
         return 0;
-    return (m[limb] >> (i % LIMB_BITS)) & 1;
+    return (m[limb] >> (i % (/* inlined export .LIMB_BITS */26))) & 1;
 }
 
 
@@ -2119,12 +2085,12 @@ function dfLimbBitLength(v) {
 function dfLowBitsSet(m, k) {
     if (k <= 0)
         return false;
-    const fullLimbs = Math.floor(k / LIMB_BITS);
+    const fullLimbs = Math.floor(k / (/* inlined export .LIMB_BITS */26));
     for (let i = 0; i < fullLimbs && i < m.length; i++) {
         if (m[i] !== 0)
             return true;
     }
-    const rem = k % LIMB_BITS;
+    const rem = k % (/* inlined export .LIMB_BITS */26);
     if (rem > 0 && fullLimbs < m.length) {
         const mask = (1 << rem) - 1;
         if ((m[fullLimbs] & mask) !== 0)
@@ -2145,7 +2111,7 @@ function dfLowBitsSet(m, k) {
 function dfMantissaBitLength(m) {
     if (m.length === 0)
         return 0;
-    return (m.length - 1) * LIMB_BITS + dfLimbBitLength(m[m.length - 1]);
+    return (m.length - 1) * (/* inlined export .LIMB_BITS */26) + dfLimbBitLength(m[m.length - 1]);
 }
 
 
@@ -2219,14 +2185,14 @@ function dfNeg(x) {
 function dfShiftRight(m, bits) {
     if (bits === 0 || m.length === 0)
         return m.slice();
-    const limbShift = Math.floor(bits / LIMB_BITS);
+    const limbShift = Math.floor(bits / (/* inlined export .LIMB_BITS */26));
     if (limbShift >= m.length)
         return [];
-    const bitShift = bits % LIMB_BITS;
+    const bitShift = bits % (/* inlined export .LIMB_BITS */26);
     if (bitShift === 0) {
         return m.slice(limbShift);
     }
-    const inv = LIMB_BITS - bitShift;
+    const inv = (/* inlined export .LIMB_BITS */26) - bitShift;
     const lowMask = (1 << bitShift) - 1;
     const out = new Array(m.length - limbShift);
     for (let i = limbShift; i < m.length; i++) {
@@ -2470,6 +2436,8 @@ function dfTruncate(x, prec) {
 
 
 
+
+
 //-----------------------
 // Double representation
 //-----------------------
@@ -2487,6 +2455,7 @@ function dfTruncate(x, prec) {
 //---------------------
 // Shewchuk expansions
 //---------------------
+
 
 
 
@@ -2540,4 +2509,4 @@ function dfTruncate(x, prec) {
 
 
 
-export { DF_ZERO, bitLength, dfAdd, dfAddMagnitude, dfAlign, dfCompareMagnitudeAligned, dfFromDouble, dfGetBit, dfIsZero, dfLimbBitLength, dfLowBitsSet, dfMantissaBitLength, dfMul, dfNeg, dfNormalize, dfRound, dfShiftLeft, dfShiftRight, dfSub, dfSubMagnitude, dfToDouble, dfToExpansion, dfTruncate, doubleToBinaryString, doubleToOctets, eAbs, fastExpansionSum as eAdd, growExpansion as eAddDouble, eCalculate, eCompare, eCompress, eDiff, eDiv, eDivBy2, eEstimate, eIntDiv, eIntPow, eIsInteger, eLongDivide, expansionProduct as eMult, eMultBy2, eMultByNeg2, scaleExpansion as eMultDouble1, scaleExpansion2 as eMultDouble2, eNegativeOf, eProduct, eRem, eSign, eSum, eToBitlength, eToDd, expBitLength, expansionProduct, exponent, fastExpansionSum, fastTwoDiff, fastTwoSum, getHighestSetBit, getLowestSetBit, growExpansion, isAdjacent, isBitAligned, isNonOverlappingAll, lsbExponent, msbExponent, orient2d, parseDouble, parseDoubleDetailed, reduceSignificand, scaleExpansion, scaleExpansion2, significand, split, toDyadicFloat, twoDiff, twoProduct, twoSum };
+export { DF_ZERO, bitLength, ddToDouble, ddToE, dfAdd, dfAddMagnitude, dfAlign, dfCompareMagnitudeAligned, dfFromDouble, dfGetBit, dfIsZero, dfLimbBitLength, dfLowBitsSet, dfMantissaBitLength, dfMul, dfNeg, dfNormalize, dfRound, dfShiftLeft, dfShiftRight, dfSub, dfSubMagnitude, dfToDouble, dfToExpansion, dfTruncate, doubleToBinaryString, doubleToDd, doubleToOctets, eAbs, fastExpansionSum as eAdd, growExpansion as eAddDouble, eCalculate, eCompare, eCompress, eDiff, eDiv, eDivBy2, eEstimate, eIntDiv, eIntPow, eIsInteger, eLongDivide, expansionProduct as eMult, eMultBy2, eMultByNeg2, scaleExpansion as eMultDouble1, scaleExpansion2 as eMultDouble2, eNegativeOf, eProduct, eRem, eSign, eSum, eToBitlength, eToDd, eToDyadicFloat, expBitLength, expansionProduct, exponent, fastExpansionSum, fastTwoDiff, fastTwoSum, getHighestSetBit, getLowestSetBit, growExpansion, isAdjacent, isBitAligned, isNonOverlappingAll, lsbExponent, msbExponent, orient2d, parseDouble, parseDoubleDetailed, reduceSignificand, scaleExpansion, scaleExpansion2, significand, split, twoDiff, twoProduct, twoSum };

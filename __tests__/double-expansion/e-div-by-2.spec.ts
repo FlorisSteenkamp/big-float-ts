@@ -3,8 +3,8 @@ import { eDivBy2 } from '../../src/double-expansion/e-div-by-2.js';
 
 
 describe('eDivBy2', function() {
-	it('should correctly divide some double floating point expansions', 
-	function() {
+    it('should correctly divide some double floating point expansions', 
+    function() {
         // Some double-doubles
         let a = [4.511949494578893e-11, -2797357.2918064594];
 

@@ -41,8 +41,8 @@ function check(e: number[], f: number[], res: number[]) {
 
 
 describe('expansion sum', function() {
-	it('should calculate some expansion sums correctly',
-	function() {
+    it('should calculate some expansion sums correctly',
+    function() {
         
         check(
             [-2.7755575615628914e-17, 0.30000000000000004],  // 0.3
@@ -105,5 +105,5 @@ describe('expansion sum', function() {
                 -2.428690697334946e-27,
                 9.990000000999e-11]    
         );
-	});
+    });
 });

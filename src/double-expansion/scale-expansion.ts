@@ -1,17 +1,10 @@
-import { twoProduct } from '../basic/two-product.js';
-import { twoSum } from '../basic/two-sum.js';
-import { fastTwoSum } from '../basic/fast-two-sum.js';
-import { eCompress } from './e-compress.js';
+import { twoProduct as tp } from '../basic/two-product.js';
+import { twoSum as ts } from '../basic/two-sum.js';
+import { fastTwoSum as fts } from '../basic/fast-two-sum.js';
+import { eCompress as compress } from './e-compress.js';
 
 
 const f = 134217729; // 2**27 + 1;
-
-
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const tp = twoProduct;
-const ts = twoSum;
-const fts = fastTwoSum;
-const compress = eCompress;
 
 
 /**

@@ -1,25 +1,16 @@
-import { expansionProduct } from "./expansion-product.js";
-import { twoProduct } from "../basic/two-product.js";
-import { scaleExpansion } from "./scale-expansion.js";
-import { twoSum } from "../basic/two-sum.js";
-import { growExpansion } from "./grow-expansion.js";
-import { fastExpansionSum } from "./fast-expansion-sum.js";
-import { eCompress } from "./e-compress.js";
-
-
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const mult = expansionProduct;
-const tp = twoProduct;
-const multByDouble = scaleExpansion;
-const ts = twoSum;
-const addDouble = growExpansion;
-const add = fastExpansionSum;
-const compress = eCompress;
+import { expansionProduct as mult } from "./expansion-product.js";
+import { twoProduct as tp } from "../basic/two-product.js";
+import { scaleExpansion as multByDouble } from "./scale-expansion.js";
+import { twoSum as ts } from "../basic/two-sum.js";
+import { growExpansion as addDouble } from "./grow-expansion.js";
+import { fastExpansionSum as add } from "./fast-expansion-sum.js";
 
 
 /**
  * Return the result of summing an array of terms, each term being an array of
  * floating point expansions to be multiplied together.
+ * 
+ * * the result is not compressed, call `eCompress` on the result if required.
  * 
  * * The result is exact in the form of a non-overlapping floating point 
  * expansion.
@@ -66,7 +57,6 @@ function eCalculate(terms: number[][][]) {
         }
     }
 
-    //return compress(total);
     return total;
 }
 

@@ -1,10 +1,5 @@
-import { twoSum } from "../basic/two-sum.js";
+import { twoSum as ts } from "../basic/two-sum.js";
 import { eCompress } from "./e-compress.js";
-
-
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const ts = twoSum;
-const compress = eCompress;
 
 
 /**
@@ -50,7 +45,7 @@ function expansionSum(e: number[], f: number[]) {
         e = h;
     }
 
-    return compress(e);
+    return eCompress(e);
     //return e;
 }
 

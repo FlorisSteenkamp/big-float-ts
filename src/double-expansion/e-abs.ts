@@ -1,10 +1,6 @@
 import { eNegativeOf } from "./e-negative-of.js";
 
 
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const negativeOf = eNegativeOf;
-
-
 /**
  * Returns the absolute value of the given floating point expansion.
  * 
@@ -14,7 +10,7 @@ const negativeOf = eNegativeOf;
  */
 function eAbs(e: number[]) {
     if (e[e.length-1] < 0) {
-        return negativeOf(e);
+        return eNegativeOf(e);
     }
 
     return e;

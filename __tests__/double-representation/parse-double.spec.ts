@@ -3,8 +3,8 @@ import { parseDouble, parseDoubleDetailed } from '../../src/double-representatio
 
 
 describe('parseDouble', function() {
-	it('should parse a double correctly', 
-	function() {
+    it('should parse a double correctly', 
+    function() {
         {
             let a = -0.1;
             let rd = parseDoubleDetailed(a);
@@ -63,5 +63,5 @@ describe('parseDouble', function() {
                 ]
             });
         }
-	});
+    });
 });

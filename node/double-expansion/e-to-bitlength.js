@@ -2,9 +2,6 @@ import { eSign } from "./e-sign.js";
 import { msbExponent } from "../double-representation/msb-exponent.js";
 import { eCompress } from "./e-compress.js";
 import { reduceSignificand } from "../basic/reduce-significand.js";
-// We *have* to do the below❗ The assignee is a getter❗ The assigned is a pure function❗
-const sign = eSign;
-const compress = eCompress;
 /**
  * Returns a floating point expansion accurate to the given number of bits.
  * Extraneous bits are discarded.
@@ -13,8 +10,8 @@ const compress = eCompress;
  */
 // TODO - make faster
 function eToBitlength(a, l) {
-    a = compress(a);
-    if (sign(a) === 0) {
+    a = eCompress(a);
+    if (eSign(a) === 0) {
         return [0];
     }
     const maxMsb = msbExponent(a[a.length - 1]);
