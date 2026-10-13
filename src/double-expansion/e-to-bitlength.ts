@@ -31,11 +31,29 @@ function eToBitlength(
     }
 
     const keepBits = Math.min(l - (maxMsb - msb), 53);
-    let b = a[i];
-    b = reduceSignificand(b, keepBits);
+    const b = a[i];
 
     const result = a.slice(i);
-    result[0] = b;
+    if (keepBits > 0) {
+        result[0] = reduceSignificand(b, keepBits);
+    } else {
+        // The component lies just below the bits being kept (its msb is one
+        // position below the kept lsb) so it rounds to either 0 or
+        // `±2^(msb+1)`. (`reduceSignificand` is not valid for 0 bits.)
+        const p = 2**msb;
+        const absB = Math.abs(b);
+        // On an exact tie the next lower component (if any) decides,
+        // otherwise round to even (i.e. 0).
+        const roundUp = absB > p ||
+            (i > 0 && Math.sign(a[i-1]) === Math.sign(b));
+
+        if (!roundUp) {
+            // here `i` is not the top component (since then `keepBits >= 1`)
+            return result.slice(1);
+        }
+
+        result[0] = Math.sign(b)*2*p;
+    }
 
     return result;
 }

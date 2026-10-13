@@ -5,6 +5,8 @@ import { growExpansion } from './grow-expansion.js';
 import { eSum } from './e-sum.js';
 import { scaleExpansion } from './scale-expansion.js';
 import { eDiff } from './e-diff.js';
+import { eAbs } from './e-abs.js';
+import { eCompare } from './e-compare.js';
 
 
 const sign = Math.sign;
@@ -12,6 +14,11 @@ const sign = Math.sign;
 
 function eLongDivide(
         N: number[], D: number[]): { div: number[], rem: number[] } {
+
+    // non-finite input would otherwise cause an infinite loop below
+    if (!N.every(Number.isFinite) || !D.every(Number.isFinite)) {
+        throw new Error('eLongDivide: N and D must be finite');
+    }
 
     N = eCompress(N);
     D = eCompress(D);
@@ -48,10 +55,10 @@ function eLongDivide(
             // not necessarily represent the exact quotient.
             const div = Math.round((n - (n % d)) / d);
 
+            if (div === 0) { break; }
+
             // get the remainder by calculating `rem = n - d*div`
             rems.push(scaleExpansion(D, div));  // exact
-
-            if (div === 0) { break; }
             divs.push(div);
         }
 
@@ -68,49 +75,33 @@ function eLongDivide(
     for (let i=0; i<divs.length; i++) {
         div = growExpansion(div, divs[i]);
     }
-    div = eCompress(div);
 
+    //----------------------------------------------------------------------
+    // fix-up (possibly)
+    //----------------------------------------------------------------------
+    // We must have (with `N === div*D + rem` maintained throughout):
+    // * sign(div) === sign(N) * sign(D)
+    // * sign(rem) === sign(N) (or rem === 0)
+    // * |rem| < |D|
+    //
+    // At this point: `signN !== 0` and `signD !== 0`.
+    const sameSign = signN === signD;
+    const negD = eNegativeOf(D);
+    const absD = eAbs(D);
 
-    //----------------------
-    // fix signs (possibly)
-    //----------------------
-    
-    //const signDiv = sign(div[div.length-1]);
-    const signRem = sign(rem[rem.length-1]);
-    //const signND = signN * signD;
-
-    // We must have:
-    // sign(div) === sign(n) * sign(d)
-    // sign(rem) === sign(n)
-
-    // At this point: `signN !== 0` and `signD !== 0`
-    if (signRem !== 0 && signRem !== signN) {
-        if (signN > 0) {
-            if (signD > 0) {
-                // div = div - 1  (div is positive)
-                // rem = rem + D
-                div = growExpansion(div, -1);
-                rem = fastExpansionSum(rem, D);
-            } else {
-                // div = div + 1  (div is positive)
-                // rem = rem - D
-                div = growExpansion(div, +1);
-                rem = fastExpansionSum(rem, eNegativeOf(D));
-            }
-        } else if (signN < 0) {
-            if (signD > 0) {
-                // div = div + 1 (div is negative)
-                // rem = rem - D
-                div = growExpansion(div, +1);
-                rem = fastExpansionSum(rem, eNegativeOf(D));
-            } else {
-                // div = div - 1  (div is positive)
-                // rem = rem + D
-                div = growExpansion(div, -1);
-                rem = fastExpansionSum(rem, D);
-            }
-        }
+    // rem has the wrong sign => move it one |D| towards the sign of N
+    while (sign(rem[rem.length-1]) === -signN) {
+        div = growExpansion(div, sameSign ? -1 : +1);
+        rem = eCompress(fastExpansionSum(rem, sameSign ? D : negD));
     }
+
+    // |rem| too large => move it one |D| towards zero
+    while (eCompare(eAbs(rem), absD) >= 0) {
+        div = growExpansion(div, sameSign ? +1 : -1);
+        rem = eCompress(fastExpansionSum(rem, sameSign ? negD : D));
+    }
+
+    div = eCompress(div);
 
     return { div, rem };
 }

@@ -1,4 +1,3 @@
-import { createDefaultEsmPreset } from 'ts-jest';
 import type { Config } from 'jest';
 
 
@@ -10,15 +9,11 @@ const esModules = [
     // 'flo-boolean'
 ].join('|');
 
-/** @type {import('ts-jest').JestConfigWithTsJest} */
 
 const config: Config = {
-    ...createDefaultEsmPreset({}),
     transformIgnorePatterns: [
         `/node_modules/(?!${esModules})`
     ],
-    preset: 'ts-jest',
-    extensionsToTreatAsEsm: ['.ts', '.tsx'],
     testEnvironment: 'node',
     resolver: "jest-ts-webcompat-resolver",
     testMatch: [ "**/__tests__/**/*.spec.ts"],
@@ -26,22 +21,11 @@ const config: Config = {
     collectCoverage: false,
     // coverageProvider: 'v8',
     testTimeout: 15000,
-    // transform: { "^.+\\.(t|j)sx?$": "@swc/jest" },
+    // Transpile .ts (and ESM-only .js deps such as squares-rng that are
+    // allow-listed above) with swc.
     transform: {
-        '^.+\\.(ts|tsx|js|jsx)$': [
-            'ts-jest', 
-            {
-                useESM: true,
-                tsconfig: 'tsconfig.spec.json',
-                // Allow ts-jest to transpile plain .js deps (e.g. ESM-only
-                // packages like squares-rng) that are allow-listed above.
-                allowJs: true,
-            },
-        ],
+        '^.+\\.(t|j)sx?$': ['@swc/jest', { jsc: { target: 'es2022' } }],
     },
-    // moduleNameMapper: {
-    //     '^(\\.{1,2}/.+)\\.js$': '$1', // Remove .js extension from imports
-    // },
 };
 
 

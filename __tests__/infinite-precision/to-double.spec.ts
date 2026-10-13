@@ -34,6 +34,29 @@ describe('dfToDouble', function() {
         expect(dfToDouble(dfNeg(huge))).toBe(-Infinity);
     });
 
+    it('should round only once (no double rounding) for subnormal results',
+    function() {
+        const ulp = 2**-1074; // smallest subnormal
+        const df = (k: number) => dfMul(dfFromDouble(k), dfFromDouble(ulp)); // k * 2^-1074
+
+        // 3 + (0.5 - 2^-60) ulps is just below the tie => 3 ulps
+        // (rounding to 53 bits first would give exactly 3.5 ulps => 4 ulps)
+        const x = dfAdd(df(3), dfAdd(df(0.5), dfNeg(df(2**-60))));
+        expect(dfToDouble(x)).toBe(3*ulp);
+        expect(dfToDouble(dfNeg(x))).toBe(-3*ulp);
+
+        // 3 + (0.5 + 2^-60) ulps is just above the tie => 4 ulps
+        expect(dfToDouble(dfAdd(df(3), dfAdd(df(0.5), df(2**-60))))).toBe(4*ulp);
+
+        // exact ties => round to even
+        expect(dfToDouble(df(2.5))).toBe(2*ulp);
+        expect(dfToDouble(df(3.5))).toBe(4*ulp);
+
+        // just below half an ulp => 0; just above => 1 ulp
+        expect(dfToDouble(dfAdd(df(0.5), dfNeg(df(2**-60))))).toBe(0);
+        expect(dfToDouble(dfAdd(df(0.5), df(2**-60)))).toBe(ulp);
+    });
+
     it('should underflow to zero',
     function() {
         const tiny = dfMul(dfFromDouble(1e-300), dfFromDouble(1e-300)); // 1e-600

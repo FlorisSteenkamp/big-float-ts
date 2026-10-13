@@ -84,4 +84,20 @@ describe('to bit length', function() {
             expect(res).toEqual([1280]);
         }
     });
+
+    it('should round a component lying just below the kept bits to 0 or a power of 2',
+    function() {
+        // keep bits 60..1 of 2^60 + 1: exact tie => round to even (i.e. drop the 1)
+        expect(eToBitlength([1, 2**60], 60)).toEqual([2**60]);
+        expect(eToBitlength([-1, 2**60], 60)).toEqual([2**60]);
+
+        // keep bits 60..1 of 2^60 + 1.5: above the tie => round up to 2
+        expect(eToBitlength([1.5, 2**60], 60)).toEqual([2, 2**60]);
+        expect(eToBitlength([-1.5, 2**60], 60)).toEqual([-2, 2**60]);
+
+        // tie broken by a lower component of the same sign => round up to 2
+        expect(eToBitlength([2**-10, 1, 2**70], 70)).toEqual([2, 2**70]);
+        // tie broken by a lower component of opposite sign => round down to 0
+        expect(eToBitlength([-(2**-10), 1, 2**70], 70)).toEqual([2**70]);
+    });
 });

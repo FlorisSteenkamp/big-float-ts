@@ -44,6 +44,19 @@ describe('dfRound', function() {
         expect(dfMantissaBitLength(r.mantissa)).toBeLessThanOrEqual(30);
     });
 
+    it('should limit the mantissa to `prec` bits when rounding carries out of the top bit',
+    function() {
+        // 7 = 0b111 to 2 bits => 8 = 0b1000 (4 bits before the fix)
+        const r = dfRound(dfFromDouble(7), 2);
+        expect(dfToDouble(r)).toBe(8);
+        expect(dfMantissaBitLength(r.mantissa)).toBeLessThanOrEqual(2);
+
+        // a carry across a limb boundary: 2^53 - 1 to 30 bits => 2^53
+        const s = dfRound(dfFromDouble(2**53 - 1), 30);
+        expect(dfToDouble(s)).toBe(2**53);
+        expect(dfMantissaBitLength(s.mantissa)).toBeLessThanOrEqual(30);
+    });
+
     it('should not mutate its input',
     function() {
         const x = dfFromDouble(15);

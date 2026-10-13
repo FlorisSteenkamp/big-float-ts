@@ -91,6 +91,31 @@ describe('eLongDivide', function() {
             testLongDivide(a,b);
         }
     });
+
+    it('should throw (and not hang) on non-finite input',
+    function() {
+        expect(() => eLongDivide([Infinity], [3])).toThrow();
+        expect(() => eLongDivide([1, -Infinity], [3])).toThrow();
+        expect(() => eLongDivide([NaN], [3])).toThrow();
+        expect(() => eLongDivide([7], [Infinity])).toThrow();
+        expect(() => eLongDivide([7], [1, NaN])).toThrow();
+    });
+
+    it('should return a remainder with |rem| < |D| when the exact remainder is close to |D|',
+    function() {
+        const count = 1000;
+        for (let i=0; i<count; i++) {
+            const D = getRandomNumber();
+            // at most 3 components so that `q*D` cannot overflow
+            const q = getRandomNumber().slice(0, 3);
+            // N = q*D + (D - 1) and N = q*D + (D + 1)
+            const N1 = eCompress(eSum([expansionProduct(q,D), D, [-1]]));
+            const N2 = eCompress(eSum([expansionProduct(q,D), D, [+1]]));
+
+            testLongDivide(N1,D);
+            testLongDivide(N2,D);
+        }
+    });
 });
 
 
