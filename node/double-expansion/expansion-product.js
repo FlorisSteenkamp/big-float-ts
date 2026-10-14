@@ -11,19 +11,37 @@ import { scaleExpansion as multByDouble } from "./scale-expansion.js";
  * ef_1, ef_2, ..., then sum these using a distillation tree."
  *
  * A distillation tree used with fastExpansionSum will give O(k*log k) vs O(k^2)
- * operations.
- *
- * Implemented naively and not as described by Shewchuk (i.e. the algorithm
- * takes O(k^2) operations).
+ * operations, which is what is implemented here.
  * @param e a double floating point expansion
  * @param f another double floating point expansion
  */
 function expansionProduct(e, f) {
-    let sum = [0];
-    for (let i = 0; i < e.length; i++) {
-        sum = add(sum, multByDouble(f, e[i]));
+    if (e.length === 1) {
+        return multByDouble(f, e[0]);
     }
-    return sum;
+    if (f.length === 1) {
+        return multByDouble(e, f[0]);
+    }
+    if (e.length === 0 || f.length === 0) {
+        return [0];
+    }
+    // form the expansions e*f_1, e*f_2, ... (iterating over the shorter one)
+    if (e.length < f.length) {
+        [e, f] = [f, e];
+    }
+    let terms = [];
+    for (let i = 0; i < f.length; i++) {
+        terms.push(multByDouble(e, f[i]));
+    }
+    // ... then sum them pairwise using a distillation tree
+    while (terms.length > 1) {
+        const next = [];
+        for (let i = 0; i < terms.length; i += 2) {
+            next.push(i + 1 < terms.length ? add(terms[i], terms[i + 1]) : terms[i]);
+        }
+        terms = next;
+    }
+    return terms[0];
 }
 export { expansionProduct };
 //# sourceMappingURL=expansion-product.js.map

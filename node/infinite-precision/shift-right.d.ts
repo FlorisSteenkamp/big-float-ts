@@ -3,5 +3,5 @@
  * new limb array. The discarded low bits are lost — used to truncate a
  * mantissa toward zero. The result is not guaranteed normalized.
  */
-declare function dfShiftRight(m: number[], bits: number): number[];
+declare function dfShiftRight(m: readonly number[], bits: number): number[];
 export { dfShiftRight };

@@ -10,6 +10,11 @@
  * round-to-even tiebreaking is used, x and y are non-adjacent.
  *
  * See https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf
+ *
+ * * **overflow / underflow:** the inlined split overflows (giving NaN) for
+ * |a| > ~2^996 (or |b| > ~2^996) and the result is only exact if the
+ * product does not underflow, i.e. roughly |ab| > 2^-969
+ *
  * @param a A double
  * @param b Another double
  */

@@ -1,4 +1,5 @@
-import { getLowestSetBit, getHighestSetBit } from "../double-representation/get-max-set-bit.js";
+import { getLowestSetBit } from "../double-representation/get-lowest-set-bit.js";
+import { getHighestSetBit } from "../double-representation/get-highest-set-bit.js";
 import { exponent } from "../double-representation/exponent.js";
 /**
  * Returns true if a and b overlaps, false otherwise.

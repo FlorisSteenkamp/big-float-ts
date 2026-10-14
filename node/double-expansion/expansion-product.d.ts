@@ -9,10 +9,7 @@
  * ef_1, ef_2, ..., then sum these using a distillation tree."
  *
  * A distillation tree used with fastExpansionSum will give O(k*log k) vs O(k^2)
- * operations.
- *
- * Implemented naively and not as described by Shewchuk (i.e. the algorithm
- * takes O(k^2) operations).
+ * operations, which is what is implemented here.
  * @param e a double floating point expansion
  * @param f another double floating point expansion
  */

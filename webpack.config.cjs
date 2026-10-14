@@ -24,7 +24,16 @@ const config_Basic = {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: 'ts-loader',
+                // swc (not ts-loader) since TypeScript 7 has no JS compiler API
+                use: {
+                    loader: 'swc-loader',
+                    options: {
+                        jsc: {
+                            parser: { syntax: 'typescript' },
+                            target: 'es2022'
+                        }
+                    }
+                },
                 exclude: /node_modules/,
                 sideEffects: false
             },

@@ -10,6 +10,7 @@ export { fastTwoSum } from './basic/fast-two-sum.js';
 export { twoDiff } from './basic/two-diff.js';
 export { twoProduct } from './basic/two-product.js';
 export { twoSum } from './basic/two-sum.js';
+export { twoSquare } from './basic/two-square.js';
 export { split } from './basic/split.js';
 export { reduceSignificand } from './basic/reduce-significand.js';
 export { ddToDouble } from './basic/dd-to-double.js';
@@ -27,7 +28,8 @@ export { exponent } from './double-representation/exponent.js';
 export { significand } from './double-representation/significand.js';
 export { doubleToBinaryString } from './double-representation/double-to-binary-string.js';
 export { doubleToOctets } from './double-representation/double-to-octets.js';
-export { getHighestSetBit, getLowestSetBit } from './double-representation/get-max-set-bit.js';
+export { getHighestSetBit } from './double-representation/get-highest-set-bit.js';
+export { getLowestSetBit } from './double-representation/get-lowest-set-bit.js';
 //---------------------
 // Shewchuk expansions
 //---------------------
@@ -53,8 +55,9 @@ export { eIntPow } from './double-expansion/e-int-pow.js';
 export { eToDd } from './double-expansion/e-to-double-double.js';
 export { ddToE } from './double-expansion/dd-to-expansion.js';
 export { isAdjacent } from './double-expansion/is-adjacent.js';
-export { isNonOverlappingAll } from './double-expansion/is-overlapping.js';
+export { isNonOverlappingAll, isNonOverlapping, isOverlapping } from './double-expansion/is-overlapping.js';
 export { eIsInteger } from './double-expansion/e-is-integer.js';
+export { merge as eMerge } from './double-expansion/merge.js';
 // Aliases for some functions which names were not changed due to them being
 // used extensively in the literature with a particular recognizable name
 export { fastExpansionSum, fastExpansionSum as eAdd } from './double-expansion/fast-expansion-sum.js';
@@ -68,6 +71,8 @@ export { dfAddMagnitude } from './infinite-precision/add-magnitude.js';
 export { dfAdd } from './infinite-precision/add.js';
 export { dfAlign } from './infinite-precision/align.js';
 export { dfCompareMagnitudeAligned } from './infinite-precision/compare-magnitude-aligned.js';
+export { dfCompare, dfSign } from './infinite-precision/compare.js';
+export { dfEquals } from './infinite-precision/equals.js';
 export { dfFromDouble } from './infinite-precision/from-double.js';
 export { dfGetBit } from './infinite-precision/get-bit.js';
 export { dfIsZero } from './infinite-precision/is-zero.js';

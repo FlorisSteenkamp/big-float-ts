@@ -19,7 +19,10 @@ const config: Config = {
     testMatch: [ "**/__tests__/**/*.spec.ts"],
     // collectCoverage: true,
     collectCoverage: false,
-    // coverageProvider: 'v8',
+    // v8 coverage works with any transformer (babel instrumentation does not
+    // apply to files transformed by @swc/jest); use `npm run coverage`
+    coverageProvider: 'v8',
+    collectCoverageFrom: ['src/**/*.ts'],
     testTimeout: 15000,
     // Transpile .ts (and ESM-only .js deps such as squares-rng that are
     // allow-listed above) with swc.

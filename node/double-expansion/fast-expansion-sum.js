@@ -1,4 +1,4 @@
-// import { eCompress } from "./e-compress.js";
+import { merge } from "./merge.js";
 /**
  * Returns the result of adding two expansions.
  *
@@ -12,131 +12,41 @@
  * order of increasing magnitude, except that any of the h_i may be zero.
  *
  * See https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf
+ *
+ * * `fastTwoSum` and `twoSum` are inlined for performance - calling them is
+ * about 2x slower due to the arrays they return
+ * * zero components are eliminated from the result
  */
 function fastExpansionSum(e, f) {
-    //const g = merge(e,f);
-    // inlined (above line)
-    const lenE = e.length;
-    const lenF = f.length;
-    let i = 0;
-    let j = 0;
-    const g = [];
-    while (i < lenE && j < lenF) {
-        if (e[i] === 0) {
-            i++;
-            continue;
-        }
-        if (f[j] === 0) {
-            j++;
-            continue;
-        }
-        if (Math.abs(e[i]) <= Math.abs(f[j])) {
-            g.push(e[i]);
-            i++;
-        }
-        else {
-            g.push(f[j]);
-            j++;
-        }
-    }
-    while (i < lenE) {
-        g.push(e[i]);
-        i++;
-    }
-    while (j < lenF) {
-        g.push(f[j]);
-        j++;
-    }
-    if (g.length === 0) {
-        return [0];
-    }
-    // end inlined
+    const g = merge(e, f);
     const len = g.length;
     if (len === 1) {
         return g;
     }
-    //const h: number[] = new Array(len);
     const h = [];
-    //const q: number;
-    //[h[0], q] = fastTwoSum(g[1], g[0]);
-    // inlined (above line)
+    // inlined: [hh, q] = fastTwoSum(g[1], g[0])
     const a = g[1];
     const b = g[0];
     let q = a + b;
-    //h[0] = b - (q - a);
     const hh = b - (q - a);
     if (hh !== 0) {
         h.push(hh);
     }
-    //let j = 0;
-    j = 0;
     for (let i = 2; i < len; i++) {
-        //[h[i-1], q] = twoSum(q, g[i]);
-        // inlined (above line)
+        // inlined: [hh, q] = twoSum(q, g[i])
         const b = g[i];
         const R = q + b;
         const _ = R - q;
-        //h[i-1] = (q - (R - _)) + (b - _);
         const hh = (q - (R - _)) + (b - _);
         if (hh !== 0) {
             h.push(hh);
         }
         q = R;
     }
-    //h[len-1] = q;
-    //h.push(q);
     if (q !== 0 || h.length === 0) {
         h.push(q);
     }
-    //return compress(h);
     return h;
-}
-/**
- * Returns the result of merging an expansion e and f into a single expansion,
- * in order of nondecreasing magnitude (possibly with interspersed zeros).
- * (This function is zero-eliminating)
- *
- * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
- *
- * @param e a floating point expansion
- * @param f another floating point expansion
- */
-function merge(e, f) {
-    const lenE = e.length;
-    const lenF = f.length;
-    let i = 0;
-    let j = 0;
-    const merged = [];
-    while (i < lenE && j < lenF) {
-        if (e[i] === 0) {
-            i++;
-            continue;
-        }
-        if (f[j] === 0) {
-            j++;
-            continue;
-        }
-        if (Math.abs(e[i]) <= Math.abs(f[j])) {
-            merged.push(e[i]);
-            i++;
-        }
-        else {
-            merged.push(f[j]);
-            j++;
-        }
-    }
-    while (i < lenE) {
-        merged.push(e[i]);
-        i++;
-    }
-    while (j < lenF) {
-        merged.push(f[j]);
-        j++;
-    }
-    if (merged.length === 0) {
-        return [0];
-    }
-    return merged;
 }
 export { fastExpansionSum };
 //# sourceMappingURL=fast-expansion-sum.js.map

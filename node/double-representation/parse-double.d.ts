@@ -1,6 +1,6 @@
 /**
  * Returns the relevant parts of the given IEEE-754 double. The returned
- * exponent has been normalized (i.e. 1023 ha been subtracted) and the
+ * exponent has been normalized (i.e. 1023 has been subtracted) and the
  * significand has the hidden bit added if appropriate.
  * See https://github.com/bartaz/ieee754-visualization
  */

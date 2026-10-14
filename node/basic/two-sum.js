@@ -15,7 +15,7 @@ function twoSum(a, b) {
     const bv = x - a;
     return [(a - (x - bv)) + (b - bv), x];
 }
-// inlined
+// inlined form (for use in hot loops):
 //const R = a + b; const _ = R - a; const r = (a - (R - _)) + (b - _); return [r,R]
 export { twoSum };
 //# sourceMappingURL=two-sum.js.map

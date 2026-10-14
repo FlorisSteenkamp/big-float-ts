@@ -3,6 +3,7 @@ import { dfMantissaBitLength } from './mantissa-bit-length.js';
 import { dfGetBit } from './get-bit.js';
 import { dfLowBitsSet } from './low-bits-set.js';
 import { ldexp } from './helpers/ldexp.js';
+import { dfExtractBits } from './helpers/extract-bits.js';
 /**
  * Convert to the nearest JS double using round-to-nearest, ties-to-even.
  * Overflows to ±Infinity and underflows to ±0 as IEEE-754 dictates.
@@ -14,13 +15,13 @@ function dfToDouble(x) {
     }
     const m = x.mantissa;
     const bitlen = dfMantissaBitLength(m);
-    // Number of low bits to discard so the kept significand fits in 53 bits.
-    const shift = Math.max(0, bitlen - 53);
+    // Number of low bits to discard so the kept significand fits in 53 bits
+    // and, for subnormal results, so that its lsb is not below 2^-1074. Doing
+    // the subnormal reduction here (rather than letting `ldexp` round again)
+    // avoids double rounding.
+    const shift = Math.max(0, bitlen - 53, -1074 - x.exp);
     // Build q = floor(M / 2^shift) (at most 53 bits => exact in a double).
-    let q = 0;
-    for (let i = bitlen - 1; i >= shift; i--) {
-        q = q * 2 + dfGetBit(m, i);
-    }
+    let q = dfExtractBits(m, shift, bitlen - shift);
     let e2 = x.exp + shift;
     if (shift > 0) {
         // Round-to-nearest, ties-to-even on the discarded low `shift` bits.

@@ -6,7 +6,7 @@ function ddToE(dd) {
     if (dd[0] === 0) {
         return [dd[1]];
     }
-    return dd; // return only most significant parts
+    return dd; // a double-double already is a valid expansion
 }
 export { ddToE };
 //# sourceMappingURL=dd-to-expansion.js.map

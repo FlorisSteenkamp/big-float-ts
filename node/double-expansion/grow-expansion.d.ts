@@ -11,8 +11,13 @@
  * Furthermore, if e is nonadjacent and round-to-even tiebreaking is used, then
  * h is nonadjacent.
  * See https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf
+ *
+ * * `twoSum` is inlined for performance - calling it is 2-3x slower due to the
+ * array it returns
+ * * zero components are eliminated from the result
+ *
  * @param e A floating point expansion
- * @param b Another floating point expansion
+ * @param b A double
  */
 declare function growExpansion(e: number[], b: number): number[];
 export { growExpansion };

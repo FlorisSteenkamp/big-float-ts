@@ -3,5 +3,5 @@
  * * returns a + b (not normalized).
  * * * Exact
  */
-declare function dfAddMagnitude(a: number[], b: number[]): number[];
+declare function dfAddMagnitude(a: readonly number[], b: readonly number[]): number[];
 export { dfAddMagnitude };

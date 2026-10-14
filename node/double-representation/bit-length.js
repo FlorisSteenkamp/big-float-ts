@@ -1,4 +1,5 @@
-import { getLowestSetBit, getHighestSetBit } from "./get-max-set-bit.js";
+import { getLowestSetBit } from "./get-lowest-set-bit.js";
+import { getHighestSetBit } from "./get-highest-set-bit.js";
 import { eCompress } from "../double-expansion/e-compress.js";
 import { exponent } from "./exponent.js";
 import { eSign } from "../double-expansion/e-sign.js";

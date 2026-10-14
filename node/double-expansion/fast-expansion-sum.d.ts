@@ -11,6 +11,10 @@
  * order of increasing magnitude, except that any of the h_i may be zero.
  *
  * See https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf
+ *
+ * * `fastTwoSum` and `twoSum` are inlined for performance - calling them is
+ * about 2x slower due to the arrays they return
+ * * zero components are eliminated from the result
  */
 declare function fastExpansionSum(e: number[], f: number[]): number[];
 export { fastExpansionSum };

@@ -11,9 +11,24 @@ import { eCompress } from "./e-compress.js";
  *
  * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
  *
- * @param terms an array of multiplicands
+ * @param term an array of multiplicands
  */
 function eProduct(term) {
+    return eCompress(eProductUncompressed(term));
+}
+/**
+ * Returns the same as `eProduct` but without compressing the result.
+ *
+ * * not exported from the package - used by `eCalculate` (which sums the
+ * products before compression is useful)
+ *
+ * @param term an array of multiplicands
+ */
+function eProductUncompressed(term) {
+    // the empty product is 1
+    if (term.length === 0) {
+        return [1];
+    }
     let product = term[0];
     for (let j = 1; j < term.length; j++) {
         const multiplicant = term[j];
@@ -32,8 +47,7 @@ function eProduct(term) {
             product = mult(multiplicant, product);
         }
     }
-    return eCompress(product);
-    //return product;
+    return product;
 }
-export { eProduct };
+export { eProduct, eProductUncompressed };
 //# sourceMappingURL=e-product.js.map

@@ -10,6 +10,9 @@
  *
  * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
  *
+ * * **overflow:** `a * (2**(53-bits) + 1)` overflows (giving NaN) for
+ * |a| > ~2^(1023 - (53-bits)), e.g. ~2^996 when keeping 26 bits
+ *
  * @param a a double
  * @param bits the number of significand bits to leave intact
  */

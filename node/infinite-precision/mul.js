@@ -17,7 +17,8 @@ function dfMul(a, b) {
     }
     const ma = a.mantissa;
     const mb = b.mantissa;
-    const out = new Array(ma.length + mb.length).fill(0);
+    // accumulate in a (zero-initialized, unboxed) typed array
+    const out = new Float64Array(ma.length + mb.length);
     for (let i = 0; i < ma.length; i++) {
         const ai = ma[i];
         if (ai === 0)
@@ -33,7 +34,7 @@ function dfMul(a, b) {
     }
     return dfNormalize({
         sign: a.sign ^ b.sign,
-        mantissa: out,
+        mantissa: Array.from(out),
         exp: a.exp + b.exp,
     });
 }

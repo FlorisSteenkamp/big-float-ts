@@ -21,6 +21,10 @@ function eCompress(e) {
     if (m === 1) {
         return e_;
     }
+    // an empty expansion represents 0
+    if (m === 0) {
+        return [0];
+    }
     let Q = e_[m - 1];
     let bottom = m;
     for (let i = m - 2; i >= 0; --i) {

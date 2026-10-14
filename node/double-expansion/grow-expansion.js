@@ -11,18 +11,21 @@
  * Furthermore, if e is nonadjacent and round-to-even tiebreaking is used, then
  * h is nonadjacent.
  * See https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf
+ *
+ * * `twoSum` is inlined for performance - calling it is 2-3x slower due to the
+ * array it returns
+ * * zero components are eliminated from the result
+ *
  * @param e A floating point expansion
- * @param b Another floating point expansion
+ * @param b A double
  */
 function growExpansion(e, b) {
     const m = e.length;
     let q = b;
-    //const h: number[] = new Array(m+1);
     const h = [];
-    //let j = 0;
     for (let i = 0; i < m; i++) {
         // Note the use of twoSum and not fastTwoSum.
-        //[h[i], q] = ts(q, e[i]);
+        // inlined: [hh, q] = twoSum(q, e[i])
         const ee = e[i];
         const x = q + ee;
         const bv = x - q;
@@ -32,11 +35,9 @@ function growExpansion(e, b) {
         }
         q = x;
     }
-    //h[j] = q;
     if (q !== 0 || h.length === 0) {
         h.push(q);
     }
-    //return compress(h);
     return h;
 }
 export { growExpansion };

@@ -8,6 +8,10 @@
  * a = a_hi + a_lo.
  *
  * see e.g. [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
+ *
+ * * **overflow:** `a * (2**27 + 1)` overflows (giving NaN) for
+ * |a| > ~2^996
+ *
  * @param a A double floating point number
  */
 declare function split(a: number): number[];

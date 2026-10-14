@@ -1,6 +1,6 @@
 /**
  * Returns the result of multiplying a floating point expansion by 2.
- * * **error free**
+ * * **error free** unless overflow occurs
  * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
  *
  * @param e a floating point expansion
