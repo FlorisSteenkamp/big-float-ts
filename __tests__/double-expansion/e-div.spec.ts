@@ -6,6 +6,13 @@ import { expansionProduct } from '../../src/double-expansion/expansion-product.j
 
 
 describe('eDiv', function() {
+    it('should throw on division by zero', 
+    function() {
+        expect(() => eDiv([1], [0], 2)).toThrow();
+        expect(() => eDiv([1], [0, 0], 0)).toThrow();
+    });
+
+
     it('should divide two numbers without any error if the division is exact or to within the given bitlength if not exact', 
     function() {
         {

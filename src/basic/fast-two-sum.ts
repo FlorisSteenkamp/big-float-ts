@@ -14,7 +14,7 @@ function fastTwoSum(a: number, b: number) {
 
     return [b - (x - a), x];
 }
-// inlined
+// inlined form (for use in hot loops):
 //const R = a + b; const r = b - (R - a); return [r, R];
 
 

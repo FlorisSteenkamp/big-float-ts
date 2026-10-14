@@ -1,18 +1,23 @@
 import { LIMB_BASE, LIMB_BITS } from '../dyadic-float.js';
-import type { DyadicFloat } from '../dyadic-float.js';
+import type { DyadicFloat, MutableDyadicFloat } from '../dyadic-float.js';
 
 
 /**
  * Reduce a DyadicFloat to canonical form, in place:
  *  - propagate any carries so every limb is in [0, LIMB_BASE),
  *  - drop high-order zero limbs,
- *  - factor out trailing zero limbs into `exp` so the low limb is non-zero,
+ *  - factor out trailing zero limbs and bits into `exp` so the mantissa is
+ *    odd,
  *  - collapse to canonical zero when the mantissa is empty.
  *
- * * **destructive**: Returns the same object for convenience.
+ * The result is unique per value, so (normalized) values can be compared
+ * structurally (see `dfEquals`).
+ *
+ * * **destructive**: Returns the same object for convenience (thus only call
+ * it on a freshly created value, never on e.g. `DF_ZERO`).
  */
 function dfNormalize(
-        x: DyadicFloat): DyadicFloat {
+        x: MutableDyadicFloat): DyadicFloat {
 
     const m = x.mantissa;
 
@@ -37,9 +42,7 @@ function dfNormalize(
 
     // 3. Canonical zero.
     if (m.length === 0) {
-        // @ts-ignore
         x.sign = 0;
-        // @ts-ignore
         x.exp = 0;
         return x;
     }
@@ -51,12 +54,25 @@ function dfNormalize(
     }
     if (lowZeroLimbs > 0) {
         m.splice(0, lowZeroLimbs);
-        // @ts-ignore
         x.exp += lowZeroLimbs * LIMB_BITS;
     }
 
-    // 5. TODO: optionally factor trailing zero BITS of m[0] into exp so the
-    //    mantissa low bit is odd (a stricter canonical form). Left as a hook.
+    // 5. Factor trailing zero bits of m[0] into the exponent so the mantissa
+    //    is odd. This makes the representation unique: two normalized values
+    //    are equal iff their sign, exp and limbs are equal.
+    const tz = 31 - Math.clz32(m[0] & -m[0]);  // m[0] !== 0 here
+    if (tz > 0) {
+        const mask = (1 << tz) - 1;
+        const up = LIMB_BITS - tz;
+        const last = m.length - 1;
+        for (let i = 0; i < last; i++) {
+            // all limbs are < 2^26 so these 32-bit operations are exact
+            m[i] = (m[i] >>> tz) | ((m[i + 1] & mask) << up);
+        }
+        m[last] >>>= tz;
+        if (m[last] === 0) { m.pop(); }  // at most one limb can empty out
+        x.exp += tz;
+    }
 
     return x;
 }

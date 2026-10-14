@@ -71,10 +71,7 @@ function eLongDivide(
 
     let rem = N;
 
-    let div = [0];
-    for (let i=0; i<divs.length; i++) {
-        div = growExpansion(div, divs[i]);
-    }
+    let div = eSum(divs.map(d => [d]));
 
     //----------------------------------------------------------------------
     // fix-up (possibly)

@@ -2,7 +2,7 @@ import { LIMB_BITS } from './dyadic-float.js';
 
 
 /** True iff any of the low `k` bits (positions 0..k-1) of `m` are set. */
-function dfLowBitsSet(m: number[], k: number): boolean {
+function dfLowBitsSet(m: readonly number[], k: number): boolean {
     if (k <= 0) return false;
     const fullLimbs = Math.floor(k / LIMB_BITS);
     for (let i = 0; i < fullLimbs && i < m.length; i++) {

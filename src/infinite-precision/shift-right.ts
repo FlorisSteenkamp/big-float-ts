@@ -6,7 +6,7 @@ import { LIMB_BASE, LIMB_BITS } from './dyadic-float.js';
  * new limb array. The discarded low bits are lost — used to truncate a
  * mantissa toward zero. The result is not guaranteed normalized.
  */
-function dfShiftRight(m: number[], bits: number): number[] {
+function dfShiftRight(m: readonly number[], bits: number): number[] {
     if (bits === 0 || m.length === 0) return m.slice();
 
     const limbShift = Math.floor(bits / LIMB_BITS);

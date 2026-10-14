@@ -5,7 +5,7 @@ import { LIMB_BASE, LIMB_BITS } from './dyadic-float.js';
  * Shift a mantissa up by `bits` bits (multiply by 2^bits), returning a new
  * limb array. Used to align two operands to a common exponent.
  */
-function dfShiftLeft(m: number[], bits: number): number[] {
+function dfShiftLeft(m: readonly number[], bits: number): number[] {
     if (bits === 0 || m.length === 0) return m.slice();
 
     const limbShift = Math.floor(bits / LIMB_BITS);

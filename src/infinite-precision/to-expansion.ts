@@ -1,7 +1,7 @@
 import type { DyadicFloat } from './dyadic-float.js';
 import { dfIsZero } from './is-zero.js';
 import { dfMantissaBitLength } from './mantissa-bit-length.js';
-import { dfGetBit } from './get-bit.js';
+import { dfExtractBits } from './helpers/extract-bits.js';
 import { ldexp } from './helpers/ldexp.js';
 import { eCompress } from '../double-expansion/e-compress.js';
 
@@ -42,10 +42,7 @@ function dfToExpansion(x: DyadicFloat): number[] {
         const count = Math.min(CHUNK_BITS, bitlen - start);
 
         // Build this window's bits as an exact integer in [0, 2^53).
-        let q = 0;
-        for (let i = count - 1; i >= 0; i--) {
-            q = q * 2 + dfGetBit(m, start + i);
-        }
+        const q = dfExtractBits(m, start, count);
         if (q === 0) { continue; } // skip empty windows
 
         const component = ldexp(q, x.exp + start);

@@ -1,5 +1,4 @@
-
-const f = 2**27 + 1;
+import { SPLIT_FACTOR as f } from './split-factor.js';
 
 
 /**
@@ -14,12 +13,17 @@ const f = 2**27 + 1;
  * round-to-even tiebreaking is used, x and y are non-adjacent.
  * 
  * See https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf
+ * 
+ * * **overflow / underflow:** the inlined split overflows (giving NaN) for 
+ * |a| > ~2^996 and the result is only exact if the square does not 
+ * underflow, i.e. roughly a^2 > 2^-969
+ * 
  * @param a A double
  */
 function twoSquare(a: number): number[] { 
     const x = a*a;
 
-    //const [ah, al] = split(a);
+    // inlined: [ah, al] = split(a)
     const c = f * a; const ah = c - (c - a); const al = a - ah;
 
     const y = (al*al) - ((x - (ah*ah)) - 2*(ah*al));

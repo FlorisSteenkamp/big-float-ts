@@ -1,5 +1,4 @@
-
-const f = 134217729; // 2**27 + 1;
+import { SPLIT_FACTOR as f } from './split-factor.js';
 
 
 /**
@@ -14,23 +13,23 @@ const f = 134217729; // 2**27 + 1;
  * round-to-even tiebreaking is used, x and y are non-adjacent.
  * 
  * See https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf
+ * 
+ * * **overflow / underflow:** the inlined split overflows (giving NaN) for 
+ * |a| > ~2^996 (or |b| > ~2^996) and the result is only exact if the
+ * product does not underflow, i.e. roughly |ab| > 2^-969
+ * 
  * @param a A double
  * @param b Another double
  */
 function twoProduct(a: number, b: number): number[] { 
     const x = a*b;
 
-    //const [ah, al] = split(a);
+    // inlined: [ah, al] = split(a)
     const c = f * a; const ah = c - (c - a); const al = a - ah;
-    //const [bh, bl] = split(b);
+    // inlined: [bh, bl] = split(b)
     const d = f * b; const bh = d - (d - b); const bl = b - bh;
 
     const y = (al*bl) - ((x - (ah*bh)) - (al*bh) - (ah*bl));
-
-    //const err1 = x - (ah * bh);
-    //const err2 = err1 - (al * bh);
-    //const err3 = err2 - (ah * bl);
-    //const y = (al * bl) - err3;
 
     return [y,x];
 }

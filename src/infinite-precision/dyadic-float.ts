@@ -41,11 +41,22 @@ interface DyadicFloat {
     /** 0 => non-negative, 1 => negative. */
     readonly sign: number;
     /** Non-negative integer significand, base-2^LIMB_BITS, little-endian. */
-    readonly mantissa: number[];
+    readonly mantissa: readonly number[];
     /** Integer power-of-two scale. */
     readonly exp: number;
 }
 
 
-export type { DyadicFloat }
+/**
+ * A `DyadicFloat` under construction, i.e. one that may still be modified
+ * (e.g. by `dfNormalize`). Only use it on freshly created values.
+ */
+interface MutableDyadicFloat {
+    sign: number;
+    mantissa: number[];
+    exp: number;
+}
+
+
+export type { DyadicFloat, MutableDyadicFloat }
 export { LIMB_BITS, LIMB_BASE }

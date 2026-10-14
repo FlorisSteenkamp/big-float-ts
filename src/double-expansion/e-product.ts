@@ -4,19 +4,34 @@ import { scaleExpansion as multByDouble } from "./scale-expansion.js";
 import { eCompress } from "./e-compress.js";
 
 
-
 /**
- * Return the result of multiplying together an array of floating point 
+ * Return the result of multiplying together an array of floating point
  * expansions.
- * 
- * * The result is exact in the form of a non-overlapping floating point 
+ *
+ * * The result is exact in the form of a non-overlapping floating point
  * expansion.
- * 
+ *
  * * see [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
- * 
- * @param terms an array of multiplicands
+ *
+ * @param term an array of multiplicands
  */
 function eProduct(term: number[][]) {
+    return eCompress(eProductUncompressed(term));
+}
+
+
+/**
+ * Returns the same as `eProduct` but without compressing the result.
+ *
+ * * not exported from the package - used by `eCalculate` (which sums the
+ * products before compression is useful)
+ *
+ * @param term an array of multiplicands
+ */
+function eProductUncompressed(term: number[][]) {
+    // the empty product is 1
+    if (term.length === 0) { return [1]; }
+
     let product = term[0];
     for (let j=1; j<term.length; j++) {
         const multiplicant = term[j];
@@ -33,9 +48,8 @@ function eProduct(term: number[][]) {
         }
     }
 
-    return eCompress(product);
-    //return product;
+    return product;
 }
 
 
-export { eProduct }
+export { eProduct, eProductUncompressed }

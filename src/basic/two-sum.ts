@@ -17,7 +17,7 @@ function twoSum(a: number, b: number) {
 
     return [(a - (x - bv)) + (b - bv), x];
 }
-// inlined
+// inlined form (for use in hot loops):
 //const R = a + b; const _ = R - a; const r = (a - (R - _)) + (b - _); return [r,R]
 
 export { twoSum }

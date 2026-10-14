@@ -1,28 +1,33 @@
-import { eProduct as prod } from "./e-product.js";
 import { expansionProduct as mult } from "./expansion-product.js";
+import { eCompress } from "./e-compress.js";
 
 
 /**
- * Returns a**i, where i is a non-negative integer.
+ * Returns a**p, where p is a non-negative integer.
+ *
+ * * uses 'repeated squaring', i.e. O(log p) expansion multiplications
+ *
  * @param a a floating point expansion
+ * @param p the power
  */
-// TODO - this algorithm's speed can easily be improved significantly using 'repeated squaring'
 function eIntPow(a: number[], p: number) {
     // a^0 === 1
     if (p === 0) { return [1]; }
     // a^1 === a
     if (p === 1) { return a; }
 
-    if (p === 2) { 
-        return mult(a,a); 
+    let result: number[] | undefined = undefined;
+    let base = a;
+    while (true) {
+        if (p % 2 === 1) {
+            result = result === undefined ? base : eCompress(mult(result, base));
+        }
+        p = Math.floor(p/2);
+        if (p === 0) { break; }
+        base = eCompress(mult(base, base));
     }
 
-    const as: number[][] = [];
-    for (let i=0; i<p; i++) {
-        as.push(a);
-    }
-    
-    return prod(as);
+    return result!;
 }
 
 

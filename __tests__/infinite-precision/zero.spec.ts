@@ -13,4 +13,10 @@ describe('DF_ZERO', function() {
     function() {
         expect(dfIsZero(DF_ZERO)).toBe(true);
     });
+
+    it('should be frozen (including its mantissa) so that it cannot be corrupted',
+    function() {
+        expect(Object.isFrozen(DF_ZERO)).toBe(true);
+        expect(Object.isFrozen(DF_ZERO.mantissa)).toBe(true);
+    });
 });

@@ -4,6 +4,7 @@ import { dfMantissaBitLength } from './mantissa-bit-length.js';
 import { dfGetBit } from './get-bit.js';
 import { dfLowBitsSet } from './low-bits-set.js';
 import { ldexp } from './helpers/ldexp.js';
+import { dfExtractBits } from './helpers/extract-bits.js';
 
 
 /**
@@ -24,10 +25,7 @@ function dfToDouble(x: DyadicFloat): number {
     const shift = Math.max(0, bitlen - 53, -1074 - x.exp);
 
     // Build q = floor(M / 2^shift) (at most 53 bits => exact in a double).
-    let q = 0;
-    for (let i = bitlen - 1; i >= shift; i--) {
-        q = q * 2 + dfGetBit(m, i);
-    }
+    let q = dfExtractBits(m, shift, bitlen - shift);
 
     let e2 = x.exp + shift;
 

@@ -8,7 +8,7 @@ function ddToE(dd: number[]) {
         return [dd[1]];
     }
 
-    return dd; // return only most significant parts
+    return dd;  // a double-double already is a valid expansion
 }
 
 

@@ -2,7 +2,7 @@
  * Compare two aligned magnitude limb arrays (same exponent assumed).
  * Returns -1, 0 or 1 for a<b, a==b, a>b respectively.
  */
-function dfCompareMagnitudeAligned(a: number[], b: number[]): number {
+function dfCompareMagnitudeAligned(a: readonly number[], b: readonly number[]): number {
     if (a.length !== b.length) {
         return a.length < b.length ? -1 : 1;
     }

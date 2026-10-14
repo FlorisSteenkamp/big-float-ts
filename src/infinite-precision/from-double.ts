@@ -24,7 +24,7 @@ function dfFromDouble(
     const fracHigh = hi & 0xfffff; // low 20 bits of the high word
 
     if (expField === 0x7ff) {
-        throw new Error('fromNumber: value must be finite');
+        throw new Error('dfFromDouble: value must be finite');
     }
 
     // 52-bit fraction as an exact integer (fracHigh < 2^20, lo < 2^32).

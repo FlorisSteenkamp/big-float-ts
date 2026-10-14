@@ -1,4 +1,4 @@
-import type { DyadicFloat } from './dyadic-float.js';
+import type { DyadicFloat, MutableDyadicFloat } from './dyadic-float.js';
 import { dfIsZero } from './is-zero.js';
 import { DF_ZERO } from './zero.js';
 import { dfAlign } from './align.js';
@@ -11,6 +11,9 @@ import { dfNormalize } from './helpers/normalize.js';
 /**
  * Adds two dyadic floats: a + b.
  * * Exact
+ * * Both operands are first aligned to the smaller exponent so the cost (time
+ * and memory) is proportional to the difference in exponents, e.g. adding
+ * `2^(10^9)` and `1` allocates a mantissa of about 38 million limbs.
  */
 function dfAdd(
         a: DyadicFloat,
@@ -25,7 +28,7 @@ function dfAdd(
 
     const { ma, mb, exp } = dfAlign(a, b);
 
-    let result: DyadicFloat;
+    let result: MutableDyadicFloat;
     if (a.sign === b.sign) {
         // Same sign: magnitudes add, sign preserved.
         result = { sign: a.sign, mantissa: dfAddMagnitude(ma, mb), exp };

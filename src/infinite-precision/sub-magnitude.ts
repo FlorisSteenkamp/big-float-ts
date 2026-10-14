@@ -5,7 +5,7 @@ import { LIMB_BASE } from './dyadic-float.js';
  * Subtract aligned magnitudes: returns a - b, ASSUMING a >= b.
  * Result is not normalized (may carry leading zeros).
  */
-function dfSubMagnitude(a: number[], b: number[]): number[] {
+function dfSubMagnitude(a: readonly number[], b: readonly number[]): number[] {
     const out: number[] = new Array(a.length);
     let borrow = 0;
     for (let i = 0; i < a.length; i++) {

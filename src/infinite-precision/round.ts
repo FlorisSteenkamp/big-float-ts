@@ -45,20 +45,10 @@ function dfRound(
         kept[0] = (kept[0] ?? 0) + 1; // normalize propagates the carry
     }
 
-    const r = dfNormalize({ sign: x.sign, mantissa: kept, exp: x.exp + shift });
-
-    // Rounding up can carry out of the top bit (e.g. 0b111 -> 0b1000), giving
-    // `prec + 1` bits; the mantissa is then exactly 2^prec so dropping its
-    // (zero) lsb is exact.
-    if (dfMantissaBitLength(r.mantissa) > prec) {
-        return dfNormalize({
-            sign: r.sign,
-            mantissa: dfShiftRight(r.mantissa, 1),
-            exp: r.exp + 1
-        });
-    }
-
-    return r;
+    // Note: rounding up can carry out of the top bit (e.g. 0b111 -> 0b1000),
+    // but the mantissa is then a power of 2 which `dfNormalize` reduces to 1
+    // (factoring its zero bits into `exp`) so at most `prec` bits remain.
+    return dfNormalize({ sign: x.sign, mantissa: kept, exp: x.exp + shift });
 }
 
 

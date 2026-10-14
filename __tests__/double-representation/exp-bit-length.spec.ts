@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 import { expBitLength } from '../../src/double-representation/bit-length.js';
 import { eToBitlength } from '../../src/double-expansion/e-to-bitlength.js';
-import { getLowestSetBit } from '../../src/double-representation/get-max-set-bit.js';
+import { getLowestSetBit } from '../../src/double-representation/get-lowest-set-bit.js';
 import { exponent } from '../../src/double-representation/exponent.js';
 
 

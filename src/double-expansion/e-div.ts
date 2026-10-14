@@ -3,6 +3,8 @@ import { expansionProduct as mult } from "./expansion-product.js";
 import { eDiff as diff } from "./e-diff.js";
 import { eToBitlength as toBitlength } from "./e-to-bitlength.js";
 import { expBitLength as bitLength } from "../double-representation/bit-length.js";
+import { eCompress } from "./e-compress.js";
+import { eSign } from "./e-sign.js";
 
 
 /**
@@ -22,7 +24,8 @@ import { expBitLength as bitLength } from "../double-representation/bit-length.j
  */
 // TODO - test this function properly or replace with a better one
 function eDiv(N: number[], D: number[], expansionLength: number) {
-    let D_ = D;
+    let D_ = eCompress(D);
+    if (eSign(D_) === 0) { throw new Error('division by zero'); }
     let N_ = N;
     let exact = false;
     let resultBitlengthUpperBound = 0;
@@ -38,7 +41,7 @@ function eDiv(N: number[], D: number[], expansionLength: number) {
     let F = [1/eEstimate(D_)]; // Initial guess - out by 1/2 upls
     let i = 1;
     while (true) {
-        N_ = mult(N_, F);
+        N_ = eCompress(mult(N_, F));
 
         // The precision bitlength doubles on each iteration
         if (i > expansionLength) {
@@ -50,24 +53,25 @@ function eDiv(N: number[], D: number[], expansionLength: number) {
                 // Any bits > expansionLength * 53 must be thrown away as they
                 // are wrong - all other bits are exact.
                 N_ = toBitlength(N_, resultBitlengthUpperBound);
-
-                // TODO - below is just for testing - remove later
-                //if (compare(mult(D, N_), N) !== 0) {
-                //    console.log(mult(D, N_))
-                //    throw new Error(`division in-exact - probably due to underflow, N: ${N}, D: ${D}, Result: ${N_}, product: ${mult(D, N_)}`); 
-                //} 
                 return N_;
             }
 
-            // Returning only significant bits helps with sign determination later on.
-            return N_.slice(N_.length - expansionLength, N_.length);
+            // Returning only significant bits helps with sign determination 
+            // later on (`N_` is compressed so its top components are the most
+            // significant).
+            return N_.slice(Math.max(0, N_.length - expansionLength));
         }
 
-        D_ = mult(D_, F);
-        
-        F = diff([2], D_);
+        D_ = eCompress(mult(D_, F));
         
         i *= 2;
+
+        // `D_` is now within about 2^(-53*i/2) of 1 so `F` only needs about
+        // 53*i significant bits for the next iteration; truncating it (with a
+        // generous margin) keeps the expansions from growing without bound
+        // and does not affect the exactness of `N_/D_` since both are 
+        // multiplied by the same `F`.
+        F = toBitlength(diff([2], D_), 2*53*i + 53);
     }
 }
 

@@ -1,8 +1,4 @@
-
-/** 
- * === Math.ceil(p/2) where p is the # of significand bits in a double === 53.
- */
-const f = 134217729;  // 2**27 + 1;
+import { SPLIT_FACTOR as f } from './split-factor.js';
 
 
 /**
@@ -15,6 +11,10 @@ const f = 134217729;  // 2**27 + 1;
  * a = a_hi + a_lo.
  * 
  * see e.g. [Shewchuk](https://people.eecs.berkeley.edu/~jrs/papers/robustr.pdf)
+ * 
+ * * **overflow:** `a * (2**27 + 1)` overflows (giving NaN) for 
+ * |a| > ~2^996
+ * 
  * @param a A double floating point number
  */
 function split(a: number): number[] {
@@ -24,7 +24,7 @@ function split(a: number): number[] {
 
     return [a_h, a_l];
 }
-// inlined - input a, output a_h, a_l
+// inlined form (for use in hot loops) - input a, output a_h, a_l:
 // const c = f * a; const a_h = c - (c - a); const a_l = a - a_h; return [a_h, a_l];
 
 

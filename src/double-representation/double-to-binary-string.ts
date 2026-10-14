@@ -25,10 +25,7 @@ function octetsToBinaryString(octets: number[]) {
  * intToBinaryString(8) -> "00001000"
  */ 
 function int8ToBinaryString(i: number) {
-    let iStr = i.toString(2);
-    for (; iStr.length < 8; iStr="0"+iStr);
-    
-    return iStr;
+    return i.toString(2).padStart(8, '0');
 }
 
 

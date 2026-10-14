@@ -20,9 +20,12 @@ function eCompress(e: number[]) {
     const e_ = e.slice();
     const m = e_.length;
 
-    if (m === 1) { 
-        return e_; 
+    if (m === 1) {
+        return e_;
     }
+
+    // an empty expansion represents 0
+    if (m === 0) { return [0]; }
 
     let Q = e_[m-1];
     let bottom = m;
